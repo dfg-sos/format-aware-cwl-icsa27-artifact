@@ -162,6 +162,8 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
 | Container images (sha256 of the `.sif`) | fishnet-apps 2.0.1 `88ec6e10…3598`; sympolis:latest `0d8aeaab…10ae` |
 
 `env.txt` in each results directory records the full hardware listing, the versions and the checksums.
+Its service image, `@sha256:8997661d…c291`, is an earlier build of the same revision `6e2070f`, made before the
+`0.1.0` tag.
 
 ## Notes
 
