@@ -1,0 +1,94 @@
+{
+  "id": "I-ok",
+  "workflow": "i_input.cwl",
+  "runs": {
+    "baseline": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.38,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.38,
+        1.422,
+        1.402
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.426,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.426,
+        1.42,
+        1.398
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.416,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.416,
+        1.391,
+        1.402
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.403,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.403,
+        1.415,
+        1.386
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.424,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.424,
+        0.405,
+        0.402
+      ],
+      "consistent": true
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+    "size": {
+        "location": "file:///tmp/tmp52ep_ga3/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$de53d99b4a6fda435b94a35b86612466225002ec",
+        "size": 70,
+        "path": "/tmp/tmp52ep_ga3/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-runner/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'tests/fixtures/a_relabel.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-runner/tests/fixtures/a_relabel.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step relabel
+INFO [step relabel] start
+INFO [job relabel] /tmp/p8fzdtj1$ cp \
+    /tmp/ughivobn/stg523e18d2-bb12-47e1-baae-1b16a3ab9ec5/roads.geojson \
+    out.geojson
+INFO [job relabel] completed success
+INFO [step relabel] completed success
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/4c65lk_3$ wc \
+    -c \
+    /tmp/eot9rvk9/stg76cfe736-ed3c-4877-87ac-ce4efe6596e8/out.geojson > /tmp/4c65lk_3/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

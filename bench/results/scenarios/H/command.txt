@@ -1,0 +1,17 @@
+# baseline
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation off tests/fixtures/h_invalid_metadata.cwl tests/fixtures/jobs/b.yml
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode basic tests/fixtures/h_invalid_metadata.cwl tests/fixtures/jobs/b.yml
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode structural tests/fixtures/h_invalid_metadata.cwl tests/fixtures/jobs/b.yml
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode full tests/fixtures/h_invalid_metadata.cwl tests/fixtures/jobs/b.yml
+
+# full-service-error-warn
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode full --format-service-error warn tests/fixtures/h_invalid_metadata.cwl tests/fixtures/jobs/b.yml
+
+# lint
+cwl-format-lint --format-service-url http://localhost:8000 tests/fixtures/h_invalid_metadata.cwl

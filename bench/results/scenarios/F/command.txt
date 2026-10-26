@@ -1,0 +1,2 @@
+# lint
+cwl-format-lint --format-service-url http://localhost:8000 tests/fixtures/f_edam_online.cwl

@@ -1,0 +1,14 @@
+# baseline
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation off tests/fixtures/d_shapefile_to_vector.cwl tests/fixtures/jobs/d.yml
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode basic tests/fixtures/d_shapefile_to_vector.cwl tests/fixtures/jobs/d.yml
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode structural tests/fixtures/d_shapefile_to_vector.cwl tests/fixtures/jobs/d.yml
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode full tests/fixtures/d_shapefile_to_vector.cwl tests/fixtures/jobs/d.yml
+
+# lint
+cwl-format-lint --format-service-url http://localhost:8000 tests/fixtures/d_shapefile_to_vector.cwl

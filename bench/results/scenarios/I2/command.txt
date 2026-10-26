@@ -1,0 +1,14 @@
+# baseline
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation off tests/fixtures/i_input.cwl tests/fixtures/jobs/i2.yml
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode basic tests/fixtures/i_input.cwl tests/fixtures/jobs/i2.yml
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode structural tests/fixtures/i_input.cwl tests/fixtures/jobs/i2.yml
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode full tests/fixtures/i_input.cwl tests/fixtures/jobs/i2.yml
+
+# lint
+cwl-format-lint --format-service-url http://localhost:8000 tests/fixtures/i_input.cwl

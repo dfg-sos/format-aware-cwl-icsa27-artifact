@@ -1,0 +1,29 @@
+[project]
+name = "format-aware-cwl-icsa27-artifact"
+version = "1.0.0"
+description = "Evaluation artifact: format validation in CWL workflows with the SOS File Format Service (ICSA 2027)"
+readme = "README.md"
+license = "MIT"
+# fiona (vector inputs of the copy chains) has no wheels for Python 3.14 yet
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    # the evaluated runner and linter, pinned to the release tag; uv.lock records its commit
+    "format-aware-cwl-runner @ git+https://github.com/dfg-sos/format-aware-cwl-runner@v0.1.0",
+    # data generators (bench/make_inputs.py, fixtures/make_data.py)
+    "numpy",
+    "rasterio",
+    "fiona",
+]
+
+[dependency-groups]
+dev = ["ruff>=0.14"]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM"]

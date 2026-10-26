@@ -1,0 +1,18 @@
+{
+    "raster": {
+        "location": "file:///tmp/tmpmnypr7b4/out/out.tif",
+        "basename": "out.tif",
+        "class": "File",
+        "checksum": "sha1$54f32317b16fffe25989b598ce12bddc3a853852",
+        "size": 382,
+        "format": "https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF",
+        "path": "/tmp/tmpmnypr7b4/out/out.tif"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-runner/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'tests/fixtures/h_invalid_metadata.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-runner/tests/fixtures/h_invalid_metadata.cwl'
+INFO [job h_invalid_metadata.cwl] /tmp/hc3iwypd$ cp \
+    /tmp/39g4hsei/stg43b44eb5-648a-43a0-a65b-98c94c2092b4/raster_4326.tif \
+    out.tif
+WARNING [step h_invalid_metadata.cwl] output 'raster' file 'out.tif' could not be validated as https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: ERROR: format service HTTP 400: Unsupported metadata keys ['geometry_type'], supported keys are ['crs'].
+INFO [job h_invalid_metadata.cwl] completed success
+INFO Final process status is success

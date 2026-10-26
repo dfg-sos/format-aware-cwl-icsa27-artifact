@@ -1,0 +1,2 @@
+src: {class: File, location: ../data/roads.geojson}
+name: out.tif

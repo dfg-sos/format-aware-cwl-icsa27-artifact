@@ -1,0 +1,3 @@
+/tmp/ffs-bench-14595041/inputs/geotiff_10MB.tif 10494724
+/tmp/ffs-bench-14595041/inputs/shapefile_10MB.shp 10313434
+/tmp/ffs-bench-14595041/inputs/geopackage_10MB.gpkg 11616256

@@ -1,0 +1,127 @@
+{
+  "id": "I1",
+  "workflow": "i_input.cwl",
+  "runs": {
+    "baseline": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.394,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.394,
+        1.439,
+        1.399
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.385,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.385,
+        1.4,
+        1.421
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.393,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.393,
+        1.419,
+        1.401
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.426,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_pu0heuv8/roads.geojson' with RasterIO:\n'/tmp/sos_validate_pu0heuv8/roads.geojson' not recognized as being in a supported file format."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.426,
+        1.394,
+        1.368
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.399,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.399,
+        0.397,
+        0.404
+      ],
+      "consistent": true
+    }
+  }
+}

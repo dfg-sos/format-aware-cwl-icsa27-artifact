@@ -1,0 +1,94 @@
+{
+  "id": "C-roads",
+  "workflow": "c_geometry.cwl",
+  "runs": {
+    "baseline": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.39,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.39,
+        1.381,
+        1.395
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.393,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.393,
+        1.4,
+        1.399
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.412,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.412,
+        1.384,
+        1.376
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.395,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.395,
+        1.408,
+        1.394
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.394,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.394,
+        0.399,
+        0.396
+      ],
+      "consistent": true
+    }
+  }
+}

@@ -1,0 +1,542 @@
+INFO:    squashfuse not found, will not be able to mount SIF
+INFO:    fuse2fs not found, will not be able to mount EXT3 filesystems
+INFO:    gocryptfs not found, will not be able to use gocryptfs
+INFO:    Converting SIF file to temporary sandbox...
+INFO:     Started server process [13]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:46754 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43690 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43690 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43690 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43690 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43690 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43690 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43698 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43698 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43698 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43698 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43698 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43698 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43714 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43714 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43714 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43714 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43714 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43714 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43728 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43728 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43728 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43728 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43728 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43728 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43740 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43740 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43740 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43740 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43740 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43740 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43750 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43750 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43750 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43750 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43750 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:43750 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38400 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38400 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38400 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38400 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38400 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38400 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38414 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38414 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38414 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38414 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38414 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38414 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:38420 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:38420 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:38420 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:38420 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:38420 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:38420 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38432 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38432 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38432 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38432 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38432 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38432 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38448 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38448 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38448 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38448 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38448 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38448 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37508 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37508 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37508 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37508 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37508 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37508 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37510 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37510 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37510 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37510 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37510 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37510 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37512 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37512 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37512 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37512 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37512 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37512 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37524 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37524 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37524 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37524 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37524 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:37524 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37540 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37540 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37540 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37540 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37540 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37540 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37544 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37544 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37544 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37544 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37544 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37544 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52176 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52176 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52176 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52176 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52176 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52176 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52194 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52194 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52194 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52194 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52194 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52194 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52206 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52206 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52206 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52206 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52206 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52206 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52208 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52208 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52208 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52208 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52208 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52208 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46924 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46924 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46924 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46924 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46924 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46924 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46932 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46932 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46932 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46932 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46932 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46932 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46938 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46938 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46938 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46938 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46938 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46938 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46954 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46954 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46954 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46954 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46954 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46954 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46958 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46958 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46958 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46958 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46958 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:46958 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46966 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46966 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46966 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46966 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46966 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46966 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52038 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52038 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52038 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52038 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52038 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52038 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52048 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52048 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52048 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52048 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52048 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52048 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52062 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52062 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52062 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52062 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52062 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52062 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52070 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52070 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52070 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52070 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52070 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52070 - "POST /api/v1/validate/structural/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52078 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52078 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52078 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52078 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52078 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+The following warnings were found:
+- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
+
+The following errors were found:
+- The file is greater than 512xH or 512xW, but is not tiled
+INFO:     127.0.0.1:52078 - "POST /api/v1/validate/full/local HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [13]
+INFO:    Cleaning up image...

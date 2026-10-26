@@ -1,0 +1,11 @@
+# baseline
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation off tests/fixtures/e_unannotated.cwl
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode basic tests/fixtures/e_unannotated.cwl
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode structural tests/fixtures/e_unannotated.cwl
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode full tests/fixtures/e_unannotated.cwl
