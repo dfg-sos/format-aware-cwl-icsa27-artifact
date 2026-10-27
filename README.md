@@ -28,14 +28,17 @@ bench/scenarios.py    the fault-injection scenarios (RQ1)
 bench/hpc/            the Slurm script for RQ2 and its README
 bench/results/        raw results (CSV, JSONL, console logs, env.txt per job)
 fixtures/             scenarios.yml (the RQ1 scenarios), their workflows, tools, jobs and data;
-                      mappings/ is the format mapping the service needs
+                      mappings/ are the format mappings the service needs (EO formats, EDAM)
+plugins/              format-validator-bio: FASTA/FASTQ validators as a plug-in, and the Dockerfile
+                      of the service image with the plug-in
 ```
 
 ## Requirements
 
 - [uv](https://docs.astral.sh/uv/) and Python 3.12 or 3.13; `uv sync` installs the runner from its tag `v0.1.0`
-- Docker (RQ1) or Apptainer and Slurm (RQ2), for the service image
-  `ghcr.io/dfg-sos/file-format-service:0.1.0` (commit `6e2070f`)
+- Docker (RQ1) or Apptainer and Slurm (RQ2), for the service image: RQ1 uses
+  `ghcr.io/dfg-sos/file-format-service:0.2.0` with the plug-in `plugins/format-validator-bio` installed,
+  RQ2 `ghcr.io/dfg-sos/file-format-service:0.1.0` (commit `6e2070f`)
 - Node.js for cwltool's JavaScript (Sympolis only; `bench.sh prepare` installs it)
 
 ## Reproduce
@@ -43,8 +46,9 @@ fixtures/             scenarios.yml (the RQ1 scenarios), their workflows, tools,
 **RQ1, fault-injection scenarios (about 5 minutes, any Linux machine with Docker):**
 ```sh
 uv sync
+docker build -t file-format-service-bio:0.2.0 plugins/format-validator-bio
 docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/fixtures/mappings:/app/mappings:ro" \
-  ghcr.io/dfg-sos/file-format-service:0.1.0
+  file-format-service-bio:0.2.0
 uv run python bench/scenarios.py --out /tmp/scenarios   # compare with bench/results/scenarios/matrix.md
 ```
 It exits 1 if any exit code differs from the expected one or between repetitions. Scenario F3.3 is
@@ -52,7 +56,8 @@ skipped without a Docker daemon. Scenario F4.2 (wrong CRS on Sympolis) was run b
 `EXPERIMENTAL_SETUP.md`.
 
 **RQ2, overhead (2–4 hours on one exclusive HPC node):** see [`bench/hpc/README.md`](bench/hpc/README.md).
-A quick local check of one copy chain, against the service started above:
+A quick local check of one copy chain, against the service started above (0.2.0 validates EO formats
+like 0.1.0; it adds plug-in loading):
 ```sh
 uv run bench/make_inputs.py 1
 uv run python bench/run.py bench/inputs/geotiff_concrete_chain.cwl bench/inputs/geotiff_1MB_concrete.yml \
@@ -63,7 +68,9 @@ Absolute timings depend on the machine; the paper's numbers come from the HPC ru
 ## Versions
 
 The runner is pinned to its release tag `v0.1.0` (commit `881ccdd`) in `pyproject.toml` and `uv.lock`. The service is
-the image `ghcr.io/dfg-sos/file-format-service:0.1.0` (commit `6e2070f`), the default in `bench/hpc/bench.sh`.
+the image `ghcr.io/dfg-sos/file-format-service:0.1.0` (commit `6e2070f`) for RQ2, the default in `bench/hpc/bench.sh`,
+and `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0) plus the plug-in for RQ1. Neither the runner nor
+the service was changed for the plug-in.
 `env.txt` in each result directory records the runner commit the run used, the service image, the ontology and the
 container checksums.
 

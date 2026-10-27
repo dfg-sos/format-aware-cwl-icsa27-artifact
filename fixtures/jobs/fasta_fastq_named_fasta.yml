@@ -1,0 +1,1 @@
+seqs: {class: File, location: ../data/reads_as.fasta, format: "http://edamontology.org/format_1929"}

@@ -9,7 +9,7 @@ The questions are numbered as in the paper (Section "Evaluation"). The scripts a
 
 | | Question | Workload | Measured runs per variant | Paper section | Status |
 |---|---|---|---|---|---|
-| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 21 fault-injection scenarios (linter and runner) | 3 (deterministic; repeated to confirm) | Effectiveness | done |
+| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 25 fault-injection scenarios (linter and runner), 4 of them in bioinformatics (EDAM) via a validator plug-in | 3 (deterministic; repeated to confirm) | Effectiveness | done |
 | RQ2 | Overhead: what do the validation modes add, as a function of file size, format label and relative to task runtime? | (a) Sympolis on Kahama.gpkg; (b) three-step copy chain, concrete formats; (c) the (b) chains with abstract formats | (a) 3; (b), (c) 10 | Overhead by mode and file size; Overhead on an EO workflow | done |
 | RQ3 | Access path: how does validating an uploaded file compare with validating a local file on the same host? | no separate runs: the `upload` and `local` variants of `structural` and `full` in RQ2(a) and RQ2(b) | as RQ2 | Overhead by mode and file size | done (analysis only) |
 
@@ -68,6 +68,7 @@ The scenarios are listed in [`fixtures/scenarios.yml`](fixtures/scenarios.yml): 
 - **Plain cwltool misses every runtime fault** (exit 0): it stamps the declared label on outputs and never looks at file content. It catches F1.1 only at runtime, when it creates the `consume` job; the linter catches F1.1 before any job runs.
 - **The linter catches latent wiring faults that no run shows** (F1.2): cwltool checks the labels of the files in the given job, the linter the declared formats of the ports. An abstract input format (`eo:Raster`) wired to a concrete port (`eo:GeoTIFF`) passes every runtime variant as long as the job happens to pass a GeoTIFF; the first valid non-GeoTIFF raster stops the workflow (F1.3).
 - **The linter is not bound to one ontology:** the same wiring faults are found with EDAM, against the online `EDAM.owl` (F1.4 concrete, F1.5 abstract; OK.5 a compatible subclass). Formats that the given ontology does not define are reported as `unknown-format`, not as incompatible (X.3).
+- **The runtime checks extend to another domain without changing the runner or the service** (F2.3, F2.4, F6.2, OK.6): the plug-in `plugins/format-validator-bio` adds FASTA and FASTQ validators (EDAM `format_1929`, `format_1930`) to the service image, and its mapping file maps EDAM to them. The unchanged runner v0.1.0 detects a FASTQ file labelled FASTA by its name in `basic` mode (F2.3), and FASTQ content named `.fasta` (F2.4) and a truncated FASTA (F6.2) only in `full`, as their EO counterparts F2.1, F2.2 and F6.1.
 - **The linter misses all runtime faults** (F2–F6): their labels are consistent. Linter and runner are complementary.
 - **`basic` catches wrong extensions** (F2.1, F3.1). Wrong content, CRS, geometry type and truncation need `full`. `structural` caught nothing that `basic` missed, because cwltool never hands over a missing file: it rejects missing inputs and secondary files when it starts and missing outputs when it collects them.
 - **Detection stops the workflow before the next step:** output faults at the producing step (F3: `consume` not run), input faults before the consuming step (F2, F6.1). All outcomes were identical in the three repetitions.
@@ -155,7 +156,7 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
   - RQ2(a): one job (node `hpdar09c05s03`).
   - RQ2(b) and RQ2(c): one job per size, in parallel on four identical nodes (1 MB `hpdar10c04s11`,
     10 MB `hpdar09c05s01`, 100 MB `hpdar09c05s02`, 1000 MB `hpdar09c05s03`).
-  - RQ1: not on the cluster (no timing involved). A laptop (Linux 7.0, Python 3.13.13, Docker 29.4.3), with the same service image as below, run with Docker on `localhost:8000` and the mapping in `fixtures/mappings/`. Runner v0.1.0.
+  - RQ1: not on the cluster (no timing involved). A laptop (Linux 7.0, Python 3.12.13, Docker 29.5.3), with the service image `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0, which loads validator plug-ins) extended by `plugins/format-validator-bio` (`plugins/format-validator-bio/Dockerfile`), run with Docker on `localhost:8010` and the mappings in `fixtures/mappings/` (EO formats, EDAM). Runner v0.1.0. The EO scenarios had the same outcomes with the 0.1.0 image used for RQ2.
 - **Node:** 2× Intel Xeon Platinum 8380 (2 × 40 cores, 160 threads, max. 2.3 GHz, 4 NUMA nodes), 1 TB RAM,
   SLES 15 SP7 (kernel 6.4.0). The default frequency scaling was left on, and no CPU pinning was used.
 - **Storage:** all inputs and cwltool's working and output directories were on node-local NVMe (`/tmp`).
@@ -168,7 +169,7 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
 | Python / httpx | 3.13.14 / 0.28.1 |
 | Node.js (cwltool's JavaScript engine) | 26.12.1 |
 | Apptainer | 1.2.5 |
-| file-format-service | `ghcr.io/dfg-sos/file-format-service:0.1.0` (revision `6e2070f`, format-validator 0.2.3), run with Apptainer, uvicorn |
+| file-format-service | RQ2: `ghcr.io/dfg-sos/file-format-service:0.1.0` (revision `6e2070f`, format-validator 0.2.3), run with Apptainer, uvicorn. RQ1: `0.2.0` (format-validator 0.3.0) plus format-validator-bio 0.1.0, Docker |
 | EO formats ontology | eo-formats 1.0.0, local copy (sha256 `7e867b2d…03ed`) |
 | Container images (sha256 of the `.sif`) | fishnet-apps 2.0.1 `88ec6e10…3598`; sympolis:latest `0d8aeaab…10ae` |
 

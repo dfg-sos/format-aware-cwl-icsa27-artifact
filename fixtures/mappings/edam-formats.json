@@ -1,0 +1,9 @@
+{
+  "version": "1.25",
+  "ontology_uri": "http://edamontology.org/",
+  "description": "Mapping from EDAM (http://edamontology.org/EDAM.owl) to the validators of format-validator-bio, in the format of the file format service's mappings directory.",
+  "mappings": {
+    "format_1929": "FASTA",
+    "format_1930": "FASTQ"
+  }
+}

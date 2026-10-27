@@ -50,6 +50,18 @@
   job: raster_geojson_named_tif.yml
   expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
   stops: as F2.1
+- id: F2.3
+  fault: "F2.1 in another domain: `reads.fastq` labelled EDAM FASTA (validator plug-in)"
+  workflow: consume_fasta_input.cwl
+  job: fasta_fastq.yml
+  expect: {off: 0, basic: 1, structural: 1, full: 1, lint: 0}
+  stops: "input check of `consume`; `consume` not run"
+- id: F2.4
+  fault: "F2.2 in another domain: FASTQ content named `reads_as.fasta`, labelled EDAM FASTA (validator plug-in)"
+  workflow: consume_fasta_input.cwl
+  job: fasta_fastq_named_fasta.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  stops: as F2.3
 
 # F3: a tool stamps the wrong label on its output
 - id: F3.1
@@ -94,6 +106,12 @@
   job: raster_truncated.yml
   expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
   stops: as F2.1
+- id: F6.2
+  fault: "FASTA whose last record has no sequence, labelled EDAM FASTA (validator plug-in)"
+  workflow: consume_fasta_input.cwl
+  job: fasta_truncated.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  stops: as F2.3
 
 # OK: controls, no false positives
 - id: OK.1
@@ -123,6 +141,12 @@
   fault: none, EDAM, FASTA into a port accepting any sequence format (subclass)
   workflow: edam_fasta_to_sequence.cwl
   expect: {lint: 0}
+  stops: completes
+- id: OK.6
+  fault: "none, a valid FASTA into the F2.3 workflow (EDAM, validator plug-in)"
+  workflow: consume_fasta_input.cwl
+  job: fasta_valid.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
   stops: completes
 
 # X: limits of the service
