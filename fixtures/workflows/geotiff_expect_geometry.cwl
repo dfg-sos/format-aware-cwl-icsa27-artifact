@@ -1,4 +1,4 @@
-# Fixture H: a GeoTIFF output annotated with sos:expectedGeometryType, which raster formats do not support.
+# X.2: a GeoTIFF output annotated with sos:expectedGeometryType, which raster formats do not support.
 # In full mode the service rejects the request (400) -> error: fails by default, a warning with
 # --format-service-error warn. Other modes send no metadata and pass.
 cwlVersion: v1.2

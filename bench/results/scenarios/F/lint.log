@@ -1,4 +1,0 @@
-COMPATIBLE     seq -> align/s
-INCOMPATIBLE   image -> climate/c  format_3591 is not format_3650 or a subclass of it
-UNKNOWN-FORMAT roads -> gis/g  not defined in ['http://edamontology.org/EDAM.owl']: ['Shapefile', 'Vector']
-1 compatible, 1 incompatible, 1 unknown-format, 0 unannotated, 0 expression, 0 error

@@ -1,4 +1,4 @@
-# Fixture C: output declares LineString geometry; with points.geojson it fails in full mode, roads.geojson passes.
+# F5.1/OK.3: output declares LineString geometry; with points.geojson it fails in full mode, roads.geojson passes.
 cwlVersion: v1.2
 $namespaces: {eo: "https://dfg-sos.github.io/ontologies/eo-formats#", sos: "https://dfg-sos.github.io/ontologies/cwl#"}
 $schemas: [https://dfg-sos.github.io/ontologies/eo-formats.owl]

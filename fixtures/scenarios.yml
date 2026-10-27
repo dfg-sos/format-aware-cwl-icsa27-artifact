@@ -1,0 +1,148 @@
+# The fault-injection scenarios (RQ1), run by bench/scenarios.py.
+#
+# id:        fault class of the paper (F1-F6), OK = control (no fault), X = limit of the service
+# workflow:  fixtures/workflows/<workflow>; job: fixtures/jobs/<job> (none: the workflow needs no inputs)
+# expect:    expected exit code per variant (0 = completed, 1 = stopped); a variant not listed is not run
+#            (off: --format-validation off; basic, structural, full: --format-validation-mode; lint: cwl-format-lint)
+# extra:     further runner variants: name -> runner arguments and expected exit code
+# stops:     where the workflow stops, for the results table
+
+# F1: incompatible formats wired together (design time)
+- id: F1.1
+  fault: Shapefile input wired to a GeoTIFF port
+  workflow: wire_shapefile_to_geotiff.cwl
+  job: roads_shapefile.yml
+  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 1}
+  stops: "linter: before any job; otherwise cwltool's label check when it creates the `consume` job"
+- id: F1.2
+  fault: workflow input declares abstract `eo:Raster`, wired to a GeoTIFF port; the job passes a valid GeoTIFF
+  workflow: wire_raster_to_geotiff.cwl
+  job: raster_geotiff.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 1}
+  stops: "linter only, before any job; no runtime variant sees a fault with this job"
+- id: F1.3
+  fault: as F1.2, the job passes a valid NetCDF raster (`eo:NetCDF_CF`, a `Raster`)
+  workflow: wire_raster_to_geotiff.cwl
+  job: raster_netcdf.yml
+  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 1}
+  stops: as F1.1
+- id: F1.4
+  fault: F1.1 with EDAM instead of the EO ontology, TIFF wired to a NetCDF port
+  workflow: edam_tiff_to_netcdf.cwl
+  expect: {lint: 1}
+  stops: linter
+- id: F1.5
+  fault: F1.2 with EDAM, input accepts any sequence format (abstract), wired to a FASTA port
+  workflow: edam_sequence_to_fasta.cwl
+  expect: {lint: 1}
+  stops: linter
+
+# F2: wrong workflow input file
+- id: F2.1
+  fault: workflow input `roads.geojson` labelled GeoTIFF by the job
+  workflow: consume_input.cwl
+  job: raster_geojson.yml
+  expect: {off: 0, basic: 1, structural: 1, full: 1, lint: 0}
+  stops: "input check of `consume`; `consume` not run"
+- id: F2.2
+  fault: GeoJSON content named `roads_as.tif`, labelled GeoTIFF
+  workflow: consume_input.cwl
+  job: raster_geojson_named_tif.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  stops: as F2.1
+
+# F3: a tool stamps the wrong label on its output
+- id: F3.1
+  fault: a tool writes GeoJSON as `out.geojson` and labels it GeoTIFF
+  workflow: relabel_then_consume.cwl
+  job: geojson_named_geojson.yml
+  expect: {off: 0, basic: 1, structural: 1, full: 1, lint: 0}
+  stops: "output check of `relabel`; `consume` not run"
+- id: F3.2
+  fault: as F3.1, but named `out.tif`
+  workflow: relabel_then_consume.cwl
+  job: geojson_named_tif.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  stops: as F3.1
+- id: F3.3
+  fault: F3.2 with all steps in `alpine` containers
+  workflow: relabel_then_consume_docker.cwl
+  job: geojson_named_tif.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  stops: as F3.1
+
+# F4: wrong CRS (F4.2, Sympolis, is run by hand: EXPERIMENTAL_SETUP.md)
+- id: F4.1
+  fault: "GeoTIFF in EPSG:4326, output declares `sos:expectedCRS: EPSG:3857`"
+  workflow: copy_expect_crs.cwl
+  job: src_raster_4326.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  stops: output check of the tool
+
+# F5: wrong geometry type
+- id: F5.1
+  fault: "Point GeoJSON, output declares `sos:expectedGeometryType: LineString`"
+  workflow: copy_expect_linestring.cwl
+  job: src_points.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  stops: output check of the tool
+
+# F6: corrupt file
+- id: F6.1
+  fault: GeoTIFF truncated at 64 bytes
+  workflow: consume_input.cwl
+  job: raster_truncated.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  stops: as F2.1
+
+# OK: controls, no false positives
+- id: OK.1
+  fault: none, a valid GeoTIFF into the F2 workflow
+  workflow: consume_input.cwl
+  job: raster_geotiff.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  stops: completes
+- id: OK.2
+  fault: none, Shapefile into an `eo:Vector` port (subclass, multi-file format)
+  workflow: wire_shapefile_to_vector.cwl
+  job: roads_shapefile.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  stops: completes
+- id: OK.3
+  fault: none, the F5.1 tool with LineStrings
+  workflow: copy_expect_linestring.cwl
+  job: src_roads.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  stops: completes
+- id: OK.4
+  fault: none, unannotated output (skipped, not sent to the service)
+  workflow: unannotated_output.cwl
+  expect: {off: 0, basic: 0, structural: 0, full: 0}  # not linted: the document has no $schemas
+  stops: completes
+- id: OK.5
+  fault: none, EDAM, FASTA into a port accepting any sequence format (subclass)
+  workflow: edam_fasta_to_sequence.cwl
+  expect: {lint: 0}
+  stops: completes
+
+# X: limits of the service
+- id: X.1
+  fault: "output labelled `eo:WKB`, which the service cannot validate: `UNCERTAIN`"
+  workflow: unsupported_format.cwl
+  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  extra:
+    uncertain-fail: {args: [--format-uncertain, fail], exit: 1}
+  stops: "completes with a warning; with `--format-uncertain fail`: output check of the tool"
+- id: X.2
+  fault: "`sos:expectedGeometryType` on a GeoTIFF: the service rejects the request in full mode (`ERROR`)"
+  workflow: geotiff_expect_geometry.cwl
+  job: src_raster_4326.yml
+  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  extra:
+    full-service-error-warn: {args: [--format-validation-mode, full, --format-service-error, warn], exit: 0}
+  stops: "full: output check of the tool; with `--format-service-error warn` it completes with a warning"
+- id: X.3
+  fault: EO formats checked against EDAM, which does not define them (`unknown-format`)
+  workflow: eo_formats_against_edam.cwl
+  expect: {lint: 1}
+  stops: linter

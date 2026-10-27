@@ -39,13 +39,13 @@ def vector(path: Path, driver: str, geom_type: str, coords: list) -> None:
 
 
 def netcdf() -> None:
-    """The GeoTIFF raster as NetCDF: a valid raster that is not a GeoTIFF (fixture L)."""
+    """The GeoTIFF raster as NetCDF: a valid raster that is not a GeoTIFF (F1.3)."""
     rasterio.shutil.copy(DATA / "raster_4326.tif", DATA / "raster_4326.nc", driver="netCDF")
 
 
 def broken() -> None:
-    """Faulty inputs derived from the files above: GeoJSON content behind a .tif name (fixture I2)
-    and a GeoTIFF cut off inside its header (fixture J)."""
+    """Faulty inputs derived from the files above: GeoJSON content behind a .tif name (F2.2)
+    and a GeoTIFF cut off inside its header (F6.1)."""
     (DATA / "roads_as.tif").write_bytes((DATA / "roads.geojson").read_bytes())
     (DATA / "raster_truncated.tif").write_bytes((DATA / "raster_4326.tif").read_bytes()[:TRUNCATE_AT])
 
