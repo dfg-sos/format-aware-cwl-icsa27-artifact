@@ -1,0 +1,14 @@
+# off
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation off fixtures/workflows/wire_shapefile_to_vector.cwl fixtures/jobs/roads_shapefile.yml
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode basic fixtures/workflows/wire_shapefile_to_vector.cwl fixtures/jobs/roads_shapefile.yml
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode structural fixtures/workflows/wire_shapefile_to_vector.cwl fixtures/jobs/roads_shapefile.yml
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode full fixtures/workflows/wire_shapefile_to_vector.cwl fixtures/jobs/roads_shapefile.yml
+
+# lint
+cwl-format-lint --format-service-url http://localhost:8000 fixtures/workflows/wire_shapefile_to_vector.cwl

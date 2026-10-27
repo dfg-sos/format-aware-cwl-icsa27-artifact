@@ -1,0 +1,46 @@
+{
+    "size": null
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'fixtures/workflows/wire_shapefile_to_geotiff.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/workflows/wire_shapefile_to_geotiff.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step consume
+INFO [step consume] start
+ERROR Exception on step 'consume'
+ERROR [step consume] Cannot make job: Expected value of 'data' to have format 'https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF' but
+ File has an incompatible format: {
+    "class": "File",
+    "location": "file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/data/roads.shp",
+    "format": "https://dfg-sos.github.io/ontologies/eo-formats#Shapefile",
+    "size": 276,
+    "basename": "roads.shp",
+    "nameroot": "roads",
+    "nameext": ".shp",
+    "secondaryFiles": [
+        {
+            "location": "file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/data/roads.shx",
+            "basename": "roads.shx",
+            "class": "File",
+            "nameroot": "roads",
+            "nameext": ".shx",
+            "size": 116
+        },
+        {
+            "location": "file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/data/roads.dbf",
+            "basename": "roads.dbf",
+            "class": "File",
+            "nameroot": "roads",
+            "nameext": ".dbf",
+            "size": 228
+        },
+        {
+            "location": "file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/data/roads.prj",
+            "basename": "roads.prj",
+            "class": "File",
+            "nameroot": "roads",
+            "nameext": ".prj",
+            "size": 145
+        }
+    ]
+}
+INFO [workflow ] completed permanentFail
+WARNING Final process status is permanentFail

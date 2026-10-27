@@ -1,0 +1,21 @@
+{
+    "size": {
+        "location": "file:///tmp/tmpus7qfuyv/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$62c155d33530f2542482cb14810e094796a2f9a2",
+        "size": 72,
+        "path": "/tmp/tmpus7qfuyv/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'fixtures/workflows/consume_input.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/workflows/consume_input.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/3vgz_3ix$ wc \
+    -c \
+    /tmp/4_r92d93/stgfc9ea5cb-351f-474a-81ec-0437a0cc2cd3/roads.geojson > /tmp/3vgz_3ix/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

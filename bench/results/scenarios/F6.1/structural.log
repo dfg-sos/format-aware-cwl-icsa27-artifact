@@ -1,0 +1,21 @@
+{
+    "size": {
+        "location": "file:///tmp/tmpe5pu4z8x/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$a3126527231bf79e994c189b517d138ad83721db",
+        "size": 78,
+        "path": "/tmp/tmpe5pu4z8x/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'fixtures/workflows/consume_input.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/workflows/consume_input.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/iwb1o34i$ wc \
+    -c \
+    /tmp/032uy4pf/stg202641f0-bfaf-4a37-9de3-1f256f02de74/raster_truncated.tif > /tmp/iwb1o34i/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

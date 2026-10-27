@@ -1,0 +1,65 @@
+{
+    "size": {
+        "location": "file:///tmp/tmpzvdcf4v3/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$4f407899c4173b0c3049dbc17aff13239143abad",
+        "size": 65,
+        "path": "/tmp/tmpzvdcf4v3/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'fixtures/workflows/relabel_then_consume_docker.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/workflows/relabel_then_consume_docker.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step relabel
+INFO [step relabel] start
+error: no such object: alpine:3.20
+INFO ['docker', 'pull', 'alpine:3.20']
+3.20: Pulling from library/alpine
+Digest: sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc
+Status: Image is up to date for alpine:3.20
+docker.io/library/alpine:3.20
+INFO [job relabel] /tmp/xnol3xq6$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/xnol3xq6,target=/iddBCw \
+    --mount=type=bind,source=/tmp/8iw914ow,target=/tmp \
+    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/data/roads.geojson,target=/var/lib/cwl/stg8a445499-c100-4391-97ac-095f83125100/roads.geojson,readonly \
+    --workdir=/iddBCw \
+    --read-only=true \
+    --net=none \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/sj9amy4x/20261027113629-664872.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/iddBCw \
+    alpine:3.20 \
+    cp \
+    /var/lib/cwl/stg8a445499-c100-4391-97ac-095f83125100/roads.geojson \
+    out.tif
+INFO [job relabel] completed success
+INFO [step relabel] completed success
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/iqfl2ojg$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/iqfl2ojg,target=/iddBCw \
+    --mount=type=bind,source=/tmp/4_w3d9du,target=/tmp \
+    --mount=type=bind,source=/tmp/xnol3xq6/out.tif,target=/var/lib/cwl/stg54fff4b7-1cea-4176-b627-4186d36ecfd4/out.tif,readonly \
+    --workdir=/iddBCw \
+    --read-only=true \
+    --net=none \
+    --log-driver=none \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/jc9b60m5/20261027113630-671036.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/iddBCw \
+    alpine:3.20 \
+    wc \
+    -c \
+    /var/lib/cwl/stg54fff4b7-1cea-4176-b627-4186d36ecfd4/out.tif > /tmp/iqfl2ojg/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

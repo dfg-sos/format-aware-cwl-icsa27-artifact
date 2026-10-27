@@ -1,0 +1,22 @@
+{
+  "id": "F1.5",
+  "workflow": "edam_sequence_to_fasta.cwl",
+  "runs": {
+    "lint": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 0.389,
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        0.389,
+        0.387,
+        0.406
+      ],
+      "consistent": true
+    }
+  }
+}

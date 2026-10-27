@@ -1,0 +1,148 @@
+{
+  "id": "X.1",
+  "workflow": "unsupported_format.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.269,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.269,
+        1.274,
+        1.261
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.332,
+      "failed_checks": [
+        {
+          "step": "unsupported_format.cwl",
+          "port": "geom",
+          "direction": "post",
+          "file": "out.wkb",
+          "result": "UNCERTAIN",
+          "message": "format service HTTP 400: Format identifier 'WKB' not supported for ontology namespace 'https://dfg-sos.github.io/ontologies/eo-formats#'"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.332,
+        1.273,
+        1.255
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.332,
+      "failed_checks": [
+        {
+          "step": "unsupported_format.cwl",
+          "port": "geom",
+          "direction": "post",
+          "file": "out.wkb",
+          "result": "UNCERTAIN",
+          "message": "format service HTTP 400: Format identifier 'WKB' not supported for ontology namespace 'https://dfg-sos.github.io/ontologies/eo-formats#'"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.332,
+        1.357,
+        1.37
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.337,
+      "failed_checks": [
+        {
+          "step": "unsupported_format.cwl",
+          "port": "geom",
+          "direction": "post",
+          "file": "out.wkb",
+          "result": "UNCERTAIN",
+          "message": "format service HTTP 400: Format identifier 'WKB' not supported for ontology namespace 'https://dfg-sos.github.io/ontologies/eo-formats#'"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.337,
+        1.282,
+        1.304
+      ],
+      "consistent": true
+    },
+    "uncertain-fail": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.322,
+      "failed_checks": [
+        {
+          "step": "unsupported_format.cwl",
+          "port": "geom",
+          "direction": "post",
+          "file": "out.wkb",
+          "result": "UNCERTAIN",
+          "message": "format service HTTP 400: Format identifier 'WKB' not supported for ontology namespace 'https://dfg-sos.github.io/ontologies/eo-formats#'"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.322,
+        1.333,
+        1.261
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.362,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.362,
+        0.372,
+        0.369
+      ],
+      "consistent": true
+    }
+  }
+}

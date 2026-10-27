@@ -1,0 +1,21 @@
+{
+    "size": {
+        "location": "file:///tmp/tmpioiaaeki/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$9976ef0b4d722ff0fcf635fb2c63ebfece599655",
+        "size": 74,
+        "path": "/tmp/tmpioiaaeki/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'fixtures/workflows/wire_raster_to_geotiff.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/fixtures/workflows/wire_raster_to_geotiff.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/dt78wzb9$ wc \
+    -c \
+    /tmp/2t3s6k3a/stg9c44d52b-fb8a-484a-bdec-2837440057e9/raster_4326.tif > /tmp/dt78wzb9/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

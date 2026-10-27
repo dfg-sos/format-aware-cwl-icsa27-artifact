@@ -1,0 +1,14 @@
+# off
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation off fixtures/workflows/relabel_then_consume.cwl fixtures/jobs/geojson_named_geojson.yml
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode basic fixtures/workflows/relabel_then_consume.cwl fixtures/jobs/geojson_named_geojson.yml
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode structural fixtures/workflows/relabel_then_consume.cwl fixtures/jobs/geojson_named_geojson.yml
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode full fixtures/workflows/relabel_then_consume.cwl fixtures/jobs/geojson_named_geojson.yml
+
+# lint
+cwl-format-lint --format-service-url http://localhost:8000 fixtures/workflows/relabel_then_consume.cwl

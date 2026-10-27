@@ -1,0 +1,2 @@
+# lint
+cwl-format-lint --format-service-url http://localhost:8000 fixtures/workflows/edam_sequence_to_fasta.cwl

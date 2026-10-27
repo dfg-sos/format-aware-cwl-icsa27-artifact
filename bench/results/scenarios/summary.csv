@@ -1,78 +1,91 @@
 id,run,expected_exit,exit,consistent,failed_check,steps_not_run,wall_s
-D,baseline,1,1,True,,consume,1.385
-D,basic,1,1,True,,consume,1.345
-D,structural,1,1,True,,consume,1.406
-D,full,1,1,True,,consume,1.396
-D,lint,1,1,True,,,0.4
-A1,baseline,0,0,True,,,1.393
-A1,basic,1,1,True,relabel/raster post FAILURE,consume,1.42
-A1,structural,1,1,True,relabel/raster post FAILURE,consume,1.433
-A1,full,1,1,True,relabel/raster post FAILURE,consume,1.437
-A1,lint,0,0,True,,,0.421
-A2,baseline,0,0,True,,,1.406
-A2,basic,0,0,True,,,1.426
-A2,structural,0,0,True,,,1.443
-A2,full,1,1,True,relabel/raster post FAILURE,consume,1.419
-A2,lint,0,0,True,,,0.43
-A2-docker,baseline,0,0,True,,,3.457
-A2-docker,basic,0,0,True,,,3.473
-A2-docker,structural,0,0,True,,,3.521
-A2-docker,full,1,1,True,relabel/raster post FAILURE,consume,2.482
-A2-docker,lint,0,0,True,,,0.429
-B,baseline,0,0,True,,,1.359
-B,basic,0,0,True,,,1.401
-B,structural,0,0,True,,,1.439
-B,full,1,1,True,b_crs.cwl/raster post FAILURE,,1.395
-B,lint,0,0,True,,,0.402
-C,baseline,0,0,True,,,1.362
-C,basic,0,0,True,,,1.385
-C,structural,0,0,True,,,1.422
-C,full,1,1,True,c_geometry.cwl/lines post FAILURE,,1.381
-C,lint,0,0,True,,,0.403
-I1,baseline,0,0,True,,,1.394
-I1,basic,1,1,True,consume/data pre FAILURE,consume,1.385
-I1,structural,1,1,True,consume/data pre FAILURE,consume,1.393
-I1,full,1,1,True,consume/data pre FAILURE,consume,1.426
-I1,lint,0,0,True,,,0.399
-I2,baseline,0,0,True,,,1.394
-I2,basic,0,0,True,,,1.428
-I2,structural,0,0,True,,,1.405
-I2,full,1,1,True,consume/data pre FAILURE,consume,1.404
-I2,lint,0,0,True,,,0.421
-J,baseline,0,0,True,,,1.404
-J,basic,0,0,True,,,1.411
-J,structural,0,0,True,,,1.409
-J,full,1,1,True,consume/data pre FAILURE,consume,1.405
-J,lint,0,0,True,,,0.411
-C-roads,baseline,0,0,True,,,1.39
-C-roads,basic,0,0,True,,,1.393
-C-roads,structural,0,0,True,,,1.412
-C-roads,full,0,0,True,,,1.395
-C-roads,lint,0,0,True,,,0.394
-D-vector,baseline,0,0,True,,,1.359
-D-vector,basic,0,0,True,,,1.366
-D-vector,structural,0,0,True,,,1.422
-D-vector,full,0,0,True,,,1.389
-D-vector,lint,0,0,True,,,0.41
-E,baseline,0,0,True,,,1.362
-E,basic,0,0,True,,,1.367
-E,structural,0,0,True,,,1.332
-E,full,0,0,True,,,1.343
-I-ok,baseline,0,0,True,,,1.38
-I-ok,basic,0,0,True,,,1.426
-I-ok,structural,0,0,True,,,1.416
-I-ok,full,0,0,True,,,1.403
-I-ok,lint,0,0,True,,,0.424
-G,baseline,0,0,True,,,1.368
-G,basic,0,0,True,g_unsupported_format.cwl/geom post UNCERTAIN,,1.359
-G,structural,0,0,True,g_unsupported_format.cwl/geom post UNCERTAIN,,1.405
-G,full,0,0,True,g_unsupported_format.cwl/geom post UNCERTAIN,,1.41
-G,uncertain-fail,1,1,True,g_unsupported_format.cwl/geom post UNCERTAIN,,1.397
-G,lint,0,0,True,,,0.398
-H,baseline,0,0,True,,,1.37
-H,basic,0,0,True,,,1.403
-H,structural,0,0,True,,,1.383
-H,full,1,1,True,h_invalid_metadata.cwl/raster post ERROR,,1.38
-H,full-service-error-warn,0,0,True,h_invalid_metadata.cwl/raster post ERROR,,1.397
-H,lint,0,0,True,,,0.403
-F,lint,1,1,True,,,0.426
+F1.1,off,1,1,True,,consume,2.638
+F1.1,basic,1,1,True,,consume,2.127
+F1.1,structural,1,1,True,,consume,1.301
+F1.1,full,1,1,True,,consume,1.286
+F1.1,lint,1,1,True,,,0.409
+F1.2,off,0,0,True,,,1.331
+F1.2,basic,0,0,True,,,1.354
+F1.2,structural,0,0,True,,,1.346
+F1.2,full,0,0,True,,,1.299
+F1.2,lint,1,1,True,,,0.403
+F1.3,off,1,1,True,,consume,1.297
+F1.3,basic,1,1,True,,consume,1.275
+F1.3,structural,1,1,True,,consume,1.275
+F1.3,full,1,1,True,,consume,1.269
+F1.3,lint,1,1,True,,,0.412
+F1.4,lint,1,1,True,,,0.398
+F1.5,lint,1,1,True,,,0.389
+F2.1,off,0,0,True,,,1.307
+F2.1,basic,1,1,True,consume/data pre FAILURE,consume,1.356
+F2.1,structural,1,1,True,consume/data pre FAILURE,consume,1.322
+F2.1,full,1,1,True,consume/data pre FAILURE,consume,1.393
+F2.1,lint,0,0,True,,,0.388
+F2.2,off,0,0,True,,,1.294
+F2.2,basic,0,0,True,,,1.314
+F2.2,structural,0,0,True,,,1.332
+F2.2,full,1,1,True,consume/data pre FAILURE,consume,1.344
+F2.2,lint,0,0,True,,,0.407
+F3.1,off,0,0,True,,,1.324
+F3.1,basic,1,1,True,relabel/raster post FAILURE,consume,1.306
+F3.1,structural,1,1,True,relabel/raster post FAILURE,consume,1.365
+F3.1,full,1,1,True,relabel/raster post FAILURE,consume,1.44
+F3.1,lint,0,0,True,,,0.391
+F3.2,off,0,0,True,,,1.329
+F3.2,basic,0,0,True,,,1.308
+F3.2,structural,0,0,True,,,1.324
+F3.2,full,1,1,True,relabel/raster post FAILURE,consume,1.335
+F3.2,lint,0,0,True,,,0.416
+F3.3,off,0,0,True,,,21.049
+F3.3,basic,0,0,True,,,4.061
+F3.3,structural,0,0,True,,,4.2
+F3.3,full,1,1,True,relabel/raster post FAILURE,consume,3.33
+F3.3,lint,0,0,True,,,0.63
+F4.1,off,0,0,True,,,1.991
+F4.1,basic,0,0,True,,,1.339
+F4.1,structural,0,0,True,,,1.309
+F4.1,full,1,1,True,copy_expect_crs.cwl/raster post FAILURE,,1.328
+F4.1,lint,0,0,True,,,0.404
+F5.1,off,0,0,True,,,1.31
+F5.1,basic,0,0,True,,,1.302
+F5.1,structural,0,0,True,,,1.253
+F5.1,full,1,1,True,copy_expect_linestring.cwl/lines post FAILURE,,1.36
+F5.1,lint,0,0,True,,,0.384
+F6.1,off,0,0,True,,,1.318
+F6.1,basic,0,0,True,,,1.35
+F6.1,structural,0,0,True,,,1.28
+F6.1,full,1,1,True,consume/data pre FAILURE,consume,1.336
+F6.1,lint,0,0,True,,,0.416
+OK.1,off,0,0,True,,,1.298
+OK.1,basic,0,0,True,,,1.313
+OK.1,structural,0,0,True,,,1.288
+OK.1,full,0,0,True,,,1.3
+OK.1,lint,0,0,True,,,0.395
+OK.2,off,0,0,True,,,1.364
+OK.2,basic,0,0,True,,,1.335
+OK.2,structural,0,0,True,,,1.359
+OK.2,full,0,0,True,,,1.286
+OK.2,lint,0,0,True,,,0.364
+OK.3,off,0,0,True,,,1.312
+OK.3,basic,0,0,True,,,1.239
+OK.3,structural,0,0,True,,,1.287
+OK.3,full,0,0,True,,,1.342
+OK.3,lint,0,0,True,,,0.417
+OK.4,off,0,0,True,,,1.356
+OK.4,basic,0,0,True,,,1.348
+OK.4,structural,0,0,True,,,1.333
+OK.4,full,0,0,True,,,1.34
+OK.5,lint,0,0,True,,,0.366
+X.1,off,0,0,True,,,1.269
+X.1,basic,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.332
+X.1,structural,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.332
+X.1,full,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.337
+X.1,uncertain-fail,1,1,True,unsupported_format.cwl/geom post UNCERTAIN,,1.322
+X.1,lint,0,0,True,,,0.362
+X.2,off,0,0,True,,,1.245
+X.2,basic,0,0,True,,,1.256
+X.2,structural,0,0,True,,,1.299
+X.2,full,1,1,True,geotiff_expect_geometry.cwl/raster post ERROR,,1.421
+X.2,full-service-error-warn,0,0,True,geotiff_expect_geometry.cwl/raster post ERROR,,1.267
+X.2,lint,0,0,True,,,0.396
+X.3,lint,1,1,True,,,0.389

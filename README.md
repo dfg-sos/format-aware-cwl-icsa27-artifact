@@ -27,7 +27,8 @@ bench/make_inputs.py  synthetic GeoTIFF / Shapefile / GeoPackage inputs and copy
 bench/scenarios.py    the fault-injection scenarios (RQ1)
 bench/hpc/            the Slurm script for RQ2 and its README
 bench/results/        raw results (CSV, JSONL, console logs, env.txt per job)
-fixtures/             scenario workflows, jobs and data; mappings/ is the format mapping the service needs
+fixtures/             scenarios.yml (the RQ1 scenarios), their workflows, tools, jobs and data;
+                      mappings/ is the format mapping the service needs
 ```
 
 ## Requirements
@@ -44,10 +45,10 @@ fixtures/             scenario workflows, jobs and data; mappings/ is the format
 uv sync
 docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/fixtures/mappings:/app/mappings:ro" \
   ghcr.io/dfg-sos/file-format-service:0.1.0
-uv run python bench/scenarios.py --out /tmp/scenarios   # compare with bench/results/scenarios/summary.csv
+uv run python bench/scenarios.py --out /tmp/scenarios   # compare with bench/results/scenarios/matrix.md
 ```
-It exits 1 if any exit code differs from the expected one or between repetitions. Scenario A2-docker is
-skipped without a Docker daemon. Scenario K (wrong CRS on Sympolis) was run by hand; the steps are in
+It exits 1 if any exit code differs from the expected one or between repetitions. Scenario F3.3 is
+skipped without a Docker daemon. Scenario F4.2 (wrong CRS on Sympolis) was run by hand; the steps are in
 `EXPERIMENTAL_SETUP.md`.
 
 **RQ2, overhead (2–4 hours on one exclusive HPC node):** see [`bench/hpc/README.md`](bench/hpc/README.md).

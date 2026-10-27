@@ -1,0 +1,3 @@
+COMPATIBLE     roads -> consume/data
+UNANNOTATED    consume/size -> size  sink declares no format (accepts anything)
+1 compatible, 0 incompatible, 0 unknown-format, 1 unannotated, 0 expression, 0 error

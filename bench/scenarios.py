@@ -1,19 +1,19 @@
 """Run the fault-injection scenarios (RQ1) and keep their console output for the artifact.
 
-    uv run python bench/scenarios.py [--repeat 3] [--only A2,B]
+    uv run python bench/scenarios.py [--repeat 3] [--only F3.2,F4.1]
 
 Needs a running format service (`--format-service-url`, default $SOS_FFS_URL or localhost:8000) with
-fixtures/mappings mounted. Each scenario is a fixture from fixtures/ (a copy of the runner's
-tests/fixtures, frozen for this artifact) run as `baseline` (`--format-validation off`: plain
-cwltool, but the timing log records which steps ran), in `basic`, `structural` and `full` mode with
-the default `fail` policy, in the extra flag variants some scenarios list, and through
-`cwl-format-lint`. Every run is repeated `--repeat` times; the outcome (exit code, non-SUCCESS
-checks, steps that ran) must be the same in every repetition and match the expected exit code
-(those of the runner's tests/test_integration.py).
+fixtures/mappings mounted. The scenarios, their fixtures and expected exit codes are listed in
+fixtures/scenarios.yml. Each scenario runs in the variants it lists: `off` (`--format-validation off`:
+plain cwltool, but the timing log records which steps ran), `basic`, `structural` and `full` mode with
+the default `fail` policy, extra flag variants, and `lint` (`cwl-format-lint`). Every run is repeated
+`--repeat` times; the outcome (exit code, non-SUCCESS checks, steps that ran) must be the same in every
+repetition and match the expected exit code.
 Writes to `<--out>/`:
   <ID>/command.txt    the commands, relative to the repository root
   <ID>/<run>.log      console output (stdout and stderr) of the first repetition
   <ID>/outcome.json   per run: expected and observed exit codes, wall seconds, failed checks, steps not run
+  matrix.csv, .md     one row per scenario: exit code per variant and where it stops (the RQ1 table)
   summary.csv         one row per scenario and run
   env.txt             date, host, repository commit, service URL and image, versions
 Violations are printed and make the exit code 1.
@@ -42,37 +42,8 @@ BIN = Path(sys.executable).parent
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
 MODES = ("basic", "structural", "full")
 
-# id, workflow, job, expected exit per run (baseline, basic, structural, full, lint), extra runs {name: (args, exit)}
-# lint None: not linted (the document has no $schemas)
-SCENARIOS = [
-    # faults
-    ("D", "d_shapefile_to_geotiff.cwl", "jobs/d.yml", (1, 1, 1, 1, 1), {}),
-    ("L", "l_abstract_input.cwl", "jobs/i_ok.yml", (0, 0, 0, 0, 1), {}),
-    ("L-netcdf", "l_abstract_input.cwl", "jobs/l_netcdf.yml", (1, 1, 1, 1, 1), {}),
-    ("A1", "a_relabel.cwl", "jobs/a1.yml", (0, 1, 1, 1, 0), {}),
-    ("A2", "a_relabel.cwl", "jobs/a2.yml", (0, 0, 0, 1, 0), {}),
-    ("A2-docker", "a_relabel_docker.cwl", "jobs/a2.yml", (0, 0, 0, 1, 0), {}),
-    ("B", "b_crs.cwl", "jobs/b.yml", (0, 0, 0, 1, 0), {}),
-    ("C", "c_geometry.cwl", "jobs/c_points.yml", (0, 0, 0, 1, 0), {}),
-    ("I1", "i_input.cwl", "jobs/i1.yml", (0, 1, 1, 1, 0), {}),
-    ("I2", "i_input.cwl", "jobs/i2.yml", (0, 0, 0, 1, 0), {}),
-    ("J", "i_input.cwl", "jobs/j.yml", (0, 0, 0, 1, 0), {}),
-    # controls
-    ("C-roads", "c_geometry.cwl", "jobs/c_roads.yml", (0, 0, 0, 0, 0), {}),
-    ("D-vector", "d_shapefile_to_vector.cwl", "jobs/d.yml", (0, 0, 0, 0, 0), {}),
-    ("E", "e_unannotated.cwl", None, (0, 0, 0, 0, None), {}),
-    ("I-ok", "i_input.cwl", "jobs/i_ok.yml", (0, 0, 0, 0, 0), {}),
-    # limits of the service
-    ("G", "g_unsupported_format.cwl", None, (0, 0, 0, 0, 0), {"uncertain-fail": (["--format-uncertain", "fail"], 1)}),
-    (
-        "H",
-        "h_invalid_metadata.cwl",
-        "jobs/b.yml",
-        (0, 0, 0, 1, 0),
-        {"full-service-error-warn": (["--format-validation-mode", "full", "--format-service-error", "warn"], 0)},
-    ),
-]
-LINT_ONLY = [("F", "f_edam_online.cwl", 1)]
+MANIFEST = FIXTURES / "scenarios.yml"
+COLUMNS = ("off", "lint", *MODES)  # variants with a column of their own in the matrix
 
 
 def steps_of(workflow: Path) -> list[str]:
@@ -113,6 +84,42 @@ def docker_available() -> bool:
         return False
 
 
+def shown_exit(o: dict) -> str:
+    return str(o["exit"]) if o["exit"] == o["expected_exit"] else f"{o['exit']} (expected {o['expected_exit']})"
+
+
+def matrix_row(sc: dict, outcomes: dict) -> dict:
+    """One scenario: observed exit code per variant, '' where the variant is not run."""
+    return {
+        "id": sc["id"],
+        "fault": sc["fault"],
+        **{v: shown_exit(outcomes[v]) if v in outcomes else "" for v in COLUMNS},
+        "other": "; ".join(f"{n}: {shown_exit(o)}" for n, o in outcomes.items() if n not in COLUMNS),
+        "stops": sc["stops"],
+    }
+
+
+def matrix_md(rows: list[dict]) -> str:
+    """The matrix as a Markdown table; in fault scenarios the earliest detecting variant is bold."""
+    head = ["ID", "Injected fault", *(f"`{v}`" for v in COLUMNS), "Other variants", "Where it stops"]
+    lines = ["| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
+    for r in rows:
+        cells = {v: r[v] for v in COLUMNS}
+        if r["id"].startswith("F"):
+            first = next((v for v in COLUMNS[1:] if cells[v] == "1"), None)
+            if first:
+                cells[first] = f"**{cells[first]}**"
+        lines.append("| " + " | ".join([r["id"], r["fault"], *cells.values(), r["other"], r["stops"]]) + " |")
+    return "\n".join(lines) + "\n"
+
+
+def write_csv(path: Path, rows: list[dict]) -> None:
+    with open(path, "w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--format-service-url", default=os.environ.get("SOS_FFS_URL", "http://localhost:8000"))
@@ -127,20 +134,21 @@ def main() -> int:
     has_docker = docker_available()
     a.out.mkdir(parents=True, exist_ok=True)
 
-    plans = []  # (id, workflow, steps, [(run name, argv without outdir/log, expected exit, uses runner)])
-    for sid, wf, job, (base, *modes, lint_rc), extra in SCENARIOS:
-        files = [str(FIXTURES / wf), *([str(FIXTURES / job)] if job else [])]
-        runs = [("baseline", ["--format-validation", "off", *files], base, True)]
-        runs += [(m, ["--format-validation-mode", m, *files], rc, True) for m, rc in zip(MODES, modes, strict=True)]
-        runs += [(name, [*args, *files], rc, True) for name, (args, rc) in extra.items()]
-        if lint_rc is not None:
-            runs.append(("lint", [str(FIXTURES / wf)], lint_rc, False))
-        plans.append((sid, wf, steps_of(ROOT / FIXTURES / wf), runs))
-    for sid, wf, lint_rc in LINT_ONLY:
-        plans.append((sid, wf, [], [("lint", [str(FIXTURES / wf)], lint_rc, False)]))
+    plans = []  # (scenario, steps, [(run name, argv without outdir/log, expected exit, uses runner)])
+    for sc in YAML(typ="safe").load((ROOT / MANIFEST).read_text()):
+        wf = FIXTURES / "workflows" / sc["workflow"]
+        files = [str(wf), *([str(FIXTURES / "jobs" / sc["job"])] if sc.get("job") else [])]
+        expect = sc["expect"]
+        runs = [("off", ["--format-validation", "off", *files], expect["off"], True)] if "off" in expect else []
+        runs += [(m, ["--format-validation-mode", m, *files], expect[m], True) for m in MODES if m in expect]
+        runs += [(name, [*x["args"], *files], x["exit"], True) for name, x in (sc.get("extra") or {}).items()]
+        if "lint" in expect:
+            runs.append(("lint", [str(wf)], expect["lint"], False))
+        plans.append((sc, steps_of(ROOT / wf), runs))
 
-    problems, summary = [], []
-    for sid, wf, steps, runs in plans:
+    problems, summary, matrix = [], [], []
+    for sc, steps, runs in plans:
+        sid, wf = sc["id"], sc["workflow"]
         if only and sid not in only:
             continue
         if "docker" in wf and not has_docker:
@@ -196,12 +204,12 @@ def main() -> int:
             )
         (d / "command.txt").write_text("\n".join(commands))
         (d / "outcome.json").write_text(json.dumps({"id": sid, "workflow": wf, "runs": outcomes}, indent=2) + "\n")
+        matrix.append(matrix_row(sc, outcomes))
 
     if summary:
-        with open(a.out / "summary.csv", "w", newline="") as fh:
-            w = csv.DictWriter(fh, fieldnames=list(summary[0]))
-            w.writeheader()
-            w.writerows(summary)
+        write_csv(a.out / "summary.csv", summary)
+        write_csv(a.out / "matrix.csv", matrix)
+        (a.out / "matrix.md").write_text(matrix_md(matrix))
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     dirty = subprocess.run(["git", "diff", "--quiet"], cwd=ROOT).returncode != 0
     versions = subprocess.run([runner, "--version"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
