@@ -10,6 +10,7 @@ from pathlib import Path
 import fiona
 import numpy as np
 import rasterio
+import rasterio.shutil
 from rasterio.transform import from_origin
 
 DATA = Path(__file__).parent / "data"
@@ -37,6 +38,11 @@ def vector(path: Path, driver: str, geom_type: str, coords: list) -> None:
             dst.write({"geometry": {"type": geom_type, "coordinates": c}, "properties": {"name": f"f{i}"}})
 
 
+def netcdf() -> None:
+    """The GeoTIFF raster as NetCDF: a valid raster that is not a GeoTIFF (fixture L)."""
+    rasterio.shutil.copy(DATA / "raster_4326.tif", DATA / "raster_4326.nc", driver="netCDF")
+
+
 def broken() -> None:
     """Faulty inputs derived from the files above: GeoJSON content behind a .tif name (fixture I2)
     and a GeoTIFF cut off inside its header (fixture J)."""
@@ -54,5 +60,6 @@ if __name__ == "__main__":
     vector(DATA / "roads.shp", "ESRI Shapefile", "LineString", lines)
     vector(DATA / "points.geojson", "GeoJSON", "Point", [(9.93, 49.79), (9.95, 49.80)])
     broken()
+    netcdf()
     for p in sorted(DATA.iterdir()):
         print(p.name, p.stat().st_size)

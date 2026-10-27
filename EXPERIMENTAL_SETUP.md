@@ -9,7 +9,7 @@ The questions are numbered as in the paper (Section "Evaluation"). The scripts a
 
 | | Question | Workload | Measured runs per variant | Paper section | Status |
 |---|---|---|---|---|---|
-| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 16 fault-injection scenarios (linter and runner) | 3 (deterministic; repeated to confirm) | Effectiveness | done |
+| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 18 fault-injection scenarios (linter and runner) | 3 (deterministic; repeated to confirm) | Effectiveness | done |
 | RQ2 | Overhead: what do the validation modes add, as a function of file size, format label and relative to task runtime? | (a) Sympolis on Kahama.gpkg; (b) three-step copy chain, concrete formats; (c) the (b) chains with abstract formats | (a) 3; (b), (c) 10 | Overhead by mode and file size; Overhead on an EO workflow | done |
 | RQ3 | Access path: how does validating an uploaded file compare with validating a local file on the same host? | no separate runs: the `upload` and `local` variants of `structural` and `full` in RQ2(a) and RQ2(b) | as RQ2 | Overhead by mode and file size | done (analysis only) |
 
@@ -38,11 +38,13 @@ Validation runs on the inputs and outputs of every step (`--format-check both`).
 
 ### RQ1: fault-injection scenarios
 
-Each scenario is a fixture from [`fixtures/`](fixtures/) (workflow + job; a frozen copy of the runner's `tests/fixtures/`, where `tests/test_integration.py` asserts the same exit codes). [`bench/scenarios.py`](bench/scenarios.py) runs each one as `off`, `basic`, `structural`, `full` (transfer `auto`), and through `cwl-format-lint`, three times each. Exit codes (1 = stopped, 0 = completed):
+Each scenario is a fixture from [`fixtures/`](fixtures/) (workflow + job; a frozen copy of the runner's `tests/fixtures/`, where `tests/test_integration.py` asserts the same exit codes; L and L-netcdf were added for this artifact and are not in the runner's tests). [`bench/scenarios.py`](bench/scenarios.py) runs each one as `off`, `basic`, `structural`, `full` (transfer `auto`), and through `cwl-format-lint`, three times each. Exit codes (1 = stopped, 0 = completed):
 
 | ID | Injected fault | `off` | linter | `basic` | `structural` | `full` | Where it stops |
 |---|---|---|---|---|---|---|---|
 | D | Shapefile input wired to a GeoTIFF port | 1 | **1** | 1 | 1 | 1 | linter: before any job; otherwise cwltool's label check when it creates the `consume` job |
+| L | workflow input declares abstract `eo:Raster`, wired to a GeoTIFF port; the job passes a valid GeoTIFF | 0 | **1** | 0 | 0 | 0 | linter only, before any job; no runtime variant sees a fault with this job |
+| L-netcdf | as L, the job passes a valid NetCDF raster (`eo:NetCDF_CF`, a `Raster`) | 1 | **1** | 1 | 1 | 1 | as D |
 | A1 | a tool writes GeoJSON as `out.geojson` and labels it GeoTIFF | 0 | 0 | **1** | 1 | 1 | output check of `relabel`; `consume` not run |
 | A2 | as A1, but named `out.tif` | 0 | 0 | 0 | 0 | **1** | as A1 |
 | A2-docker | A2 with all steps in `alpine` containers | 0 | 0 | 0 | 0 | **1** | as A1 |
@@ -58,6 +60,7 @@ Each scenario is a fixture from [`fixtures/`](fixtures/) (workflow + job; a froz
 
 **Findings:**
 - **Plain cwltool misses every runtime fault** (exit 0): it stamps the declared label on outputs and never looks at file content. It catches D only at runtime, when it creates the `consume` job; the linter catches D before any job runs.
+- **The linter catches latent wiring faults that no run shows** (L): cwltool checks the labels of the files in the given job, the linter the declared formats of the ports. An abstract input format (`eo:Raster`) wired to a concrete port (`eo:GeoTIFF`) passes every runtime variant as long as the job happens to pass a GeoTIFF; the first valid non-GeoTIFF raster stops the workflow (L-netcdf).
 - **The linter misses all runtime faults** (A–C, I, J): their labels are consistent. Linter and runner are complementary.
 - **`basic` catches wrong extensions** (A1, I1). Wrong content, CRS, geometry type and truncation need `full`. `structural` caught nothing that `basic` missed, because cwltool never hands over a missing file.
 - **Detection stops the workflow before the next step:** output faults at the producing step (A: `consume` not run), input faults before the consuming step (I, J). All outcomes were identical in the three repetitions.

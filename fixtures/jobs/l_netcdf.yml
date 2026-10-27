@@ -1,0 +1,1 @@
+raster: {class: File, location: ../data/raster_4326.nc, format: "https://dfg-sos.github.io/ontologies/eo-formats#NetCDF_CF"}

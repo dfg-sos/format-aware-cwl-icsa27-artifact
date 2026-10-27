@@ -47,6 +47,8 @@ MODES = ("basic", "structural", "full")
 SCENARIOS = [
     # faults
     ("D", "d_shapefile_to_geotiff.cwl", "jobs/d.yml", (1, 1, 1, 1, 1), {}),
+    ("L", "l_abstract_input.cwl", "jobs/i_ok.yml", (0, 0, 0, 0, 1), {}),
+    ("L-netcdf", "l_abstract_input.cwl", "jobs/l_netcdf.yml", (1, 1, 1, 1, 1), {}),
     ("A1", "a_relabel.cwl", "jobs/a1.yml", (0, 1, 1, 1, 0), {}),
     ("A2", "a_relabel.cwl", "jobs/a2.yml", (0, 0, 0, 1, 0), {}),
     ("A2-docker", "a_relabel_docker.cwl", "jobs/a2.yml", (0, 0, 0, 1, 0), {}),
