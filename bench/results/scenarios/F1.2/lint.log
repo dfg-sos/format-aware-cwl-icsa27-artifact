@@ -1,3 +1,0 @@
-INCOMPATIBLE   raster -> consume/data  Raster is not GeoTIFF or a subclass of it
-UNANNOTATED    consume/size -> size  sink declares no format (accepts anything)
-0 compatible, 1 incompatible, 0 unknown-format, 1 unannotated, 0 expression, 0 error

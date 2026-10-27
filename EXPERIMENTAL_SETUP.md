@@ -1,7 +1,7 @@
 # Experimental setup
 
-How the evaluation of the format-aware CWL runner was run (October 2026). Raw data: `bench/results/hpc-<job>/` (overhead runs) and `bench/results/scenarios/` (fault-injection runs).
-How to reproduce it: [`bench/hpc/README.md`](bench/hpc/README.md) (overhead runs) and `uv run python bench/scenarios.py` against a running service (fault-injection runs).
+How the evaluation of the format-aware CWL runner was run (October 2026). Raw data: `bench/results/hpc-<job>/` (overhead runs) and `scenarios/results/` (fault-injection runs).
+How to reproduce it: [`bench/hpc/README.md`](bench/hpc/README.md) (overhead runs) and `uv run python scenarios/run.py` against a running service (fault-injection runs).
 
 ## Research questions
 
@@ -38,7 +38,7 @@ Validation runs on the inputs and outputs of every step (`--format-check both`).
 
 ### RQ1: fault-injection scenarios
 
-The scenarios are listed in [`fixtures/scenarios.yml`](fixtures/scenarios.yml): fixture workflow and job, injected fault and expected exit code per variant. IDs follow the fault classes of the paper: F1 incompatible formats wired together, F2 wrong workflow input file, F3 a tool stamps the wrong label on its output, F4 wrong CRS, F5 wrong geometry type, F6 corrupt file; OK are controls (no fault), X limits of the service. The fixtures (`fixtures/workflows/`, `tools/`, `jobs/`, `data/`) derive from the runner's `tests/fixtures/`. [`bench/scenarios.py`](bench/scenarios.py) runs each scenario as `off`, `basic`, `structural`, `full` (transfer `auto`), and through `cwl-format-lint`, three times each, and writes the table below as `matrix.md`. Exit codes (1 = stopped, 0 = completed; bold: the earliest variant that detects the fault):
+The scenarios are listed in [`scenarios/scenarios.yml`](scenarios/scenarios.yml): fixture workflow and job, injected fault and expected exit code per variant. IDs follow the fault classes of the paper: F1 incompatible formats wired together, F2 wrong workflow input file, F3 a tool stamps the wrong label on its output, F4 wrong CRS, F5 wrong geometry type, F6 corrupt file; OK are controls (no fault), X limits of the service. The fixtures (`scenarios/fixtures/workflows/`, `tools/`, `jobs/`, `data/`) derive from the runner's `tests/fixtures/`. [`scenarios/run.py`](scenarios/run.py) runs each scenario as `off`, `basic`, `structural`, `full` (transfer `auto`), and through `cwl-format-lint`, three times each, and writes the table below as `matrix.md`. Exit codes (1 = stopped, 0 = completed; bold: the earliest variant that detects the fault):
 
 | ID | Injected fault | `off` | `lint` | `basic` | `structural` | `full` | Other variants | Where it stops |
 |---|---|---|---|---|---|---|---|---|
@@ -78,11 +78,11 @@ The scenarios are listed in [`fixtures/scenarios.yml`](fixtures/scenarios.yml): 
 - **Detection stops the workflow before the next step:** output faults at the producing step (F3: `consume` not run), input faults before the consuming step (F2, F6.1). All outcomes were identical in the three repetitions, and the EO scenarios had the same outcomes (exit codes, failed checks, steps run) with service 0.1.0 and 0.2.0.
 - **No false positives** in the controls (OK). **Limits:** a format without validator gives `UNCERTAIN` (X.1), metadata the format cannot carry an `ERROR` (X.2); both only warn or stop as the policy says.
 
-**F4.2: wrong CRS on Sympolis** (run once, by hand, locally; not in `bench/scenarios.py`). The fixture steps take milliseconds, so they cannot show time saved; this scenario does. `Kahama_Small.gpkg` reprojected (`ogr2ogr -t_srs`) from EPSG:4326 to EPSG:32736 (UTM 36S) or EPSG:3857 runs through plain Sympolis with exit 0 in about 25 s, but yields 13 clusters instead of 3: the result changes silently. With `sos:expectedCRS: "EPSG:4326"` added to the `vectorFile` input of `cwl/FishnetSplit.cwl` (Sympolis declares no CRS; this is the only change), `full` stops the UTM run at the input check of `split`, the first step, after 3.3 s (cwltool start-up plus one check); `basic` does not detect it; the EPSG:4326 control passes.
+**F4.2: wrong CRS on Sympolis** (run once, by hand, locally; not in `scenarios/run.py`). The fixture steps take milliseconds, so they cannot show time saved; this scenario does. `Kahama_Small.gpkg` reprojected (`ogr2ogr -t_srs`) from EPSG:4326 to EPSG:32736 (UTM 36S) or EPSG:3857 runs through plain Sympolis with exit 0 in about 25 s, but yields 13 clusters instead of 3: the result changes silently. With `sos:expectedCRS: "EPSG:4326"` added to the `vectorFile` input of `cwl/FishnetSplit.cwl` (Sympolis declares no CRS; this is the only change), `full` stops the UTM run at the input check of `split`, the first step, after 3.3 s (cwltool start-up plus one check); `basic` does not detect it; the EPSG:4326 control passes.
 
 **Time saved** needs no extra runs: on the cluster, that check (`full`, input of `split`, 68 MB `Kahama.gpkg`) took about 20 ms with `local` and 180 ms with `upload` transfer (RQ2(a) timing log), while the whole plain run took 132 s (median of `off`). A wrong CRS therefore stops the workflow before its first step and saves almost the whole execution time.
 
-**Artifact** (`bench/results/scenarios/`): per scenario `command.txt` (exact commands), `<variant>.log` (console output of the first repetition), `outcome.json` (expected and observed exit codes per repetition, failed checks with message, steps not run, wall time); plus `matrix.csv` and `matrix.md` (the table above), `summary.csv` (one row per scenario and variant) and `env.txt`.
+**Artifact** (`scenarios/results/`): per scenario `command.txt` (exact commands), `<variant>.log` (console output of the first repetition), `outcome.json` (expected and observed exit codes per repetition, failed checks with message, steps not run, wall time); plus `matrix.csv` and `matrix.md` (the table above), `summary.csv` (one row per scenario and variant) and `env.txt`.
 
 **In the paper:** the table above, and one console excerpt, e.g. F4.1:
 `[step copy_expect_crs.cwl] output 'raster' file 'out.tif' is not valid …#GeoTIFF: FAILURE: File CRS'EPSG:4326' does not match expected CRS 'EPSG:3857'.`
@@ -144,7 +144,7 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
   because steps scattered over the 16 tiles check each tile. Every run also skips 264 Files whose port declares
   no format (`skips`): Sympolis' internal graph files (`.bin`, 206) and workload lists (`.json`, 58), for which
   the ontology has no class. They are not sent to the service.
-- **Verification (fault-injection runs):** every run's exit code matched the expected one, and exit code, failed checks and steps run were identical in all three repetitions (`bench/scenarios.py` checks both).
+- **Verification (fault-injection runs):** every run's exit code matched the expected one, and exit code, failed checks and steps run were identical in all three repetitions (`scenarios/run.py` checks both).
 - **Metrics per run (overhead runs):**
   - wall time of the runner process (`wall_ms`)
   - summed client round trip of all checks (`check_ms`)
@@ -160,7 +160,7 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
   - RQ2(a): one job (node `hpdar09c05s03`).
   - RQ2(b) and RQ2(c): one job per size, in parallel on four identical nodes (1 MB `hpdar10c04s11`,
     10 MB `hpdar09c05s01`, 100 MB `hpdar09c05s02`, 1000 MB `hpdar09c05s03`).
-  - RQ1: not on the cluster (no timing involved). A laptop (Linux 7.0, Python 3.12.13, Docker 29.5.3), with the service image `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0, which loads validator plug-ins) extended by `plugins/format-validator-bio` (`plugins/format-validator-bio/Dockerfile`), run with Docker on `localhost:8010` and the mappings in `fixtures/mappings/` (EO formats, EDAM). Runner v0.1.0. The EO scenarios had the same outcomes with the 0.1.0 image used for RQ2.
+  - RQ1: not on the cluster (no timing involved). A laptop (Linux 7.0, Python 3.12.13, Docker 29.5.3), with the service image `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0, which loads validator plug-ins) extended by `plugins/format-validator-bio` (`plugins/format-validator-bio/Dockerfile`), run with Docker on `localhost:8010` and the mappings in `mappings/` (EO formats, EDAM). Runner v0.1.0. The EO scenarios had the same outcomes with the 0.1.0 image used for RQ2.
 - **Node:** 2× Intel Xeon Platinum 8380 (2 × 40 cores, 160 threads, max. 2.3 GHz, 4 NUMA nodes), 1 TB RAM,
   SLES 15 SP7 (kernel 6.4.0). The default frequency scaling was left on, and no CPU pinning was used.
 - **Storage:** all inputs and cwltool's working and output directories were on node-local NVMe (`/tmp`).

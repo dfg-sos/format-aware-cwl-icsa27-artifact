@@ -1,11 +1,12 @@
 """Run the fault-injection scenarios (RQ1) and keep their console output for the artifact.
 
-    uv run python bench/scenarios.py [--repeat 3] [--only F3.2,F4.1]
+    uv run python scenarios/run.py [--repeat 3] [--only F3.2,F4.1]
 
-Needs a running format service (`--format-service-url`, default $SOS_FFS_URL or localhost:8000) with
-fixtures/mappings mounted. The scenarios, their fixtures and expected exit codes are listed in
-fixtures/scenarios.yml. Each scenario runs in the variants it lists: `off` (`--format-validation off`:
-plain cwltool, but the timing log records which steps ran), `basic`, `structural` and `full` mode with
+Needs a running format service (`--format-service-url`, default $SOS_FFS_URL or localhost:8000) built from
+plugins/format-validator-bio, with mappings/ mounted (README.md). The scenarios, their fixtures and expected
+exit codes are listed in scenarios/scenarios.yml. Each scenario runs in the variants it lists:
+`off` (`--format-validation off`: plain cwltool, but the timing log records which steps ran), `basic`,
+`structural` and `full` mode with
 the default `fail` policy, extra flag variants, and `lint` (`cwl-format-lint`). Every run is repeated
 `--repeat` times; the outcome (exit code, non-SUCCESS checks, steps that ran) must be the same in every
 repetition and match the expected exit code.
@@ -37,12 +38,12 @@ from pathlib import Path
 from ruamel.yaml import YAML
 
 ROOT = Path(__file__).resolve().parent.parent
-FIXTURES = Path("fixtures")
+FIXTURES = Path("scenarios/fixtures")
 BIN = Path(sys.executable).parent
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
 MODES = ("basic", "structural", "full")
 
-MANIFEST = FIXTURES / "scenarios.yml"
+MANIFEST = Path("scenarios/scenarios.yml")
 COLUMNS = ("off", "lint", *MODES)  # variants with a column of their own in the matrix
 
 
@@ -126,7 +127,7 @@ def main() -> int:
     ap.add_argument("--service-image", default="", help="image (digest) of the service, recorded in env.txt")
     ap.add_argument("--repeat", type=int, default=3)
     ap.add_argument("--only", default=None, help="comma-separated scenario IDs")
-    ap.add_argument("--out", type=Path, default=ROOT / "bench" / "results" / "scenarios")
+    ap.add_argument("--out", type=Path, default=ROOT / "scenarios" / "results")
     a = ap.parse_args()
     only = set(a.only.split(",")) if a.only else None
     service = ["--format-service-url", a.format_service_url]

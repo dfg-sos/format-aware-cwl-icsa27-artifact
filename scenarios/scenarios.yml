@@ -1,7 +1,7 @@
-# The fault-injection scenarios (RQ1), run by bench/scenarios.py.
+# The fault-injection scenarios (RQ1), run by scenarios/run.py.
 #
 # id:        fault class of the paper (F1-F6), OK = control (no fault), X = limit of the service
-# workflow:  fixtures/workflows/<workflow>; job: fixtures/jobs/<job> (none: the workflow needs no inputs)
+# workflow:  scenarios/fixtures/workflows/<workflow>; job: scenarios/fixtures/jobs/<job> (none: the workflow needs no inputs)
 # expect:    expected exit code per variant (0 = completed, 1 = stopped); a variant not listed is not run
 #            (off: --format-validation off; basic, structural, full: --format-validation-mode; lint: cwl-format-lint)
 # extra:     further runner variants: name -> runner arguments and expected exit code

@@ -1,6 +1,6 @@
 """Generate the small geodata files used by the fixtures (committed; rerun only to change them).
 
-    uv run fixtures/make_data.py
+    uv run scenarios/fixtures/make_data.py
 
 numpy, rasterio and fiona are dependencies of this artifact (`uv sync`); fiona needs Python < 3.14.
 """

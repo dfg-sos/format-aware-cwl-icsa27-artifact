@@ -9,20 +9,20 @@ The paper claims that the architecture extends to other domains and is ontology-
 | Part | Size |
 |---|---|
 | Validators (`src/validators.py`, `src/__init__.py`) | ~124 lines, without blank lines and comments |
-| EDAM mapping for the service (`fixtures/mappings/edam-formats.json` of the artifact) | 9 lines |
+| EDAM mapping for the service (`mappings/edam-formats.json` of the artifact) | 9 lines |
 | Entry-point declaration (`pyproject.toml`) | 2 lines |
 | Derived service image with the plugin (`Dockerfile`) | 5 instructions |
 | Changes to format-validator, the service or the CWL runner | 0 lines |
 
-The plugin needs format-validator ≥ 0.3.0 (`registry.load_plugins()`) and runs in the service image `ghcr.io/dfg-sos/file-format-service:0.2.0`. In the evaluation, scenarios F2.3, F2.4, F6.2 and OK.6 (`fixtures/scenarios.yml`) run the unchanged runner v0.1.0 on EDAM-annotated workflows against this image:
+The plugin needs format-validator ≥ 0.3.0 (`registry.load_plugins()`) and runs in the service image `ghcr.io/dfg-sos/file-format-service:0.2.0`. In the evaluation, scenarios F2.3, F2.4, F6.2 and OK.6 (`scenarios/scenarios.yml`) run the unchanged runner v0.1.0 on EDAM-annotated workflows against this image:
 
 ```sh
 docker build -t file-format-service-bio:0.2.0 plugins/format-validator-bio
-docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/fixtures/mappings:/app/mappings:ro" \
+docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/mappings:/app/mappings:ro" \
   file-format-service-bio:0.2.0
 ```
 
-The service reads every mapping file in `/app/mappings`: the artifact's `fixtures/mappings/` holds the EO and the EDAM mapping. `tests/data/edam-formats.json` links to the latter, for the tests; the plugin itself ships only validators.
+The service reads every mapping file in `/app/mappings`: the artifact's `mappings/` holds the EO and the EDAM mapping. `tests/data/edam-formats.json` links to the latter, for the tests; the plugin itself ships only validators.
 
 ## Usage
 

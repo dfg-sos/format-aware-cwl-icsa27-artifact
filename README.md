@@ -12,7 +12,7 @@ How every run was set up, with versions and environment: [`EXPERIMENTAL_SETUP.md
 
 | Paper | Question | Script | Raw results |
 |---|---|---|---|
-| RQ1 | Effectiveness: which faults are detected, where the workflow stops | `bench/scenarios.py` | `bench/results/scenarios/` |
+| RQ1 | Effectiveness: which faults are detected, where the workflow stops | `scenarios/run.py` | `scenarios/results/` |
 | RQ2(a) | Overhead on an EO workflow (Sympolis) | `bench/hpc/bench.sh` (`RQS=1`) | `bench/results/hpc-14595369/` |
 | RQ2(b) | Overhead by mode and file size (copy chains, concrete formats) | `bench/hpc/bench.sh` (`RQS=2`) | `bench/results/hpc-14595040` … `43/rq2-*` |
 | RQ2(c) | Abstract instead of concrete format labels | `bench/hpc/bench.sh` (`RQS=3`) | `bench/results/hpc-14595040` … `43/rq3-*` |
@@ -22,13 +22,17 @@ The scripts and result directories use the original numbering (`rq1`–`rq3`); t
 Jobs 14595040–43 are the 1, 10, 100 and 1000 MB sizes.
 
 ```
-bench/run.py          one overhead set: runs every variant, writes runs.csv and timing.jsonl, verifies the runs
-bench/make_inputs.py  synthetic GeoTIFF / Shapefile / GeoPackage inputs and copy-chain workflows
-bench/scenarios.py    the fault-injection scenarios (RQ1)
-bench/hpc/            the Slurm script for RQ2 and its README
-bench/results/        raw results (CSV, JSONL, console logs, env.txt per job)
-fixtures/             scenarios.yml (the RQ1 scenarios), their workflows, tools, jobs and data;
-                      mappings/ are the format mappings the service needs (EO formats, EDAM)
+scenarios/            RQ1, fault injection
+  run.py              runs the scenarios, verifies their exit codes, writes the results
+  scenarios.yml       the scenarios: fixtures, injected fault, expected exit code per variant
+  fixtures/           their workflows, tools, jobs and data
+  results/            per scenario: commands, console logs, outcomes; matrix.md is the RQ1 table
+bench/                RQ2 and RQ3, overhead
+  run.py              one overhead set: runs every variant, writes runs.csv and timing.jsonl, verifies the runs
+  make_inputs.py      synthetic GeoTIFF / Shapefile / GeoPackage inputs and copy-chain workflows
+  hpc/                the Slurm script and its README
+  results/            raw results (CSV, JSONL, console logs, env.txt per job)
+mappings/             the format mappings the service needs (EO formats, EDAM), for both
 plugins/              format-validator-bio: FASTA/FASTQ validators as a plug-in, and the Dockerfile
                       of the service image with the plug-in
 ```
@@ -47,9 +51,9 @@ plugins/              format-validator-bio: FASTA/FASTQ validators as a plug-in,
 ```sh
 uv sync
 docker build -t file-format-service-bio:0.2.0 plugins/format-validator-bio
-docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/fixtures/mappings:/app/mappings:ro" \
+docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/mappings:/app/mappings:ro" \
   file-format-service-bio:0.2.0
-uv run python bench/scenarios.py --out /tmp/scenarios   # compare with bench/results/scenarios/matrix.md
+uv run python scenarios/run.py --out /tmp/scenarios   # compare with scenarios/results/matrix.md
 ```
 It exits 1 if any exit code differs from the expected one or between repetitions. Scenario F3.3 is
 skipped without a Docker daemon. Scenario F4.2 (wrong CRS on Sympolis) was run by hand; the steps are in
