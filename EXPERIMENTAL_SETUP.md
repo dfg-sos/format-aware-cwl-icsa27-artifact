@@ -49,17 +49,21 @@ The scenarios are listed in [`fixtures/scenarios.yml`](fixtures/scenarios.yml): 
 | F1.5 | F1.2 with EDAM, input accepts any sequence format (abstract), wired to a FASTA port |  | **1** |  |  |  |  | linter |
 | F2.1 | workflow input `roads.geojson` labelled GeoTIFF by the job | 0 | 0 | **1** | 1 | 1 |  | input check of `consume`; `consume` not run |
 | F2.2 | GeoJSON content named `roads_as.tif`, labelled GeoTIFF | 0 | 0 | 0 | 0 | **1** |  | as F2.1 |
+| F2.3 | F2.1 in another domain: `reads.fastq` labelled EDAM FASTA (validator plug-in) | 0 | 0 | **1** | 1 | 1 |  | input check of `consume`; `consume` not run |
+| F2.4 | F2.2 in another domain: FASTQ content named `reads_as.fasta`, labelled EDAM FASTA (validator plug-in) | 0 | 0 | 0 | 0 | **1** |  | as F2.3 |
 | F3.1 | a tool writes GeoJSON as `out.geojson` and labels it GeoTIFF | 0 | 0 | **1** | 1 | 1 |  | output check of `relabel`; `consume` not run |
 | F3.2 | as F3.1, but named `out.tif` | 0 | 0 | 0 | 0 | **1** |  | as F3.1 |
 | F3.3 | F3.2 with all steps in `alpine` containers | 0 | 0 | 0 | 0 | **1** |  | as F3.1 |
 | F4.1 | GeoTIFF in EPSG:4326, output declares `sos:expectedCRS: EPSG:3857` | 0 | 0 | 0 | 0 | **1** |  | output check of the tool |
 | F5.1 | Point GeoJSON, output declares `sos:expectedGeometryType: LineString` | 0 | 0 | 0 | 0 | **1** |  | output check of the tool |
 | F6.1 | GeoTIFF truncated at 64 bytes | 0 | 0 | 0 | 0 | **1** |  | as F2.1 |
+| F6.2 | FASTA whose last record has no sequence, labelled EDAM FASTA (validator plug-in) | 0 | 0 | 0 | 0 | **1** |  | as F2.3 |
 | OK.1 | none, a valid GeoTIFF into the F2 workflow | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.2 | none, Shapefile into an `eo:Vector` port (subclass, multi-file format) | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.3 | none, the F5.1 tool with LineStrings | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.4 | none, unannotated output (skipped, not sent to the service) | 0 |  | 0 | 0 | 0 |  | completes |
 | OK.5 | none, EDAM, FASTA into a port accepting any sequence format (subclass) |  | 0 |  |  |  |  | completes |
+| OK.6 | none, a valid FASTA into the F2.3 workflow (EDAM, validator plug-in) | 0 | 0 | 0 | 0 | 0 |  | completes |
 | X.1 | output labelled `eo:WKB`, which the service cannot validate: `UNCERTAIN` | 0 | 0 | 0 | 0 | 0 | uncertain-fail: 1 | completes with a warning; with `--format-uncertain fail`: output check of the tool |
 | X.2 | `sos:expectedGeometryType` on a GeoTIFF: the service rejects the request in full mode (`ERROR`) | 0 | 0 | 0 | 0 | 1 | full-service-error-warn: 0 | full: output check of the tool; with `--format-service-error warn` it completes with a warning |
 | X.3 | EO formats checked against EDAM, which does not define them (`unknown-format`) |  | 1 |  |  |  |  | linter |
@@ -71,7 +75,7 @@ The scenarios are listed in [`fixtures/scenarios.yml`](fixtures/scenarios.yml): 
 - **The runtime checks extend to another domain without changing the runner or the service** (F2.3, F2.4, F6.2, OK.6): the plug-in `plugins/format-validator-bio` adds FASTA and FASTQ validators (EDAM `format_1929`, `format_1930`) to the service image, and its mapping file maps EDAM to them. The unchanged runner v0.1.0 detects a FASTQ file labelled FASTA by its name in `basic` mode (F2.3), and FASTQ content named `.fasta` (F2.4) and a truncated FASTA (F6.2) only in `full`, as their EO counterparts F2.1, F2.2 and F6.1.
 - **The linter misses all runtime faults** (F2–F6): their labels are consistent. Linter and runner are complementary.
 - **`basic` catches wrong extensions** (F2.1, F3.1). Wrong content, CRS, geometry type and truncation need `full`. `structural` caught nothing that `basic` missed, because cwltool never hands over a missing file: it rejects missing inputs and secondary files when it starts and missing outputs when it collects them.
-- **Detection stops the workflow before the next step:** output faults at the producing step (F3: `consume` not run), input faults before the consuming step (F2, F6.1). All outcomes were identical in the three repetitions.
+- **Detection stops the workflow before the next step:** output faults at the producing step (F3: `consume` not run), input faults before the consuming step (F2, F6.1). All outcomes were identical in the three repetitions, and the EO scenarios had the same outcomes (exit codes, failed checks, steps run) with service 0.1.0 and 0.2.0.
 - **No false positives** in the controls (OK). **Limits:** a format without validator gives `UNCERTAIN` (X.1), metadata the format cannot carry an `ERROR` (X.2); both only warn or stop as the policy says.
 
 **F4.2: wrong CRS on Sympolis** (run once, by hand, locally; not in `bench/scenarios.py`). The fixture steps take milliseconds, so they cannot show time saved; this scenario does. `Kahama_Small.gpkg` reprojected (`ogr2ogr -t_srs`) from EPSG:4326 to EPSG:32736 (UTM 36S) or EPSG:3857 runs through plain Sympolis with exit 0 in about 25 s, but yields 13 clusters instead of 3: the result changes silently. With `sos:expectedCRS: "EPSG:4326"` added to the `vectorFile` input of `cwl/FishnetSplit.cwl` (Sympolis declares no CRS; this is the only change), `full` stops the UTM run at the input check of `split`, the first step, after 3.3 s (cwltool start-up plus one check); `basic` does not detect it; the EPSG:4326 control passes.
