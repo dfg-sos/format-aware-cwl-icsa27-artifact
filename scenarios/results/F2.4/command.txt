@@ -1,0 +1,14 @@
+# off
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation off scenarios/fixtures/workflows/consume_fasta_input.cwl scenarios/fixtures/jobs/fasta_fastq_named_fasta.yml
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode basic scenarios/fixtures/workflows/consume_fasta_input.cwl scenarios/fixtures/jobs/fasta_fastq_named_fasta.yml
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode structural scenarios/fixtures/workflows/consume_fasta_input.cwl scenarios/fixtures/jobs/fasta_fastq_named_fasta.yml
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode full scenarios/fixtures/workflows/consume_fasta_input.cwl scenarios/fixtures/jobs/fasta_fastq_named_fasta.yml
+
+# lint
+cwl-format-lint --format-service-url http://localhost:8010 scenarios/fixtures/workflows/consume_fasta_input.cwl

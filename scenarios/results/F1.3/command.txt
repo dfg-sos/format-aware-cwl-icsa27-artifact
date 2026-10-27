@@ -1,0 +1,14 @@
+# off
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation off scenarios/fixtures/workflows/wire_raster_to_geotiff.cwl scenarios/fixtures/jobs/raster_netcdf.yml
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode basic scenarios/fixtures/workflows/wire_raster_to_geotiff.cwl scenarios/fixtures/jobs/raster_netcdf.yml
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode structural scenarios/fixtures/workflows/wire_raster_to_geotiff.cwl scenarios/fixtures/jobs/raster_netcdf.yml
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode full scenarios/fixtures/workflows/wire_raster_to_geotiff.cwl scenarios/fixtures/jobs/raster_netcdf.yml
+
+# lint
+cwl-format-lint --format-service-url http://localhost:8010 scenarios/fixtures/workflows/wire_raster_to_geotiff.cwl

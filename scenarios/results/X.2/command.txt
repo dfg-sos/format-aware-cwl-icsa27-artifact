@@ -1,0 +1,17 @@
+# off
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation off scenarios/fixtures/workflows/geotiff_expect_geometry.cwl scenarios/fixtures/jobs/src_raster_4326.yml
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode basic scenarios/fixtures/workflows/geotiff_expect_geometry.cwl scenarios/fixtures/jobs/src_raster_4326.yml
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode structural scenarios/fixtures/workflows/geotiff_expect_geometry.cwl scenarios/fixtures/jobs/src_raster_4326.yml
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode full scenarios/fixtures/workflows/geotiff_expect_geometry.cwl scenarios/fixtures/jobs/src_raster_4326.yml
+
+# full-service-error-warn
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode full --format-service-error warn scenarios/fixtures/workflows/geotiff_expect_geometry.cwl scenarios/fixtures/jobs/src_raster_4326.yml
+
+# lint
+cwl-format-lint --format-service-url http://localhost:8010 scenarios/fixtures/workflows/geotiff_expect_geometry.cwl

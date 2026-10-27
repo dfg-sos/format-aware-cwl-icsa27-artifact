@@ -1,0 +1,22 @@
+{
+  "id": "F1.4",
+  "workflow": "edam_tiff_to_netcdf.cwl",
+  "runs": {
+    "lint": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 0.446,
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        0.446,
+        0.394,
+        0.399
+      ],
+      "consistent": true
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "id": "F1.2",
+  "workflow": "wire_raster_to_geotiff.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.278,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.278,
+        1.366,
+        1.375
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.39,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.39,
+        1.338,
+        1.381
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.333,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.333,
+        1.311,
+        1.344
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.315,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.315,
+        1.302,
+        1.39
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 0.392,
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        0.392,
+        0.392,
+        0.407
+      ],
+      "consistent": true
+    }
+  }
+}

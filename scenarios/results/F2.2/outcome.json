@@ -1,0 +1,105 @@
+{
+  "id": "F2.2",
+  "workflow": "consume_input.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.33,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.33,
+        1.375,
+        1.323
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.306,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.306,
+        1.338,
+        1.398
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.428,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.428,
+        1.41,
+        1.338
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.382,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "roads_as.tif",
+          "result": "FAILURE",
+          "message": "Failed to open file '/tmp/sos_validate_i_di4_rz/roads_as.tif' with RasterIO:\n'/tmp/sos_validate_i_di4_rz/roads_as.tif' not recognized as being in a supported file format."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.382,
+        1.291,
+        1.29
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.388,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.388,
+        0.379,
+        0.382
+      ],
+      "consistent": true
+    }
+  }
+}

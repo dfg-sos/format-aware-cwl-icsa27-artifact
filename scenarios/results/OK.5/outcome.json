@@ -1,0 +1,22 @@
+{
+  "id": "OK.5",
+  "workflow": "edam_fasta_to_sequence.cwl",
+  "runs": {
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.382,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.382,
+        0.404,
+        0.381
+      ],
+      "consistent": true
+    }
+  }
+}

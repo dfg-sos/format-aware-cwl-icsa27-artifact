@@ -1,0 +1,59 @@
+{
+    "size": {
+        "location": "file:///tmp/tmp3ef43atk/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$b3c37e994bbb88742ca80256e6798ab681b0295a",
+        "size": 65,
+        "path": "/tmp/tmp3ef43atk/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_docker.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_docker.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step relabel
+INFO [step relabel] start
+INFO [job relabel] /tmp/0ht3rxn_$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/0ht3rxn_,target=/IGvGNG \
+    --mount=type=bind,source=/tmp/7h_32fqv,target=/tmp \
+    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/roads.geojson,target=/var/lib/cwl/stg89efed7d-a08f-4f08-9006-1e1fbd64880e/roads.geojson,readonly \
+    --workdir=/IGvGNG \
+    --read-only=true \
+    --net=none \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/jk08y4j0/20261027191203-638653.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/IGvGNG \
+    alpine:3.20 \
+    cp \
+    /var/lib/cwl/stg89efed7d-a08f-4f08-9006-1e1fbd64880e/roads.geojson \
+    out.tif
+INFO [job relabel] completed success
+INFO [step relabel] completed success
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/jc_q76i6$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/jc_q76i6,target=/IGvGNG \
+    --mount=type=bind,source=/tmp/suhstcnj,target=/tmp \
+    --mount=type=bind,source=/tmp/0ht3rxn_/out.tif,target=/var/lib/cwl/stg301bcdf6-096d-4d92-a8f3-5db7abe9dd11/out.tif,readonly \
+    --workdir=/IGvGNG \
+    --read-only=true \
+    --net=none \
+    --log-driver=none \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/58cks7us/20261027191204-654514.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/IGvGNG \
+    alpine:3.20 \
+    wc \
+    -c \
+    /var/lib/cwl/stg301bcdf6-096d-4d92-a8f3-5db7abe9dd11/out.tif > /tmp/jc_q76i6/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

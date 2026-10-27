@@ -1,0 +1,28 @@
+{
+    "size": {
+        "location": "file:///tmp/tmp01aokylq/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$7635d79ef9b0521a590e9393570a72d95e8e86d7",
+        "size": 66,
+        "path": "/tmp/tmp01aokylq/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step relabel
+INFO [step relabel] start
+INFO [job relabel] /tmp/k75acqp1$ cp \
+    /tmp/gilu7k6u/stg81bc664f-515d-40b7-9120-108bff6cced4/roads.geojson \
+    out.tif
+INFO [job relabel] completed success
+INFO [step relabel] completed success
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/1_pnn2zk$ wc \
+    -c \
+    /tmp/4z7anlbu/stg2e7796ba-e376-401e-9cb8-31f5a268822a/out.tif > /tmp/1_pnn2zk/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

@@ -1,0 +1,14 @@
+# off
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation off scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geojson.yml
+
+# basic
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode basic scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geojson.yml
+
+# structural
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode structural scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geojson.yml
+
+# full
+cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode full scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geojson.yml
+
+# lint
+cwl-format-lint --format-service-url http://localhost:8010 scenarios/fixtures/workflows/consume_input.cwl

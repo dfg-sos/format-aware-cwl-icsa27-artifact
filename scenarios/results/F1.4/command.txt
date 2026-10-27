@@ -1,0 +1,2 @@
+# lint
+cwl-format-lint --format-service-url http://localhost:8010 scenarios/fixtures/workflows/edam_tiff_to_netcdf.cwl

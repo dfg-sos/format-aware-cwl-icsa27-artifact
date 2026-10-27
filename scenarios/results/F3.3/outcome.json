@@ -1,0 +1,105 @@
+{
+  "id": "F3.3",
+  "workflow": "relabel_then_consume_docker.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 3.401,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        3.401,
+        4.379,
+        4.125
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 4.316,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        4.316,
+        4.055,
+        4.207
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 4.367,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        4.367,
+        4.384,
+        4.279
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 3.393,
+      "failed_checks": [
+        {
+          "step": "relabel",
+          "port": "raster",
+          "direction": "post",
+          "file": "out.tif",
+          "result": "FAILURE",
+          "message": "Failed to open file '/tmp/sos_validate_axxg302k/out.tif' with RasterIO:\n'/tmp/sos_validate_axxg302k/out.tif' not recognized as being in a supported file format."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        3.393,
+        3.275,
+        3.254
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.674,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.674,
+        0.65,
+        0.659
+      ],
+      "consistent": true
+    }
+  }
+}
