@@ -83,7 +83,7 @@
   expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
   stops: as F3.1
 
-# F4: wrong CRS (F4.2, Sympolis, is run by hand: EXPERIMENTAL_SETUP.md)
+# F4: wrong CRS (F4.2, Sympolis, is run by hand: scenarios/README.md)
 - id: F4.1
   fault: "GeoTIFF in EPSG:4326, output declares `sos:expectedCRS: EPSG:3857`"
   workflow: copy_expect_crs.cwl

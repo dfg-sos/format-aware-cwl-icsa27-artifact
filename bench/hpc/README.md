@@ -2,7 +2,7 @@
 
 [`bench.sh`](bench.sh) runs RQ1–RQ3 on one exclusively allocated Slurm node. The format service
 runs in Apptainer next to cwltool, and both share node-local scratch, so `local` transfer works.
-What the runs measure: see [`EXPERIMENTAL_SETUP.md`](../../EXPERIMENTAL_SETUP.md). The script and the result
+What the runs measure: see [`bench/README.md`](../README.md). The script and the result
 directories use the repository's original numbering: `rq1-sympolis` is the paper's RQ2(a), `rq2-*-concrete` is
 RQ2(b), and `rq3-*-abstract` is RQ2(c); `RQS="1 2 3"` selects them in that order.
 
