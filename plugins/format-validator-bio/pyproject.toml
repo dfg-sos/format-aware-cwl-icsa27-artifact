@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["format_validator_bio"]
+package-dir = { format_validator_bio = "src" }
+
+[project]
+name = "format-validator-bio"
+version = "0.1.0"
+description = "FASTA and FASTQ validators for format-validator, loaded as a plugin."
+license = "MIT"
+requires-python = ">=3.13"
+dependencies = ["format-validator"]
+
+[project.entry-points."format_validator.validators"]
+bio = "format_validator_bio.validators"
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.uv.sources]
+# load_plugins() is available from v0.3.0 on
+format-validator = { git = "https://github.com/dfg-sos/file-format-validator.git", tag = "v0.3.0" }
