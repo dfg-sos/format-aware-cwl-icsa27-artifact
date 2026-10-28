@@ -37,7 +37,9 @@ BENCH_HOME="${BENCH_HOME:-$HOME/ffs-bench}"
 # format-validator 0.2.3 (GeoPackages validated by their declarations)
 FFS_IMAGE="${FFS_IMAGE:-docker://ghcr.io/dfg-sos/file-format-service:0.1.0}"
 SYMPOLIS_URL=https://github.com/dfg-sos/sympolis.git
-SYMPOLIS_COMMIT=12c26055990b190fbe7862beed58353d33934c05
+SYMPOLIS_TAG=v1.2.0
+# its tools pull ghcr.io/dfg-sos/sympolis:latest; pinned to the image of the release
+SYMPOLIS_IMAGE=ghcr.io/dfg-sos/sympolis:1.2.0
 # Sympolis' $schemas entry; the same file is used for the copy chains
 ONTOLOGY=https://dfg-sos.github.io/ontologies/releases/eo-formats/1.0.0/eo-formats.owl
 PORT="${PORT:-8000}"
@@ -74,7 +76,8 @@ if [ "${1:-}" = prepare ]; then
     command -v node >/dev/null || uvx nodeenv --prebuilt "$BENCH_HOME/node"
     rm -rf "$BENCH_HOME/sympolis"
     git clone -q "$SYMPOLIS_URL" "$BENCH_HOME/sympolis"
-    git -C "$BENCH_HOME/sympolis" checkout -q "$SYMPOLIS_COMMIT"
+    git -C "$BENCH_HOME/sympolis" checkout -q "$SYMPOLIS_TAG"
+    sed -i "s|dockerPull: ghcr.io/dfg-sos/sympolis:latest|dockerPull: $SYMPOLIS_IMAGE|" "$BENCH_HOME"/sympolis/cwl/*.cwl
     # One unvalidated run pulls the workflow's images into $CWL_SINGULARITY_CACHE
     tmp=$(mktemp -d)
     uv run --frozen cwl-format-aware-runner --format-validation off --singularity --outdir "$tmp" \
@@ -98,7 +101,7 @@ mkdir -p "$WORK/tmp" "$WORK/service-tmp" "$RESULTS"
     echo "repo: $(git rev-parse HEAD)$(git diff --quiet || echo ' (dirty)')"
     # the runner is a pinned dependency (pyproject.toml / uv.lock): record the exact revision installed
     echo "runner: $(uv run --frozen python -c 'from importlib.metadata import distribution as d; print(d("format-aware-cwl-runner").read_text("direct_url.json"))')"
-    echo "sympolis: $SYMPOLIS_COMMIT"; echo "service image: $FFS_IMAGE"
+    echo "sympolis: $SYMPOLIS_TAG ($(git -C "$BENCH_HOME/sympolis" rev-parse HEAD)), image $SYMPOLIS_IMAGE"; echo "service image: $FFS_IMAGE"
     echo "settings: RQS='$RQS' SIZES='$SIZES' RQ1_REPEAT=$RQ1_REPEAT RQ2_REPEAT=$RQ2_REPEAT WARMUP=$WARMUP RQ3_TRANSFERS=$RQ3_TRANSFERS"
     apptainer --version; node --version; uv --version
     apptainer inspect "$BENCH_HOME/ffs.sif" 2>/dev/null || true

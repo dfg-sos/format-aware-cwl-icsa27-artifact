@@ -19,9 +19,9 @@ bash bench/hpc/bench.sh prepare
 ```
 This sets up the uv environment (Python 3.13), pulls the service image 0.1.0
 (format-validator 0.2.3), and downloads the EO formats ontology. It installs Node.js if missing,
-clones Sympolis at the pinned commit, and runs Sympolis once without validation, which pulls its
-images into the Singularity cache. Everything lands in `~/ffs-bench` (`BENCH_HOME`). Rerun it after
-changing `FFS_IMAGE`.
+clones Sympolis at its release tag (with its own image pinned to that release), and runs Sympolis
+once without validation, which pulls its images into the Singularity cache. Everything lands in
+`~/ffs-bench` (`BENCH_HOME`). Rerun it after changing `FFS_IMAGE`.
 
 ## 2. Smoke test (~15 min)
 ```sh
