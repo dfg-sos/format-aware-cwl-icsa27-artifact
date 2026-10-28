@@ -120,8 +120,9 @@ stop_service() {
 start_service() {  # start_service <log file>: a fresh process, so no state carries over between sets
     stop_service
     rm -rf "$WORK/service-tmp" && mkdir -p "$WORK/service-tmp"
+    # only the EO mapping: the others need validator plug-ins that the plain service image lacks
     apptainer exec --cleanenv --containall --writable-tmpfs --pwd /app \
-        --bind "$REPO/mappings:/app/mappings:ro" --bind "$WORK" --bind "$WORK/service-tmp:/tmp" \
+        --bind "$REPO/mappings/eo-formats.json:/app/mappings/eo-formats.json:ro" --bind "$WORK" --bind "$WORK/service-tmp:/tmp" \
         --env "SOS_FFS_SHARED_DIRS=$WORK" \
         "$BENCH_HOME/ffs.sif" uvicorn main:app --app-dir src --host 127.0.0.1 --port "$PORT" \
         >"$1" 2>&1 &
