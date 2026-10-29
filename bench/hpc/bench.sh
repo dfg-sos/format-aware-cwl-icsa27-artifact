@@ -6,21 +6,24 @@
 #
 # RQ1  overhead on a real workflow: Sympolis (jobs/default.yml with RQ1_INPUT, RQ1_DEPTH), all modes,
 #      upload and local transfer, RQ1_REPEAT runs per variant, containers via --singularity, steps --parallel
-# RQ2  impact of file size: copy chains over GeoTIFF, Shapefile and GeoPackage of SIZES MB, concrete
+# RQ2  impact of file size: copy chains over FORMATS (GeoTIFF, GeoPackage, FASTQ) of SIZES MB, concrete
 #      formats, all modes, upload and local transfer, RQ2_REPEAT runs per variant
-# RQ3  abstract (eo:Raster / eo:Vector) instead of concrete formats on the RQ2 inputs, validated modes,
-#      RQ3_TRANSFERS, RQ2_REPEAT runs per variant (compare with the concrete runs of RQ2)
+# RQ3  abstract (eo:Raster / eo:Vector / EDAM sequence record format) instead of concrete formats on the RQ2
+#      inputs, validated modes, RQ3_TRANSFERS, RQ2_REPEAT runs per variant (compare with the concrete runs of RQ2)
 # Every run.py call (one set) gets a freshly started service, drops WARMUP repetitions and verifies its
 # runs (see bench/run.py). All workflows load the ontology from a local copy, so runs make no network calls.
 #
 # Settings (environment variables, all optional):
-#   RQS="1 2 3"  SIZES="1 10 100 1000"  RQ1_REPEAT=10  RQ2_REPEAT=10  WARMUP=1  RQ3_TRANSFERS=local
+#   RQS="1 2 3"  SIZES="1 10 100 1000"  FORMATS="geotiff geopackage fastq"  RQ1_REPEAT=10  RQ2_REPEAT=10
+#   WARMUP=1  RQ3_TRANSFERS=local
 #   RQ1_INPUT=Kahama.gpkg   GeoPackage in Sympolis' data/input/ (Kahama_Small.gpkg for a quick check)
 #   RQ1_DEPTH=2   partitionDepth: 4^depth tiles processed in parallel (default.yml has 1)
-#   BENCH_HOME=$HOME/ffs-bench   persistent: service image, Singularity cache, Node.js, Sympolis checkout, ontology
+#   BENCH_HOME=$HOME/ffs-bench   persistent: service image, Singularity cache, Node.js, Sympolis checkout, ontologies
 #   BENCH_WORK=$TMPDIR/ffs-bench-<job>   node-local scratch shared with the service: inputs and cwltool
 #                                        working dirs (needs ~4x the largest size per format, ~15 GB for 1000 MB)
-#   FFS_IMAGE=docker://ghcr.io/dfg-sos/file-format-service:0.1.0   PORT=8000
+#   FFS_IMAGE=docker-archive://$HOME/file-format-service-bio-0.2.0.tar   PORT=8000
+#     the service image with the validator plug-in (plugins/format-validator-bio), anything `apptainer build`
+#     accepts: docker-archive:// (`docker save` of the local build), docker:// (a registry)
 # Results: bench/results/hpc-<job id>/ (one directory and service-<set>.log per run.py call, all_runs.csv, env.txt).
 #
 #SBATCH --job-name=ffs-bench
@@ -34,17 +37,20 @@ set -euo pipefail
 
 REPO="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 BENCH_HOME="${BENCH_HOME:-$HOME/ffs-bench}"
-# format-validator 0.2.3 (GeoPackages validated by their declarations)
-FFS_IMAGE="${FFS_IMAGE:-docker://ghcr.io/dfg-sos/file-format-service:0.1.0}"
+# file-format-service 0.2.0 (format-validator 0.3.0) with the plug-in format-validator-bio (FASTA, FASTQ)
+FFS_IMAGE="${FFS_IMAGE:-docker-archive://$HOME/file-format-service-bio-0.2.0.tar}"
 SYMPOLIS_URL=https://github.com/dfg-sos/sympolis.git
 SYMPOLIS_TAG=v1.2.0
 # its tools pull ghcr.io/dfg-sos/sympolis:latest; pinned to the image of the release
 SYMPOLIS_IMAGE=ghcr.io/dfg-sos/sympolis:1.2.0
 # Sympolis' $schemas entry; the same file is used for the copy chains
 ONTOLOGY=https://dfg-sos.github.io/ontologies/releases/eo-formats/1.0.0/eo-formats.owl
+# EDAM in the version of mappings/edam-formats.json, for the FASTQ copy chains
+EDAM_ONTOLOGY=http://edamontology.org/EDAM_1.25.owl
 PORT="${PORT:-8000}"
 RQS="${RQS:-1 2 3}"
 SIZES="${SIZES:-1 10 100 1000}"
+FORMATS="${FORMATS:-geotiff geopackage fastq}"
 RQ1_REPEAT="${RQ1_REPEAT:-10}"
 RQ1_INPUT="${RQ1_INPUT:-Kahama.gpkg}"
 RQ1_DEPTH="${RQ1_DEPTH:-2}"
@@ -70,8 +76,9 @@ cd "$REPO"
 if [ "${1:-}" = prepare ]; then
     command -v uv >/dev/null || { echo "uv is missing: https://docs.astral.sh/uv/getting-started/installation/"; exit 1; }
     uv sync --frozen
-    apptainer pull --force "$BENCH_HOME/ffs.sif" "$FFS_IMAGE"
+    apptainer build --force "$BENCH_HOME/ffs.sif" "$FFS_IMAGE"
     curl -sSf -o "$BENCH_HOME/eo-formats.owl" "$ONTOLOGY"
+    curl -sSfL -o "$BENCH_HOME/EDAM.owl" "$EDAM_ONTOLOGY"
     # cwltool evaluates the workflows' JavaScript with Node.js
     command -v node >/dev/null || uvx nodeenv --prebuilt "$BENCH_HOME/node"
     rm -rf "$BENCH_HOME/sympolis"
@@ -87,7 +94,7 @@ if [ "${1:-}" = prepare ]; then
     exit 0
 fi
 
-[ -f "$BENCH_HOME/ffs.sif" ] && [ -f "$BENCH_HOME/eo-formats.owl" ] && [ -d "$BENCH_HOME/sympolis" ] || { echo "run 'bash bench/hpc/bench.sh prepare' first"; exit 1; }
+[ -f "$BENCH_HOME/ffs.sif" ] && [ -f "$BENCH_HOME/eo-formats.owl" ] && [ -f "$BENCH_HOME/EDAM.owl" ] && [ -d "$BENCH_HOME/sympolis" ] || { echo "run 'bash bench/hpc/bench.sh prepare' first"; exit 1; }
 command -v node >/dev/null || { echo "Node.js is missing, run prepare"; exit 1; }
 JOB="${SLURM_JOB_ID:-$$}"
 WORK="${BENCH_WORK:-${TMPDIR:-/tmp}/ffs-bench-$JOB}"
@@ -102,11 +109,11 @@ mkdir -p "$WORK/tmp" "$WORK/service-tmp" "$RESULTS"
     # the runner is a pinned dependency (pyproject.toml / uv.lock): record the exact revision installed
     echo "runner: $(uv run --frozen python -c 'from importlib.metadata import distribution as d; print(d("format-aware-cwl-runner").read_text("direct_url.json"))')"
     echo "sympolis: $SYMPOLIS_TAG ($(git -C "$BENCH_HOME/sympolis" rev-parse HEAD)), image $SYMPOLIS_IMAGE"; echo "service image: $FFS_IMAGE"
-    echo "settings: RQS='$RQS' SIZES='$SIZES' RQ1_REPEAT=$RQ1_REPEAT RQ2_REPEAT=$RQ2_REPEAT WARMUP=$WARMUP RQ3_TRANSFERS=$RQ3_TRANSFERS"
+    echo "settings: RQS='$RQS' SIZES='$SIZES' FORMATS='$FORMATS' RQ1_REPEAT=$RQ1_REPEAT RQ2_REPEAT=$RQ2_REPEAT WARMUP=$WARMUP RQ3_TRANSFERS=$RQ3_TRANSFERS"
     apptainer --version; node --version; uv --version
     apptainer inspect "$BENCH_HOME/ffs.sif" 2>/dev/null || true
     # identify the exact images and ontology used
-    sha256sum "$BENCH_HOME/ffs.sif" "$BENCH_HOME/eo-formats.owl" "$CWL_SINGULARITY_CACHE"/* || true
+    sha256sum "$BENCH_HOME/ffs.sif" "$BENCH_HOME/eo-formats.owl" "$BENCH_HOME/EDAM.owl" "$CWL_SINGULARITY_CACHE"/* || true
     lscpu; free -g; df -h "$WORK"
 } >"$RESULTS/env.txt" 2>&1
 # --- service -------------------------------------------------------------------------------------
@@ -120,9 +127,9 @@ stop_service() {
 start_service() {  # start_service <log file>: a fresh process, so no state carries over between sets
     stop_service
     rm -rf "$WORK/service-tmp" && mkdir -p "$WORK/service-tmp"
-    # only the EO mapping: the others need validator plug-ins that the plain service image lacks
+    # all mappings (EO formats, EDAM): the image has the validator plug-in for EDAM
     apptainer exec --cleanenv --containall --writable-tmpfs --pwd /app \
-        --bind "$REPO/mappings/eo-formats.json:/app/mappings/eo-formats.json:ro" --bind "$WORK" --bind "$WORK/service-tmp:/tmp" \
+        --bind "$REPO/mappings:/app/mappings:ro" --bind "$WORK" --bind "$WORK/service-tmp:/tmp" \
         --env "SOS_FFS_SHARED_DIRS=$WORK" \
         "$BENCH_HOME/ffs.sif" uvicorn main:app --app-dir src --host 127.0.0.1 --port "$PORT" \
         >"$1" 2>&1 &
@@ -142,8 +149,8 @@ cp -r "$BENCH_HOME/sympolis" "$WORK/sympolis"
 [ -f "$WORK/sympolis/data/input/$RQ1_INPUT" ] || { echo "RQ1_INPUT not found: data/input/$RQ1_INPUT"; exit 1; }
 sed -e "s|/Kahama_Small\.gpkg|/$RQ1_INPUT|" -e "s|^partitionDepth: .*|partitionDepth: $RQ1_DEPTH|" "$WORK/sympolis/jobs/default.yml" >"$WORK/sympolis/jobs/bench.yml"
 # shellcheck disable=SC2086
-uv run --frozen bench/make_inputs.py --out "$WORK/inputs" --schema "file://$BENCH_HOME/eo-formats.owl" $SIZES \
-    >"$RESULTS/inputs.txt"
+uv run --frozen bench/make_inputs.py --out "$WORK/inputs" --formats "${FORMATS// /,}" \
+    --schema "file://$BENCH_HOME/eo-formats.owl" --edam-schema "file://$BENCH_HOME/EDAM.owl" $SIZES >"$RESULTS/inputs.txt"
 
 FAILED=()
 bench() {  # bench <name> <run.py args...>; a failed verification is recorded, the rest still runs
@@ -165,7 +172,7 @@ for rq in $RQS; do
         else
             label=abstract args=(--modes basic,structural,full --transfers "$RQ3_TRANSFERS")
         fi
-        for fmt in geotiff shapefile geopackage; do
+        for fmt in $FORMATS; do
             for mb in $SIZES; do
                 bench "rq$rq-$fmt-${mb}MB-$label" "$WORK/inputs/${fmt}_${label}_chain.cwl" \
                     "$WORK/inputs/${fmt}_${mb}MB_$label.yml" --repeat "$RQ2_REPEAT" "${args[@]}"

@@ -18,7 +18,9 @@ RESULTS = Path(__file__).parent / "results"
 # variant ids as in run.py: off, basic, structural-upload, structural-local, full-upload, full-local
 VARIANTS = ["off", "basic", "structural-local", "structural-upload", "full-local", "full-upload"]
 
-CHAIN = re.compile(r"rq[23]-(?P<format>geotiff|shapefile|geopackage)-(?P<size>\d+)MB-(?P<labels>concrete|abstract)")
+CHAIN = re.compile(
+    r"rq[23]-(?P<format>geotiff|shapefile|geopackage|fastq)-(?P<size>\d+)MB-(?P<labels>concrete|abstract)"
+)
 
 
 @dataclass

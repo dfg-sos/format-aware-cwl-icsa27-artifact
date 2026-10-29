@@ -13,12 +13,20 @@ RQ2(b), and `rq3-*-abstract` is RQ2(c); `RQS="1 2 3"` selects them in that order
 - node-local scratch (`$TMPDIR`, or set `BENCH_WORK`) with ~15 GB free for the 1000 MB inputs
 
 ## 1. Prepare (once, on a node with internet: login node or `salloc`)
+The service runs as the image with the validator plug-in (FASTA, FASTQ), built from
+[`plugins/format-validator-bio`](../../plugins/format-validator-bio/Dockerfile) on a machine with Docker and copied over:
+```sh
+docker build -t file-format-service-bio:0.2.0 plugins/format-validator-bio
+docker save file-format-service-bio:0.2.0 -o file-format-service-bio-0.2.0.tar   # copy it to $HOME on the cluster
+```
+Then, on the cluster:
 ```sh
 cd format-aware-cwl-icsa27-artifact   # the repository root; all commands run from here
 bash bench/hpc/bench.sh prepare
 ```
-This sets up the uv environment (Python 3.13), pulls the service image 0.1.0
-(format-validator 0.2.3), and downloads the EO formats ontology. It installs Node.js if missing,
+This sets up the uv environment (Python 3.13), builds the service image (`FFS_IMAGE`, by default
+`~/file-format-service-bio-0.2.0.tar`: file-format-service 0.2.0 with format-validator 0.3.0 and the plug-in) as
+`ffs.sif`, and downloads the EO formats ontology and EDAM 1.25. It installs Node.js if missing,
 clones Sympolis at its release tag (with its own image pinned to that release), and runs Sympolis
 once without validation, which pulls its images into the Singularity cache. Everything lands in
 `~/ffs-bench` (`BENCH_HOME`). Rerun it after changing `FFS_IMAGE`.
@@ -36,7 +44,12 @@ sbatch -p <partition> bench/hpc/bench.sh
 ```
 Commit before submitting: `env.txt` records the repository commit, and a dirty tree is marked as such.
 
-The paper's RQ2(a) ran as a separate job (about 2.5 h) with service 0.2.0; prepare and submit in the same shell:
+The paper's runs were split into separate jobs on identical nodes. RQ2(b) and (c), one job per size, in parallel:
+```sh
+for mb in 1 10 100 1000; do RQS="2 3" SIZES=$mb sbatch -p <partition> bench/hpc/bench.sh; done
+```
+RQ2(a) (about 2.5 h) ran with the plain service image 0.2.0, without the plug-in (Sympolis uses EO formats only);
+prepare and submit in the same shell:
 ```sh
 export BENCH_HOME=$HOME/ffs-bench-0.2.0 FFS_IMAGE=docker://ghcr.io/dfg-sos/file-format-service:0.2.0
 bash bench/hpc/bench.sh prepare
@@ -47,12 +60,13 @@ RQS=1 sbatch -p <partition> bench/hpc/bench.sh
 |---|---|---|
 | `RQS` | `1 2 3` | which RQs to run |
 | `SIZES` | `1 10 100 1000` | input sizes in MB (RQ2/RQ3) |
+| `FORMATS` | `geotiff geopackage fastq` | copy-chain formats (RQ2/RQ3); `shapefile` is also available |
 | `RQ1_REPEAT` / `RQ2_REPEAT` | `10` / `10` | measured runs per variant (RQ2_REPEAT also applies to RQ3) |
 | `WARMUP` | `1` | unrecorded repetitions per set |
 | `RQ3_TRANSFERS` | `local` | transfers for the abstract-format runs |
 | `BENCH_HOME` | `~/ffs-bench` | images, ontology, Node.js, Sympolis |
 | `BENCH_WORK` | `$TMPDIR/ffs-bench-<job>` | scratch shared with the service; deleted afterwards unless set explicitly |
-| `FFS_IMAGE` | `file-format-service:0.1.0` | service image |
+| `FFS_IMAGE` | `docker-archive://$HOME/file-format-service-bio-0.2.0.tar` | service image, anything `apptainer build` accepts |
 | `PORT` | `8000` | service port on 127.0.0.1 |
 
 Set them in front of `sbatch`; Slurm passes the environment on.
