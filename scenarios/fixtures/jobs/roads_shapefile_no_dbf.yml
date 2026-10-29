@@ -1,0 +1,1 @@
+roads: {class: File, location: ../data/roads_no_dbf.shp, format: "https://dfg-sos.github.io/ontologies/eo-formats#Shapefile"}

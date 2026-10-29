@@ -106,6 +106,33 @@
   expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
   at: input check
   stops: as F2.1
+- id: F2.3
+  domain: EO
+  label: Missing input file
+  fault: "the job names `missing.tif`, which does not exist"
+  workflow: consume_input.cwl
+  job: raster_missing.yml
+  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 0}
+  at: cwltool at start
+  stops: "cwltool, when it loads the job; no step runs"
+- id: F2.3
+  domain: Bio
+  label: Missing input file
+  fault: "the job names `missing.fasta`, which does not exist"
+  workflow: consume_fasta_input.cwl
+  job: fasta_missing.yml
+  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 0}
+  at: cwltool at start
+  stops: "cwltool, when it loads the job; no step runs"
+- id: F2.4
+  domain: EO
+  label: Missing secondary file
+  fault: "a Shapefile without its `.dbf`, which the workflow input requires as a secondary file"
+  workflow: wire_shapefile_to_vector.cwl
+  job: roads_shapefile_no_dbf.yml
+  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 0}
+  at: cwltool at start
+  stops: "cwltool, when it loads the job; no step runs"
 
 # F3: a tool stamps the wrong label on its output
 - id: F3.1
@@ -208,9 +235,9 @@
 - id: F5.1
   domain: Bio
   label: Truncated file
-  fault: "FASTA whose last record has no sequence (validator plug-in)"
-  workflow: consume_fasta_input.cwl
-  job: fasta_truncated.yml
+  fault: "FASTQ cut off inside its second record (validator plug-in)"
+  workflow: consume_fastq_input.cwl
+  job: fastq_truncated.yml
   expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
   at: input check
   stops: as F2.1

@@ -1,0 +1,1 @@
+raster: {class: File, location: ../data/missing.tif, format: "https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF"}

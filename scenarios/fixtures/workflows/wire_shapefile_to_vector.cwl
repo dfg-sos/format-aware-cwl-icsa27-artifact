@@ -1,4 +1,4 @@
-# OK.2: Shapefile workflow input into a Vector step input (linter: compatible).
+# OK.2, F2.4 (no .dbf: cwltool stops before any step): Shapefile workflow input into a Vector step input (linter: compatible).
 cwlVersion: v1.2
 $namespaces: {eo: "https://dfg-sos.github.io/ontologies/eo-formats#", sos: "https://dfg-sos.github.io/ontologies/cwl#"}
 $schemas: [https://dfg-sos.github.io/ontologies/eo-formats.owl]
