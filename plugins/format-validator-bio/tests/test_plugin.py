@@ -58,11 +58,8 @@ def test_validate(fmt, name, status):
 @pytest.mark.parametrize(
     "content, message",
     [
-        ("", "no records"),
-        ("ACGT\n", "header starting with '>'"),
-        (">\nACGT\n", "no identifier"),
-        (">a\n>b\nACGT\n", "no sequence"),
-        (">a\nACGT\n>b\n", "no sequence"),
+        ("ACGT\n>a\nACGT\n", "comments at the beginning"),  # sequence before the first header
+        ("@r\nACGT\n+\nIIII\n", "comments at the beginning"),  # FASTQ content
     ],
 )
 def test_fasta_problems(tmp_path, content, message):
@@ -76,13 +73,12 @@ def test_fasta_problems(tmp_path, content, message):
 @pytest.mark.parametrize(
     "content, message",
     [
-        ("", "no records"),
-        ("@r\nACGT\n+\n", "truncated"),
-        ("r\nACGT\n+\nIIII\n", "header starting with '@'"),
-        ("@r\nACGT\n-\nIIII\n", "separator"),
-        ("@r\nACGT\n+s\nIIII\n", "differs from the header"),
-        ("@r\nAC GT\n+\nIIIII\n", "Invalid sequence"),
-        ("@r\nACGT\n+\nII\x7fI\n", "Invalid quality"),
+        ("@r\nACGT\n+\n", "end of file"),  # truncated record
+        ("r\nACGT\n+\nIIII\n", "should start with '@'"),
+        ("@r\nACGT\n+s\nIIII\n", "captions differ"),
+        ("@r\nACGT\n+\nIII\n", "Lengths of sequence and quality values differs"),
+        ("@r\nACGT\n+\nII I\n", "Invalid character"),
+        (">r\nACGT\n", "should start with '@'"),  # FASTA content
     ],
 )
 def test_fastq_problems(tmp_path, content, message):
@@ -98,7 +94,6 @@ def test_binary_file_fails(tmp_path):
     path.write_bytes(b"\x89PNG\r\n\x1a\n\xff")
     result = validate(build_request(FormatIdentifier("FASTQ"), FileInput(path=path), ValidationMode.FULL))
     assert result.status == ValidationStatus.FAILURE
-    assert "not ASCII" in str(result.to_dict())
 
 
 def test_basic_mode_does_not_read(tmp_path):

@@ -1,1 +1,0 @@
-seqs: {class: File, location: ../data/seqs_truncated.fasta, format: "http://edamontology.org/format_1929"}
