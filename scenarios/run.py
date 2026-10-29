@@ -102,6 +102,10 @@ def main() -> int:
     service = ["--format-service-url", a.format_service_url]
     runner, lint = str(BIN / "cwl-format-aware-runner"), str(BIN / "cwl-format-lint")
     has_docker = docker_available()
+    # the state of the repository before the run; the results directory is the run's own output
+    commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    exclude = f":(exclude){a.out.resolve().relative_to(ROOT)}" if a.out.resolve().is_relative_to(ROOT) else "."
+    dirty = subprocess.run(["git", "diff", "--quiet", "HEAD", "--", ".", exclude], cwd=ROOT).returncode != 0
     a.out.mkdir(parents=True, exist_ok=True)
 
     plans = []  # (scenario, steps, [(run name, argv without outdir/log, expected exit, uses runner)])
@@ -180,8 +184,6 @@ def main() -> int:
 
     if summary:
         write_csv(a.out / "summary.csv", summary)
-    commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-    dirty = subprocess.run(["git", "diff", "--quiet"], cwd=ROOT).returncode != 0
     versions = subprocess.run([runner, "--version"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     (a.out / "env.txt").write_text(
         f"date: {time.strftime('%Y-%m-%dT%H:%M:%S%z')}\nhost: {platform.node()}\n"
