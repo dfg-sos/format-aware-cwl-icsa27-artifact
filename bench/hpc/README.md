@@ -36,11 +36,18 @@ sbatch -p <partition> bench/hpc/bench.sh
 ```
 Commit before submitting: `env.txt` records the repository commit, and a dirty tree is marked as such.
 
+The paper's RQ2(a) ran as a separate job (about 2.5 h) with service 0.2.0; prepare and submit in the same shell:
+```sh
+export BENCH_HOME=$HOME/ffs-bench-0.2.0 FFS_IMAGE=docker://ghcr.io/dfg-sos/file-format-service:0.2.0
+bash bench/hpc/bench.sh prepare
+RQS=1 sbatch -p <partition> bench/hpc/bench.sh
+```
+
 | Setting | Default | |
 |---|---|---|
 | `RQS` | `1 2 3` | which RQs to run |
 | `SIZES` | `1 10 100 1000` | input sizes in MB (RQ2/RQ3) |
-| `RQ1_REPEAT` / `RQ2_REPEAT` | `3` / `10` | measured runs per variant (RQ2_REPEAT also applies to RQ3) |
+| `RQ1_REPEAT` / `RQ2_REPEAT` | `10` / `10` | measured runs per variant (RQ2_REPEAT also applies to RQ3) |
 | `WARMUP` | `1` | unrecorded repetitions per set |
 | `RQ3_TRANSFERS` | `local` | transfers for the abstract-format runs |
 | `BENCH_HOME` | `~/ffs-bench` | images, ontology, Node.js, Sympolis |

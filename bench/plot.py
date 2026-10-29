@@ -6,7 +6,7 @@
 - `validation_latency_sympolis.pdf` (RQ2(a)): Sympolis on Kahama.gpkg. Cumulative validation latency of a run (client
   round trip of all its checks, summed) per variant, next to the cumulative task time of the `off` runs (the tools'
   commands, summed over all steps) for comparison.
-  Bar = mean, whisker = standard deviation of the 3 runs. The wall-time increase is a table: sympolis_overhead.py.
+  Bar = mean, whisker = standard deviation of the 10 runs. The wall-time increase is a table: sympolis_overhead.py.
 
     uv run --group plots python bench/plot.py
 """

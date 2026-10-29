@@ -20,7 +20,7 @@ RQ2(b), and `rq3-*-abstract` is RQ2(c).
 
 | | Measured runs per variant | Variants | Results |
 |---|---|---|---|
-| RQ2(a) | 3 | all six | `results/hpc-14595369/` |
+| RQ2(a) | 10 | all six | `results/hpc-14606014/` |
 | RQ2(b) | 10 | all six | `results/hpc-14595040` … `43/rq2-*` (1, 10, 100, 1000 MB) |
 | RQ2(c) | 10 | `basic`, `structural-local`, `full-local`; compared with the RQ2(b) runs of the same size, on the same node | `results/hpc-14595040` … `43/rq3-*` |
 | RQ3 | as RQ2 | `upload` vs. `local` of RQ2(a) and RQ2(b) | as RQ2 |
@@ -43,16 +43,17 @@ uv run python bench/run.py bench/inputs/geotiff_concrete_chain.cwl bench/inputs/
 
 ### RQ2(a): Sympolis
 
-Sympolis is a CWL workflow for spatial clustering of building footprints, at commit
-[`12c2605`](https://github.com/dfg-sos/sympolis/commit/12c26055990b190fbe7862beed58353d33934c05):
+Sympolis is a CWL workflow for spatial clustering of building footprints, at release
+[`v1.2.0`](https://github.com/dfg-sos/sympolis/releases/tag/v1.2.0) (commit `3fec858`):
 - **Steps:** 7 top-level steps (split, filter, clustering, visualization, post-filter, two merges) in
-  `ghcr.io/descartesresearch/fishnet-apps:2.0.1` and `ghcr.io/dfg-sos/sympolis:latest` containers,
+  `ghcr.io/descartesresearch/fishnet-apps:2.0.1` and `ghcr.io/dfg-sos/sympolis:1.2.0` containers,
   run with Apptainer (`--singularity`). Steps run concurrently with `--parallel`.
 - **Input:** `Kahama.gpkg` (68 MB, 232,521 building MultiPolygons, EPSG:4326).
 - **Job:** `jobs/default.yml` with `partitionDepth: 2` (16 tiles processed in parallel), Delaunay graph
   construction (200 m), DBSCAN clustering (200 m, min. 3), `minArea` 1000 m².
-- **Change to the workflow:** the only change is that the ontology (`$schemas`) is loaded from a local copy.
-- **Repetitions:** 3 measured runs per variant (6 variants, 18 runs plus warmup). This is fewer than the 10 used for the copy chains; report the spread, not only the median.
+- **Changes to the workflow:** the ontology (`$schemas`) is loaded from a local copy, and the Sympolis tools pull
+  the release image `sympolis:1.2.0` instead of `sympolis:latest`.
+- **Repetitions:** 10 measured runs per variant (6 variants, 60 runs plus warmup).
 
 ### RQ2(b), RQ2(c) and RQ3: copy chains
 
@@ -93,7 +94,7 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
   - received no `ERROR` result, and
   - used the requested transfer.
 
-  All measured runs passed verification (1080 for RQ2(b)/(c), 18 for RQ2(a)), and none had an `UNCERTAIN`,
+  All measured runs passed verification (1080 for RQ2(b)/(c), 60 for RQ2(a)), and none had an `UNCERTAIN`,
   `FAILURE` or `ERROR` result. A validated Sympolis run makes 899 checks (633 on inputs, 266 on outputs),
   because steps scattered over the 16 tiles check each tile. Every run also skips 264 Files whose port declares
   no format (`skips`): Sympolis' internal graph files (`.bin`, 206) and workload lists (`.json`, 58), for which
@@ -110,7 +111,7 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
 - **Cluster:** LRZ HPDA2, partition `hpda2_compute`. Each Slurm job ran exclusively (`--exclusive`) on
   one node. The service and cwltool ran on the same node, with the service on `127.0.0.1`.
 - **Jobs:**
-  - RQ2(a): one job (node `hpdar09c05s03`).
+  - RQ2(a): one job (node `hpdar03c03s04`, same hardware).
   - RQ2(b) and RQ2(c): one job per size, in parallel on four identical nodes (1 MB `hpdar10c04s11`,
     10 MB `hpdar09c05s01`, 100 MB `hpdar09c05s02`, 1000 MB `hpdar09c05s03`).
 - **Node:** 2× Intel Xeon Platinum 8380 (2 × 40 cores, 160 threads, max. 2.3 GHz, 4 NUMA nodes), 1 TB RAM,
@@ -121,15 +122,17 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
 | Software | Version |
 |---|---|
 | Python / httpx | 3.13.14 / 0.28.1 |
-| Node.js (cwltool's JavaScript engine) | 26.12.1 |
+| Node.js (cwltool's JavaScript engine, RQ2(a) only) | 26.13.0 |
 | Apptainer | 1.2.5 |
-| file-format-service | `ghcr.io/dfg-sos/file-format-service:0.1.0` (revision `6e2070f`, format-validator 0.2.3), run with Apptainer, uvicorn |
+| file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0), as in RQ1 without the plug-in, run with Apptainer, uvicorn |
+| file-format-service, RQ2(b)/(c) | `ghcr.io/dfg-sos/file-format-service:0.1.0` (revision `6e2070f`, format-validator 0.2.3), run with Apptainer, uvicorn |
 | EO formats ontology | eo-formats 1.0.0, local copy (sha256 `7e867b2d…03ed`) |
-| Container images (sha256 of the `.sif`) | fishnet-apps 2.0.1 `88ec6e10…3598`; sympolis:latest `0d8aeaab…10ae` |
+| Container images (sha256 of the `.sif`) | fishnet-apps 2.0.1 `88ec6e10…3598`; sympolis 1.2.0 `6167ccbe…67d9` |
 
 `env.txt` in each results directory records the full hardware listing, the versions and the checksums.
-Its service image, `@sha256:8997661d…c291`, is an earlier build of the same revision `6e2070f`, made before the
-`0.1.0` tag.
+In the RQ2(b)/(c) jobs, the service image `@sha256:8997661d…c291` is an earlier build of the same revision `6e2070f`,
+made before the `0.1.0` tag. RQ2(a) mounts only the EO mapping (`mappings/eo-formats.json`): the EDAM mapping needs the
+validator plug-in, which the plain 0.2.0 image lacks.
 
 ## Notes
 
@@ -138,7 +141,6 @@ Its service image, `@sha256:8997661d…c291`, is an earlier build of the same re
   staging and copying the files.
 - **Upload over loopback:** `upload` runs send the files over loopback on the same node. Over a network,
   upload costs depend on the bandwidth, while `local` costs do not. RQ3 therefore compares the two access paths on one host only.
-- **Mutable image tag:** `sympolis:latest` is a mutable tag. The image used is identified by the checksum above.
 - **Geometry types in Sympolis:** its ports declare `sos:expectedGeometryType: Polygon`, while Kahama holds
   MultiPolygons. The checks pass because the validator treats single- and multi-part types as compatible.
 - **Policy differs from RQ1:** these runs use `warn` so that every run completes; the fault-injection runs use the

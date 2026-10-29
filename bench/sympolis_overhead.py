@@ -1,9 +1,9 @@
 """Table for RQ2(a): increase of the time to result of Sympolis on Kahama.gpkg per validation variant.
 
-Per variant: time to result, i.e. the wall time of the runner process (mean and standard deviation of the 3 runs),
+Per variant: time to result, i.e. the wall time of the runner process (mean and standard deviation of the measured runs),
 its increase over the mean `off` run, absolute and relative, and the cumulative validation latency (client round trip
 of all checks of a run, summed). The standard deviation of the increase combines the spread of the variant's and of
-the `off` runs (sqrt(sd_variant^2 + sd_off^2)), since both means are estimated from 3 runs.
+the `off` runs (sqrt(sd_variant^2 + sd_off^2)), since both means are estimated from the measured runs.
 
 Writes `stats/sympolis_overhead.csv`, `stats/sympolis_overhead.tex` (booktabs) and prints a Markdown table.
 
@@ -100,7 +100,7 @@ def main() -> None:
         w.writeheader()
         w.writerows(rows)
     (args.out / "sympolis_overhead.tex").write_text(latex(rows))
-    print(f"Sympolis on Kahama.gpkg, mean ± standard deviation of 3 runs ({args.out}):\n")
+    print(f"Sympolis on Kahama.gpkg, mean ± standard deviation of {rows[0]['runs']} runs ({args.out}):\n")
     print(markdown(rows))
 
 

@@ -14,7 +14,7 @@
 # runs (see bench/run.py). All workflows load the ontology from a local copy, so runs make no network calls.
 #
 # Settings (environment variables, all optional):
-#   RQS="1 2 3"  SIZES="1 10 100 1000"  RQ1_REPEAT=3  RQ2_REPEAT=10  WARMUP=1  RQ3_TRANSFERS=local
+#   RQS="1 2 3"  SIZES="1 10 100 1000"  RQ1_REPEAT=10  RQ2_REPEAT=10  WARMUP=1  RQ3_TRANSFERS=local
 #   RQ1_INPUT=Kahama.gpkg   GeoPackage in Sympolis' data/input/ (Kahama_Small.gpkg for a quick check)
 #   RQ1_DEPTH=2   partitionDepth: 4^depth tiles processed in parallel (default.yml has 1)
 #   BENCH_HOME=$HOME/ffs-bench   persistent: service image, Singularity cache, Node.js, Sympolis checkout, ontology
@@ -45,7 +45,7 @@ ONTOLOGY=https://dfg-sos.github.io/ontologies/releases/eo-formats/1.0.0/eo-forma
 PORT="${PORT:-8000}"
 RQS="${RQS:-1 2 3}"
 SIZES="${SIZES:-1 10 100 1000}"
-RQ1_REPEAT="${RQ1_REPEAT:-3}"
+RQ1_REPEAT="${RQ1_REPEAT:-10}"
 RQ1_INPUT="${RQ1_INPUT:-Kahama.gpkg}"
 RQ1_DEPTH="${RQ1_DEPTH:-2}"
 RQ2_REPEAT="${RQ2_REPEAT:-10}"
