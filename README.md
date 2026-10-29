@@ -12,16 +12,18 @@ The questions are numbered as in the paper (Section "Evaluation").
 
 | | Question | Workload | Measured runs per variant | Paper section | Setup and results |
 |---|---|---|---|---|---|
-| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 25 fault-injection scenarios (linter and runner), 4 of them in bioinformatics (EDAM) via a validator plug-in | 3 (deterministic; repeated to confirm) | Effectiveness | [`scenarios/`](scenarios/README.md) |
+| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 29 fault-injection scenarios (linter and runner): 18 with EO formats, 11 of them repeated in bioinformatics (EDAM, runtime checks via a validator plug-in) | 3 (deterministic; repeated to confirm) | Effectiveness | [`scenarios/`](scenarios/README.md) |
 | RQ2 | Overhead: what do the validation modes add, as a function of file size, format label and relative to task runtime? | (a) Sympolis on Kahama.gpkg; (b) three-step copy chain, concrete formats; (c) the (b) chains with abstract formats | 10 | Overhead by mode and file size; Overhead on an EO workflow | [`bench/`](bench/README.md) |
 | RQ3 | Access path: how does validating an uploaded file compare with validating a local file on the same host? | no separate runs: the `upload` and `local` variants of `structural` and `full` in RQ2(a) and RQ2(b) | as RQ2 | Overhead by mode and file size | [`bench/`](bench/README.md) |
 
 ```
 scenarios/            RQ1, fault injection
   run.py              runs the scenarios, verifies their exit codes, writes the results
+  tables.py           the RQ1 tables from the results: results/matrix.md, stats/scenarios.tex (paper)
   scenarios.yml       the scenarios: fixtures, injected fault, expected exit code per variant
   fixtures/           their workflows, tools, jobs and data
-  results/            per scenario: commands, console logs, outcomes; matrix.md is the RQ1 table
+  results/            per scenario: commands, console logs, outcomes
+  stats/              the paper table
 bench/                RQ2 and RQ3, overhead
   run.py              one overhead set: runs every variant, writes runs.csv and timing.jsonl, verifies the runs
   make_inputs.py      synthetic GeoTIFF / Shapefile / GeoPackage inputs and copy-chain workflows

@@ -1,6 +1,6 @@
 """Run the fault-injection scenarios (RQ1) and keep their console output for the artifact.
 
-    uv run python scenarios/run.py [--repeat 3] [--only F3.2,F4.1]
+    uv run python scenarios/run.py [--repeat 3] [--only EO-F3.2,Bio-F1.1]
 
 Needs a running format service (`--format-service-url`, default $SOS_FFS_URL or localhost:8000) built from
 plugins/format-validator-bio, with mappings/ mounted (README.md). The scenarios, their fixtures and expected
@@ -11,13 +11,12 @@ the default `fail` policy, extra flag variants, and `lint` (`cwl-format-lint`). 
 `--repeat` times; the outcome (exit code, non-SUCCESS checks, steps that ran) must be the same in every
 repetition and match the expected exit code.
 Writes to `<--out>/`:
-  <ID>/command.txt    the commands, relative to the repository root
-  <ID>/<run>.log      console output (stdout and stderr) of the first repetition
-  <ID>/outcome.json   per run: expected and observed exit codes, wall seconds, failed checks, steps not run
-  matrix.csv, .md     one row per scenario: exit code per variant and where it stops (the RQ1 table)
-  summary.csv         one row per scenario and run
-  env.txt             date, host, repository commit, service URL and image, versions
-Violations are printed and make the exit code 1.
+  <domain>-<id>/command.txt    the commands, relative to the repository root
+  <domain>-<id>/<run>.log      console output (stdout and stderr) of the first repetition
+  <domain>-<id>/outcome.json   per run: expected and observed exit codes, wall seconds, failed checks, steps not run
+  summary.csv                  one row per scenario and run
+  env.txt                      date, host, repository commit, service URL and image, versions
+Violations are printed and make the exit code 1. scenarios/tables.py turns the results into the tables.
 """
 
 from __future__ import annotations
@@ -44,7 +43,6 @@ ANSI = re.compile(r"\x1b\[[0-9;]*m")
 MODES = ("basic", "structural", "full")
 
 MANIFEST = Path("scenarios/scenarios.yml")
-COLUMNS = ("off", "lint", *MODES)  # variants with a column of their own in the matrix
 
 
 def steps_of(workflow: Path) -> list[str]:
@@ -85,35 +83,6 @@ def docker_available() -> bool:
         return False
 
 
-def shown_exit(o: dict) -> str:
-    return str(o["exit"]) if o["exit"] == o["expected_exit"] else f"{o['exit']} (expected {o['expected_exit']})"
-
-
-def matrix_row(sc: dict, outcomes: dict) -> dict:
-    """One scenario: observed exit code per variant, '' where the variant is not run."""
-    return {
-        "id": sc["id"],
-        "fault": sc["fault"],
-        **{v: shown_exit(outcomes[v]) if v in outcomes else "" for v in COLUMNS},
-        "other": "; ".join(f"{n}: {shown_exit(o)}" for n, o in outcomes.items() if n not in COLUMNS),
-        "stops": sc["stops"],
-    }
-
-
-def matrix_md(rows: list[dict]) -> str:
-    """The matrix as a Markdown table; in fault scenarios the earliest detecting variant is bold."""
-    head = ["ID", "Injected fault", *(f"`{v}`" for v in COLUMNS), "Other variants", "Where it stops"]
-    lines = ["| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
-    for r in rows:
-        cells = {v: r[v] for v in COLUMNS}
-        if r["id"].startswith("F"):
-            first = next((v for v in COLUMNS[1:] if cells[v] == "1"), None)
-            if first:
-                cells[first] = f"**{cells[first]}**"
-        lines.append("| " + " | ".join([r["id"], r["fault"], *cells.values(), r["other"], r["stops"]]) + " |")
-    return "\n".join(lines) + "\n"
-
-
 def write_csv(path: Path, rows: list[dict]) -> None:
     with open(path, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0]))
@@ -126,7 +95,7 @@ def main() -> int:
     ap.add_argument("--format-service-url", default=os.environ.get("SOS_FFS_URL", "http://localhost:8000"))
     ap.add_argument("--service-image", default="", help="image (digest) of the service, recorded in env.txt")
     ap.add_argument("--repeat", type=int, default=3)
-    ap.add_argument("--only", default=None, help="comma-separated scenario IDs")
+    ap.add_argument("--only", default=None, help="comma-separated scenarios as <domain>-<id>, e.g. EO-F1.1,Bio-F1.1")
     ap.add_argument("--out", type=Path, default=ROOT / "scenarios" / "results")
     a = ap.parse_args()
     only = set(a.only.split(",")) if a.only else None
@@ -147,9 +116,9 @@ def main() -> int:
             runs.append(("lint", [str(wf)], expect["lint"], False))
         plans.append((sc, steps_of(ROOT / wf), runs))
 
-    problems, summary, matrix = [], [], []
+    problems, summary = [], []
     for sc, steps, runs in plans:
-        sid, wf = sc["id"], sc["workflow"]
+        sid, wf = f"{sc['domain']}-{sc['id']}", sc["workflow"]
         if only and sid not in only:
             continue
         if "docker" in wf and not has_docker:
@@ -188,7 +157,8 @@ def main() -> int:
             stopped = first.get("failed_checks", [])
             summary.append(
                 {
-                    "id": sid,
+                    "id": sc["id"],
+                    "domain": sc["domain"],
                     "run": name,
                     "expected_exit": expected,
                     "exit": first["exit"],
@@ -201,16 +171,15 @@ def main() -> int:
                 }
             )
             print(
-                f"{sid:10} {name:24} exit {first['exit']} (expected {expected}){'' if consistent else ' INCONSISTENT'}"
+                f"{sid:12} {name:24} exit {first['exit']} (expected {expected}){'' if consistent else ' INCONSISTENT'}"
             )
         (d / "command.txt").write_text("\n".join(commands))
-        (d / "outcome.json").write_text(json.dumps({"id": sid, "workflow": wf, "runs": outcomes}, indent=2) + "\n")
-        matrix.append(matrix_row(sc, outcomes))
+        (d / "outcome.json").write_text(
+            json.dumps({"id": sc["id"], "domain": sc["domain"], "workflow": wf, "runs": outcomes}, indent=2) + "\n"
+        )
 
     if summary:
         write_csv(a.out / "summary.csv", summary)
-        write_csv(a.out / "matrix.csv", matrix)
-        (a.out / "matrix.md").write_text(matrix_md(matrix))
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     dirty = subprocess.run(["git", "diff", "--quiet"], cwd=ROOT).returncode != 0
     versions = subprocess.run([runner, "--version"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
