@@ -21,9 +21,9 @@
 #   BENCH_HOME=$HOME/ffs-bench   persistent: service image, Singularity cache, Node.js, Sympolis checkout, ontologies
 #   BENCH_WORK=$TMPDIR/ffs-bench-<job>   node-local scratch shared with the service: inputs and cwltool
 #                                        working dirs (needs ~4x the largest size per format, ~15 GB for 1000 MB)
-#   FFS_IMAGE=docker-archive://$HOME/file-format-service-bio-0.2.0.tar   PORT=8000
-#     the service image with the validator plug-in (plugins/format-validator-bio), anything `apptainer build`
-#     accepts: docker-archive:// (`docker save` of the local build), docker:// (a registry)
+#   FFS_IMAGE=docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:…   PORT=8000
+#     the service image with the validator plug-in (plugins/format-validator-bio); anything `apptainer build`
+#     accepts, e.g. docker-archive://<file>.tar for a `docker save` of a local build
 # Results: bench/results/hpc-<job id>/ (one directory and service-<set>.log per run.py call, all_runs.csv, env.txt).
 #
 #SBATCH --job-name=ffs-bench
@@ -37,8 +37,9 @@ set -euo pipefail
 
 REPO="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 BENCH_HOME="${BENCH_HOME:-$HOME/ffs-bench}"
-# file-format-service 0.2.0 (format-validator 0.3.0) with the plug-in format-validator-bio (FASTA, FASTQ)
-FFS_IMAGE="${FFS_IMAGE:-docker-archive://$HOME/file-format-service-bio-0.2.0.tar}"
+# file-format-service 0.2.0 (format-validator 0.3.0) with the plug-in format-validator-bio (FASTA, FASTQ):
+# ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0, pinned to the image the RQ1 scenarios ran on
+FFS_IMAGE="${FFS_IMAGE:-docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:cafddc3febdec3264e640b4b0b9be98d4b1b46150968c5738505bd7e09f8b059}"
 SYMPOLIS_URL=https://github.com/dfg-sos/sympolis.git
 SYMPOLIS_TAG=v1.2.0
 # its tools pull ghcr.io/dfg-sos/sympolis:latest; pinned to the image of the release

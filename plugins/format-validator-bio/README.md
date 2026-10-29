@@ -17,9 +17,9 @@ The paper claims that the architecture extends to other domains and is ontology-
 The plugin needs format-validator ≥ 0.3.0 (`registry.load_plugins()`) and runs in the service image `ghcr.io/dfg-sos/file-format-service:0.2.0`. In the evaluation, the Bio scenarios with runtime checks (Bio F2, F3, F5 and OK.1 in `scenarios/scenarios.yml`) run the unchanged runner v0.1.0 on EDAM-annotated workflows against this image:
 
 ```sh
-docker build -t file-format-service-bio:0.2.0 plugins/format-validator-bio
+docker build -t file-format-service-eo-bio:0.2.0 plugins/format-validator-bio
 docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/mappings:/app/mappings:ro" \
-  file-format-service-bio:0.2.0
+  file-format-service-eo-bio:0.2.0
 ```
 
 The service reads every mapping file in `/app/mappings`: the artifact's `mappings/` holds the EO and the EDAM mapping. `tests/data/edam-formats.json` links to the latter, for the tests; the plugin itself ships only validators.

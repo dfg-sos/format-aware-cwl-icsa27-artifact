@@ -14,15 +14,17 @@ stats/          the paper table
 
 ## Reproduce
 
-About 5 minutes on any Linux machine with Docker, from the repository root:
+About 15 minutes on any Linux machine with Docker, from the repository root:
 ```sh
 uv sync
-docker build -t file-format-service-bio:0.2.0 plugins/format-validator-bio
 docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/mappings:/app/mappings:ro" \
-  file-format-service-bio:0.2.0
+  ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0
 uv run python scenarios/run.py --out /tmp/scenarios
 uv run python scenarios/tables.py --results /tmp/scenarios --out /tmp/scenarios/stats   # compare with results/matrix.md
 ```
+The image is the one the results were produced with (`sha256:cafddc3f…`, see `results/env.txt`); to build it from
+[`plugins/format-validator-bio`](../plugins/format-validator-bio/Dockerfile) instead:
+`docker build -t file-format-service-eo-bio:0.2.0 plugins/format-validator-bio`.
 `run.py` exits 1 if any exit code differs from the expected one or between repetitions, `tables.py` if a fault's EO
 and Bio scenarios differ in any variant. Scenarios EO-F3.3 and Bio-F3.3 are skipped without a Docker daemon. The
 Sympolis scenario (wrong CRS in a real workflow) was run by hand; see [below](#sympolis-wrong-crs-in-a-real-workflow).

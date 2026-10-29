@@ -13,20 +13,19 @@ RQ2(b), and `rq3-*-abstract` is RQ2(c); `RQS="1 2 3"` selects them in that order
 - node-local scratch (`$TMPDIR`, or set `BENCH_WORK`) with ~15 GB free for the 1000 MB inputs
 
 ## 1. Prepare (once, on a node with internet: login node or `salloc`)
-The service runs as the image with the validator plug-in (FASTA, FASTQ), built from
-[`plugins/format-validator-bio`](../../plugins/format-validator-bio/Dockerfile) on a machine with Docker and copied over:
-```sh
-docker build -t file-format-service-bio:0.2.0 plugins/format-validator-bio
-docker save file-format-service-bio:0.2.0 -o file-format-service-bio-0.2.0.tar   # copy it to $HOME on the cluster
-```
-Then, on the cluster:
 ```sh
 cd format-aware-cwl-icsa27-artifact   # the repository root; all commands run from here
 bash bench/hpc/bench.sh prepare
 ```
-This sets up the uv environment (Python 3.13), builds the service image (`FFS_IMAGE`, by default
-`~/file-format-service-bio-0.2.0.tar`: file-format-service 0.2.0 with format-validator 0.3.0 and the plug-in) as
-`ffs.sif`, and downloads the EO formats ontology and EDAM 1.25. It installs Node.js if missing,
+This sets up the uv environment (Python 3.13), converts the service image (`FFS_IMAGE`, by default
+`ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0`, pinned by digest: file-format-service 0.2.0 with format-validator 0.3.0 and the
+validator plug-in for FASTA and FASTQ, built from [`plugins/format-validator-bio`](../../plugins/format-validator-bio/Dockerfile))
+to `ffs.sif`, and downloads the EO formats ontology and EDAM 1.25. To use a local build instead of the registry image:
+```sh
+docker build -t file-format-service-eo-bio:0.2.0 plugins/format-validator-bio   # on a machine with Docker
+docker save file-format-service-eo-bio:0.2.0 -o file-format-service-eo-bio-0.2.0.tar   # copy it to the cluster
+FFS_IMAGE=docker-archive://$HOME/file-format-service-eo-bio-0.2.0.tar bash bench/hpc/bench.sh prepare
+``` It installs Node.js if missing,
 clones Sympolis at its release tag (with its own image pinned to that release), and runs Sympolis
 once without validation, which pulls its images into the Singularity cache. Everything lands in
 `~/ffs-bench` (`BENCH_HOME`). Rerun it after changing `FFS_IMAGE`.
@@ -66,7 +65,7 @@ RQS=1 sbatch -p <partition> bench/hpc/bench.sh
 | `RQ3_TRANSFERS` | `local` | transfers for the abstract-format runs |
 | `BENCH_HOME` | `~/ffs-bench` | images, ontology, Node.js, Sympolis |
 | `BENCH_WORK` | `$TMPDIR/ffs-bench-<job>` | scratch shared with the service; deleted afterwards unless set explicitly |
-| `FFS_IMAGE` | `docker-archive://$HOME/file-format-service-bio-0.2.0.tar` | service image, anything `apptainer build` accepts |
+| `FFS_IMAGE` | `docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:cafddc3f…` | service image, anything `apptainer build` accepts |
 | `PORT` | `8000` | service port on 127.0.0.1 |
 
 Set them in front of `sbatch`; Slurm passes the environment on.
