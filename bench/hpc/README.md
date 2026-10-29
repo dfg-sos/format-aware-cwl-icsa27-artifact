@@ -63,6 +63,7 @@ RQS=1 sbatch -p <partition> bench/hpc/bench.sh
 | `RQ1_REPEAT` / `RQ2_REPEAT` | `10` / `10` | measured runs per variant (RQ2_REPEAT also applies to RQ3) |
 | `WARMUP` | `1` | unrecorded repetitions per set |
 | `RQ3_TRANSFERS` | `local` | transfers for the abstract-format runs |
+| `NUMA_NODES` | `4` | abort unless the node has this many NUMA nodes (all reported runs had 4; some HPDA2 nodes have 2 and measure slower); empty to skip |
 | `BENCH_HOME` | `~/ffs-bench` | images, ontology, Node.js, Sympolis |
 | `BENCH_WORK` | `$TMPDIR/ffs-bench-<job>` | scratch shared with the service; deleted afterwards unless set explicitly |
 | `FFS_IMAGE` | `docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:cafddc3f…` | service image, anything `apptainer build` accepts |

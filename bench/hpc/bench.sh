@@ -16,6 +16,7 @@
 # Settings (environment variables, all optional):
 #   RQS="1 2 3"  SIZES="1 10 100 1000"  FORMATS="geotiff geopackage fastq"  RQ1_REPEAT=10  RQ2_REPEAT=10
 #   WARMUP=1  RQ3_TRANSFERS=local
+#   NUMA_NODES=4   abort on a node with another NUMA layout (as in all reported runs); empty to skip the check
 #   RQ1_INPUT=Kahama.gpkg   GeoPackage in Sympolis' data/input/ (Kahama_Small.gpkg for a quick check)
 #   RQ1_DEPTH=2   partitionDepth: 4^depth tiles processed in parallel (default.yml has 1)
 #   BENCH_HOME=$HOME/ffs-bench   persistent: service image, Singularity cache, Node.js, Sympolis checkout, ontologies
@@ -58,6 +59,7 @@ RQ1_DEPTH="${RQ1_DEPTH:-2}"
 RQ2_REPEAT="${RQ2_REPEAT:-10}"
 WARMUP="${WARMUP:-1}"
 RQ3_TRANSFERS="${RQ3_TRANSFERS:-local}"
+NUMA_NODES="${NUMA_NODES-4}"
 
 export UV_PYTHON=3.13  # fiona (vector inputs) has no wheels for 3.14 yet
 export CWL_SINGULARITY_CACHE="$BENCH_HOME/singularity"
@@ -97,6 +99,11 @@ fi
 
 [ -f "$BENCH_HOME/ffs.sif" ] && [ -f "$BENCH_HOME/eo-formats.owl" ] && [ -f "$BENCH_HOME/EDAM.owl" ] && [ -d "$BENCH_HOME/sympolis" ] || { echo "run 'bash bench/hpc/bench.sh prepare' first"; exit 1; }
 command -v node >/dev/null || { echo "Node.js is missing, run prepare"; exit 1; }
+# the HPDA2 nodes look identical to Slurm, but some run with another NUMA layout and measure slower
+if [ -n "$NUMA_NODES" ]; then
+    numa=$(lscpu | awk -F: '/^NUMA node\(s\)/ {gsub(/ /, "", $2); print $2}')
+    [ "$numa" = "$NUMA_NODES" ] || { echo "$(hostname) has $numa NUMA nodes, not $NUMA_NODES (NUMA_NODES= to skip)"; exit 1; }
+fi
 JOB="${SLURM_JOB_ID:-$$}"
 WORK="${BENCH_WORK:-${TMPDIR:-/tmp}/ffs-bench-$JOB}"
 RESULTS="$REPO/bench/results/hpc-$JOB"
