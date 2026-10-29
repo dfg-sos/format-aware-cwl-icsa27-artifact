@@ -1,9 +1,13 @@
 """Table for RQ2(a): increase of the time to result of Sympolis on Kahama.gpkg per validation variant.
 
-Per variant: time to result, i.e. the wall time of the runner process (mean and standard deviation of the measured runs),
+Per variant: time to result, i.e. the wall time of the runner process (mean and standard deviation of the runs),
 its increase over the mean `off` run, absolute and relative, and the cumulative validation latency (client round trip
 of all checks of a run, summed). The standard deviation of the increase combines the spread of the variant's and of
 the `off` runs (sqrt(sd_variant^2 + sd_off^2)), since both means are estimated from the measured runs.
+The relative increase and its standard deviation are taken relative to the mean `off` run.
+The tables give every value as mean ± standard deviation, rounded once to 0.1. They show the increase in seconds as the
+difference of the rounded times, so that the columns add up; it differs from the exact increase (in the CSV) by at most
+0.1 s. The relative increase is exact.
 
 Writes `stats/sympolis_overhead.csv`, `stats/sympolis_overhead.tex` (booktabs) and prints a Markdown table.
 
@@ -47,35 +51,41 @@ def overhead(sets: dict) -> list[dict]:
                 "variant": variant,
                 "runs": len(runs),
                 "checks_per_run": runs[0]["checks"],
-                "wall_s": round(wall, 2),
-                "wall_sd_s": round(wall_sd, 2),
-                "increase_s": "" if base else round(wall - off, 2),
-                "increase_sd_s": "" if base else round(float(np.hypot(wall_sd, off_sd)), 2),
-                "increase_pct": "" if base else round((wall - off) / off * 100, 2),
-                "validation_latency_s": "" if base else round(latency, 2),
-                "validation_latency_sd_s": "" if base else round(latency_sd, 2),
+                "wall_s": wall,
+                "wall_sd_s": wall_sd,
+                "increase_s": "" if base else wall - off,
+                "increase_sd_s": "" if base else float(np.hypot(wall_sd, off_sd)),
+                "increase_pct": "" if base else (wall - off) / off * 100,
+                "increase_pct_sd": "" if base else float(np.hypot(wall_sd, off_sd)) / off * 100,
+                "validation_latency_s": "" if base else latency,
+                "validation_latency_sd_s": "" if base else latency_sd,
             }
         )
-    return rows
+    return rows  # unrounded: the CSV keeps 3 decimals, the tables round once, to 1 decimal
 
 
-def cells(row: dict) -> list[str]:
+def shown(seconds: float) -> float:
+    """The value as the tables show it, rounded to 0.1 s."""
+    return float(f"{seconds:.1f}")
+
+
+def cells(row: dict, off_s: float) -> list[str]:
     if row["variant"] == "off":
         return [LABEL["off"], f"{row['wall_s']:.1f} ± {row['wall_sd_s']:.1f}", "--", "--"]
     return [
         LABEL[row["variant"]],
         f"{row['wall_s']:.1f} ± {row['wall_sd_s']:.1f}",
-        f"{row['increase_s']:+.1f} ± {row['increase_sd_s']:.1f}",
-        f"{row['increase_pct']:+.1f}",
+        f"{shown(row['wall_s']) - shown(off_s):.1f} ± {row['increase_sd_s']:.1f}",
+        f"{row['increase_pct']:.1f} ± {row['increase_pct_sd']:.1f}",
     ]
 
 
-HEADER = ["Variant", "Time to result (s)", "Increase (s)", "Increase (%)"]
+HEADER = ["Variant", "Time to result (s)", "Increase (s)", "Increase (%)"]  # each: mean ± standard deviation
 
 
 def markdown(rows: list[dict]) -> str:
     lines = ["| " + " | ".join(HEADER) + " |", "|---|---:|---:|---:|"]
-    lines += ["| " + " | ".join(cells(r)) + " |" for r in rows]
+    lines += ["| " + " | ".join(cells(r, rows[0]["wall_s"])) + " |" for r in rows]
     return "\n".join(lines)
 
 
@@ -84,7 +94,7 @@ def latex(rows: list[dict]) -> str:
         return c.replace("±", r"$\pm$").replace("%", r"\%").replace("--", "---")
 
     lines = [r"\begin{tabular}{lrrr}", r"\toprule", " & ".join(tex(h) for h in HEADER) + r" \\", r"\midrule"]
-    lines += [" & ".join(tex(c) for c in cells(r)) + r" \\" for r in rows]
+    lines += [" & ".join(tex(c) for c in cells(r, rows[0]["wall_s"])) + r" \\" for r in rows]
     lines += [r"\bottomrule", r"\end{tabular}"]
     return "\n".join(lines) + "\n"
 
@@ -98,7 +108,7 @@ def main() -> None:
     with (args.out / "sympolis_overhead.csv").open("w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0]))
         w.writeheader()
-        w.writerows(rows)
+        w.writerows({k: round(v, 3) if isinstance(v, float) else v for k, v in r.items()} for r in rows)
     (args.out / "sympolis_overhead.tex").write_text(latex(rows))
     print(f"Sympolis on Kahama.gpkg, mean ± standard deviation of {rows[0]['runs']} runs ({args.out}):\n")
     print(markdown(rows))

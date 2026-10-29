@@ -1,7 +1,7 @@
-variant,runs,checks_per_run,wall_s,wall_sd_s,increase_s,increase_sd_s,increase_pct,validation_latency_s,validation_latency_sd_s
-off,10,0,134.35,0.33,,,,,
-basic,10,899,134.85,0.24,0.5,0.41,0.37,2.87,0.1
-structural-local,10,899,134.87,0.48,0.52,0.58,0.38,3.32,0.09
-structural-upload,10,899,141.04,0.69,6.68,0.77,4.98,18.92,0.43
-full-local,10,899,137.62,0.58,3.26,0.67,2.43,19.99,0.85
-full-upload,10,899,145.63,0.74,11.28,0.81,8.39,33.01,0.8
+variant,runs,checks_per_run,wall_s,wall_sd_s,increase_s,increase_sd_s,increase_pct,increase_pct_sd,validation_latency_s,validation_latency_sd_s
+off,10,0,134.352,0.334,,,,,,
+basic,10,899,134.849,0.238,0.496,0.41,0.37,0.305,2.871,0.101
+structural-local,10,899,134.869,0.478,0.517,0.583,0.384,0.434,3.32,0.093
+structural-upload,10,899,141.036,0.691,6.684,0.768,4.975,0.571,18.924,0.425
+full-local,10,899,137.616,0.576,3.264,0.665,2.429,0.495,19.985,0.851
+full-upload,10,899,145.631,0.738,11.278,0.81,8.395,0.603,33.014,0.8
