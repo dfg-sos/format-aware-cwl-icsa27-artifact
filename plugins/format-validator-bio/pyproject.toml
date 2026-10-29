@@ -8,7 +8,7 @@ package-dir = { format_validator_bio = "src" }
 
 [project]
 name = "format-validator-bio"
-version = "0.2.0"
+version = "0.3.0"
 description = "FASTA and FASTQ validators for format-validator (Biopython), loaded as a plugin."
 license = "MIT"
 requires-python = ">=3.13"

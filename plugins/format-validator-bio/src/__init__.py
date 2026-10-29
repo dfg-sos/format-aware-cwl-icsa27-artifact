@@ -6,3 +6,4 @@ imports ``format_validator_bio.validators`` through the ``format_validator.valid
 
 FASTA_ID = "FASTA"
 FASTQ_ID = "FASTQ"
+SEQUENCE_ID = "SequenceRecord"  # abstract, EDAM "Sequence record format"

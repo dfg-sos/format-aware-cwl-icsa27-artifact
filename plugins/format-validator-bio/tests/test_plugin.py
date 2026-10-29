@@ -30,7 +30,9 @@ def run(identifier: FormatIdentifier, name: str, mode=ValidationMode.FULL):
 
 
 def test_formats_supported():
-    assert {FormatIdentifier("FASTA"), FormatIdentifier("FASTQ")} <= set(supported_formats())
+    assert {FormatIdentifier("FASTA"), FormatIdentifier("FASTQ"), FormatIdentifier("SequenceRecord")} <= set(
+        supported_formats()
+    )
 
 
 def test_edam_mapping():
@@ -39,6 +41,7 @@ def test_edam_mapping():
     translator = FormatTranslator({mapping["ontology_uri"] + k: v for k, v in mapping["mappings"].items()})
     assert translator.to_local(EDAM + "format_1929") == FormatIdentifier("FASTA")
     assert translator.to_local(EDAM + "format_1930") == FormatIdentifier("FASTQ")
+    assert translator.to_local(EDAM + "format_1919") == FormatIdentifier("SequenceRecord")
 
 
 @pytest.mark.parametrize(
@@ -49,6 +52,10 @@ def test_edam_mapping():
         ("FASTQ", "valid.fastq", ValidationStatus.SUCCESS),
         ("FASTQ", "invalid.fastq", ValidationStatus.FAILURE),
         ("FASTA", "valid.fastq", ValidationStatus.FAILURE),  # extension mismatch
+        ("SequenceRecord", "valid.fasta", ValidationStatus.SUCCESS),  # abstract: valid as a leaf
+        ("SequenceRecord", "valid.fastq", ValidationStatus.SUCCESS),
+        ("SequenceRecord", "invalid.fastq", ValidationStatus.FAILURE),
+        ("SequenceRecord", "edam-formats.json", ValidationStatus.FAILURE),  # no leaf has this extension
     ],
 )
 def test_validate(fmt, name, status):
