@@ -1,4 +1,4 @@
-# X.3 (linter only): EO formats checked against EDAM, which does not define them: unknown-format, not incompatible.
+# X.2 (linter only): EO formats checked against EDAM, which does not define them: unknown-format, not incompatible.
 cwlVersion: v1.2
 $namespaces: {edam: "http://edamontology.org/", eo: "https://dfg-sos.github.io/ontologies/eo-formats#"}
 $schemas: [http://edamontology.org/EDAM.owl]

@@ -45,7 +45,7 @@ def netcdf() -> None:
 
 def broken() -> None:
     """Faulty inputs derived from the files above: GeoJSON content behind a .tif name (F2.2)
-    and a GeoTIFF cut off inside its header (F6.1)."""
+    and a GeoTIFF cut off inside its header (F5.1)."""
     (DATA / "roads_as.tif").write_bytes((DATA / "roads.geojson").read_bytes())
     (DATA / "raster_truncated.tif").write_bytes((DATA / "raster_4326.tif").read_bytes()[:TRUNCATE_AT])
 

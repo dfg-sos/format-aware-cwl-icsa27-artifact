@@ -1,0 +1,2 @@
+src: {class: File, location: ../data/reads.fastq}
+name: out.fastq

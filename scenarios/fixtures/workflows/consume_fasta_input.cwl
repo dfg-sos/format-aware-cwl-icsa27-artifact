@@ -1,6 +1,6 @@
-# F2.3/F2.4/F6.2/OK.6: consume_input.cwl with EDAM FASTA (format_1929), validated by the format-validator-bio plugin.
+# Bio F2.1/F2.2/F5.1/OK.1: consume_input.cwl with EDAM FASTA (format_1929), validated by the format-validator-bio plugin.
 # Vanilla cwltool runs consume. The runner stops at consume's input check, so consume never runs:
-# F2.3 (reads.fastq) in basic mode, F2.4 (FASTQ content named .fasta) and F6.2 (truncated FASTA) only in full.
+# F2.1 (reads.fastq) in basic mode, F2.2 (FASTQ content named .fasta) and F5.1 (truncated FASTA) only in full.
 cwlVersion: v1.2
 $namespaces: {edam: "http://edamontology.org/"}
 $schemas: [http://edamontology.org/EDAM.owl]
