@@ -1,0 +1,59 @@
+{
+    "size": {
+        "location": "file:///tmp/tmp_udizn34/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$b390146b13e84501ae0d7da524df2ab3be9cbea1",
+        "size": 66,
+        "path": "/tmp/tmp_udizn34/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step relabel
+INFO [step relabel] start
+INFO [job relabel] /tmp/vifyv3vx$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/vifyv3vx,target=/LVPzXi \
+    --mount=type=bind,source=/tmp/s4avy8_g,target=/tmp \
+    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/reads.fastq,target=/var/lib/cwl/stg94129b81-77dd-4807-be34-4fe8736497c3/reads.fastq,readonly \
+    --workdir=/LVPzXi \
+    --read-only=true \
+    --net=none \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/y0ksxa1p/20261029183306-384195.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/LVPzXi \
+    alpine:3.20 \
+    cp \
+    /var/lib/cwl/stg94129b81-77dd-4807-be34-4fe8736497c3/reads.fastq \
+    out.fasta
+INFO [job relabel] completed success
+INFO [step relabel] completed success
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/tb037szz$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/tb037szz,target=/LVPzXi \
+    --mount=type=bind,source=/tmp/w19bttj8,target=/tmp \
+    --mount=type=bind,source=/tmp/vifyv3vx/out.fasta,target=/var/lib/cwl/stg9390c723-5267-48eb-92c7-0937f6d2b6e1/out.fasta,readonly \
+    --workdir=/LVPzXi \
+    --read-only=true \
+    --net=none \
+    --log-driver=none \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/brpo0amn/20261029183307-408825.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/LVPzXi \
+    alpine:3.20 \
+    wc \
+    -c \
+    /var/lib/cwl/stg9390c723-5267-48eb-92c7-0937f6d2b6e1/out.fasta > /tmp/tb037szz/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

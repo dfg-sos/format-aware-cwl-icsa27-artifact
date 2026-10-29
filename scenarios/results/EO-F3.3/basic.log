@@ -1,0 +1,59 @@
+{
+    "size": {
+        "location": "file:///tmp/tmprwhx6bl0/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$91147a1ba285b9f1ab66b528053105e0e61f1b3a",
+        "size": 65,
+        "path": "/tmp/tmprwhx6bl0/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_docker.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_docker.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step relabel
+INFO [step relabel] start
+INFO [job relabel] /tmp/9lt9wdy5$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/9lt9wdy5,target=/Wumwzq \
+    --mount=type=bind,source=/tmp/_rccat76,target=/tmp \
+    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/roads.geojson,target=/var/lib/cwl/stg46da8887-a534-4f93-9599-4289a4437438/roads.geojson,readonly \
+    --workdir=/Wumwzq \
+    --read-only=true \
+    --net=none \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/ig9tnshq/20261029182904-798927.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/Wumwzq \
+    alpine:3.20 \
+    cp \
+    /var/lib/cwl/stg46da8887-a534-4f93-9599-4289a4437438/roads.geojson \
+    out.tif
+INFO [job relabel] completed success
+INFO [step relabel] completed success
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/e1vp9vei$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/e1vp9vei,target=/Wumwzq \
+    --mount=type=bind,source=/tmp/x4vpq05z,target=/tmp \
+    --mount=type=bind,source=/tmp/9lt9wdy5/out.tif,target=/var/lib/cwl/stg97927598-bd4b-424d-a948-be248a8870ab/out.tif,readonly \
+    --workdir=/Wumwzq \
+    --read-only=true \
+    --net=none \
+    --log-driver=none \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/j08e7ako/20261029182905-814518.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/Wumwzq \
+    alpine:3.20 \
+    wc \
+    -c \
+    /var/lib/cwl/stg97927598-bd4b-424d-a948-be248a8870ab/out.tif > /tmp/e1vp9vei/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

@@ -1,0 +1,106 @@
+{
+  "id": "F5.1",
+  "domain": "EO",
+  "workflow": "consume_input.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.317,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.317,
+        1.438,
+        1.363
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.428,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.428,
+        1.334,
+        1.317
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.388,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.388,
+        1.497,
+        1.374
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.324,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "raster_truncated.tif",
+          "result": "FAILURE",
+          "message": "Failed to open file '/tmp/sos_validate_zyxy9lvy/raster_truncated.tif' with RasterIO:\nraster_truncated.tif: TIFFReadDirectory:Failed to read directory at offset 8"
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.324,
+        1.286,
+        1.293
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.378,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.378,
+        0.376,
+        0.494
+      ],
+      "consistent": true
+    }
+  }
+}

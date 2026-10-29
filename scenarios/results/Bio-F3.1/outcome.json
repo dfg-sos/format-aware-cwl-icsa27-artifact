@@ -1,0 +1,128 @@
+{
+  "id": "F3.1",
+  "domain": "Bio",
+  "workflow": "relabel_then_consume_fasta.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 7.741,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        7.741,
+        5.888,
+        6.406
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 6.058,
+      "failed_checks": [
+        {
+          "step": "relabel",
+          "port": "seqs",
+          "direction": "post",
+          "file": "out.fastq",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        6.058,
+        6.128,
+        6.292
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 6.001,
+      "failed_checks": [
+        {
+          "step": "relabel",
+          "port": "seqs",
+          "direction": "post",
+          "file": "out.fastq",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        6.001,
+        5.845,
+        5.932
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 6.416,
+      "failed_checks": [
+        {
+          "step": "relabel",
+          "port": "seqs",
+          "direction": "post",
+          "file": "out.fastq",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Line 1: Expected a header starting with '>'."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        6.416,
+        6.254,
+        6.251
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.4,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.4,
+        0.382,
+        0.426
+      ],
+      "consistent": true
+    }
+  }
+}

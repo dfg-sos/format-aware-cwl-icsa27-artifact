@@ -1,0 +1,131 @@
+{
+  "id": "F4.3",
+  "domain": "EO",
+  "workflow": "geotiff_expect_geometry.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.343,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.343,
+        1.303,
+        1.326
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.505,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.505,
+        1.403,
+        1.417
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.378,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.378,
+        1.357,
+        1.396
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.443,
+      "failed_checks": [
+        {
+          "step": "geotiff_expect_geometry.cwl",
+          "port": "raster",
+          "direction": "post",
+          "file": "out.tif",
+          "result": "ERROR",
+          "message": "format service HTTP 400: Unsupported metadata keys ['geometry_type'], supported keys are ['crs']."
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.443,
+        1.523,
+        1.394
+      ],
+      "consistent": true
+    },
+    "full-service-error-warn": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.456,
+      "failed_checks": [
+        {
+          "step": "geotiff_expect_geometry.cwl",
+          "port": "raster",
+          "direction": "post",
+          "file": "out.tif",
+          "result": "ERROR",
+          "message": "format service HTTP 400: Unsupported metadata keys ['geometry_type'], supported keys are ['crs']."
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.456,
+        1.36,
+        1.317
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.423,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.423,
+        0.388,
+        0.395
+      ],
+      "consistent": true
+    }
+  }
+}

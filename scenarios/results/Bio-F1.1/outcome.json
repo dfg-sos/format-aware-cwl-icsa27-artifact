@@ -1,0 +1,103 @@
+{
+  "id": "F1.1",
+  "domain": "Bio",
+  "workflow": "wire_fastq_to_fasta.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 6.065,
+      "failed_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        6.065,
+        6.062,
+        5.924
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 5.948,
+      "failed_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        5.948,
+        5.71,
+        5.536
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 5.592,
+      "failed_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        5.592,
+        5.549,
+        5.654
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 5.481,
+      "failed_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        5.481,
+        5.559,
+        5.575
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 0.383,
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        0.383,
+        0.369,
+        0.387
+      ],
+      "consistent": true
+    }
+  }
+}

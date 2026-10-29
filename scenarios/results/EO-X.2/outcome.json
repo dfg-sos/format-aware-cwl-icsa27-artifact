@@ -1,0 +1,23 @@
+{
+  "id": "X.2",
+  "domain": "EO",
+  "workflow": "eo_formats_against_edam.cwl",
+  "runs": {
+    "lint": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 0.393,
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        0.393,
+        0.377,
+        0.379
+      ],
+      "consistent": true
+    }
+  }
+}

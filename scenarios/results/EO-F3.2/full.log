@@ -1,0 +1,20 @@
+{
+    "size": null
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step relabel
+INFO [step relabel] start
+INFO [job relabel] /tmp/udmn4ppu$ cp \
+    /tmp/c9p00ev1/stg672a5daa-3186-4ffc-9f6c-7ea8ff1c0457/roads.geojson \
+    out.tif
+ERROR [step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_ext4iq87/out.tif' with RasterIO:
+'/tmp/sos_validate_ext4iq87/out.tif' not recognized as being in a supported file format.
+ERROR [job relabel] Job error:
+[step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_ext4iq87/out.tif' with RasterIO:
+'/tmp/sos_validate_ext4iq87/out.tif' not recognized as being in a supported file format.
+WARNING [job relabel] completed permanentFail
+ERROR [step relabel] Output is missing expected field file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume.cwl#relabel/raster
+WARNING [step relabel] completed permanentFail
+INFO [workflow ] completed permanentFail
+WARNING Final process status is permanentFail

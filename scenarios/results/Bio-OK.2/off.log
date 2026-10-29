@@ -1,0 +1,21 @@
+{
+    "size": {
+        "location": "file:///tmp/tmp0qi7cu81/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$9aeca4f9f402a03a1be4ba021218b3eb0f1b1961",
+        "size": 68,
+        "path": "/tmp/tmp0qi7cu81/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/t3mwcmwj$ wc \
+    -c \
+    /tmp/l0uk_0do/stg767d42a8-ad53-40eb-a5b1-27e3db7eaf6c/seqs.fasta > /tmp/t3mwcmwj/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

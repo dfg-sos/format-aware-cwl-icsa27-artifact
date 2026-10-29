@@ -1,0 +1,21 @@
+{
+    "size": {
+        "location": "file:///tmp/tmpqg3hq7yb/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$5087d8f5abba3472245a92a5303284e2b0e739a0",
+        "size": 72,
+        "path": "/tmp/tmpqg3hq7yb/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/consume_fasta_input.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/consume_fasta_input.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/aecf3nu0$ wc \
+    -c \
+    /tmp/5keuj6kk/stg54426e36-3975-4b32-9eb2-c9056ff19f77/reads_as.fasta > /tmp/aecf3nu0/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

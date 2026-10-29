@@ -1,0 +1,128 @@
+{
+  "id": "F2.1",
+  "domain": "Bio",
+  "workflow": "consume_fasta_input.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 5.892,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        5.892,
+        5.988,
+        5.991
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 6.2,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "reads.fastq",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        6.2,
+        5.962,
+        5.634
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 5.559,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "reads.fastq",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        5.559,
+        5.664,
+        5.563
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 5.928,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "reads.fastq",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Line 1: Expected a header starting with '>'."
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        5.928,
+        5.898,
+        5.959
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.385,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.385,
+        0.378,
+        0.394
+      ],
+      "consistent": true
+    }
+  }
+}

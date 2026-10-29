@@ -1,0 +1,21 @@
+{
+    "size": {
+        "location": "file:///tmp/tmpkk_ovt_8/out/size.txt",
+        "basename": "size.txt",
+        "class": "File",
+        "checksum": "sha1$fe00da4871ee98ca51a5ddc3dbbe31866e03bf3f",
+        "size": 68,
+        "path": "/tmp/tmpkk_ovt_8/out/size.txt"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/wire_shapefile_to_vector.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/wire_shapefile_to_vector.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step consume
+INFO [step consume] start
+INFO [job consume] /tmp/643s03yg$ wc \
+    -c \
+    /tmp/vi9mz1qj/stg0f08fb65-480c-4de0-8868-f6805300450e/roads.shp > /tmp/643s03yg/size.txt
+INFO [job consume] completed success
+INFO [step consume] completed success
+INFO [workflow ] completed success
+INFO Final process status is success

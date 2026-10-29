@@ -1,0 +1,104 @@
+{
+  "id": "F4.2",
+  "domain": "EO",
+  "workflow": "copy_expect_linestring.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.295,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.295,
+        1.323,
+        1.256
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.365,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.365,
+        1.332,
+        1.306
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.395,
+      "failed_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.395,
+        1.476,
+        1.369
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.355,
+      "failed_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "lines",
+          "direction": "post",
+          "file": "out.geojson",
+          "result": "FAILURE",
+          "message": "File geometry types ['POINT'] do not include expected type 'LINESTRING'."
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.355,
+        1.326,
+        1.336
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.391,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.391,
+        0.38,
+        0.419
+      ],
+      "consistent": true
+    }
+  }
+}

@@ -1,0 +1,3 @@
+INCOMPATIBLE   seqs -> consume/data  format_1930 is not format_1929 or a subclass of it
+UNANNOTATED    consume/size -> size  sink declares no format (accepts anything)
+0 compatible, 1 incompatible, 0 unknown-format, 1 unannotated, 0 expression, 0 error

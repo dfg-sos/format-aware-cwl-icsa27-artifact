@@ -1,0 +1,30 @@
+\begin{tabular}{lllcccccl}
+\toprule
+ID & Fault & Domains & off & lint & basic & structural & full & Stops at \\
+\midrule
+F1.1 & Incompatible formats wired & EO, Bio & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & linter; else label check \\
+F1.2 & Abstract input, matching file & EO, Bio & $\circ$ & $\bullet$ & $\circ$ & $\circ$ & $\circ$ & linter \\
+F1.3 & Abstract input, other subformat & EO, Bio & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & linter; else label check \\
+\midrule
+F2.1 & Mislabelled input, by extension & EO, Bio & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & $\bullet$ & input check \\
+F2.2 & Mislabelled input, by content & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & input check \\
+\midrule
+F3.1 & Mislabelled output, by extension & EO, Bio & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & $\bullet$ & output check \\
+F3.2 & Mislabelled output, by content & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
+F3.3 & Mislabelled output, by content, in containers & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
+\midrule
+F4.1 & Wrong CRS & EO & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
+F4.2 & Wrong geometry type & EO & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
+F4.3 & Metadata the format cannot carry & EO & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
+\midrule
+F5.1 & Truncated file & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & input check \\
+\midrule
+OK.1 & Valid input & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\circ$ & completes \\
+OK.2 & Subformat into abstract port & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\circ$ & completes \\
+OK.3 & Expected geometry type & EO & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\circ$ & completes \\
+OK.4 & Unannotated output & EO & $\circ$ & -- & $\circ$ & $\circ$ & $\circ$ & completes \\
+\midrule
+X.1 & No validator for the format & EO & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\circ$ & completes, warns \\
+X.2 & Format not in the ontology & EO & -- & $\bullet$ & -- & -- & -- & linter \\
+\bottomrule
+\end{tabular}
