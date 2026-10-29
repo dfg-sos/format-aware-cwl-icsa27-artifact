@@ -1,7 +1,7 @@
 {}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/copy_expect_linestring.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/copy_expect_linestring.cwl'
-INFO [job copy_expect_linestring.cwl] /tmp/k3t5tg1s$ cp \
-    /tmp/coc8fr0c/stgb522c963-63c5-4326-85e0-ac248744de15/points.geojson \
+INFO [job copy_expect_linestring.cwl] /tmp/rlu6the3$ cp \
+    /tmp/48lkgbi0/stg36935c49-22f2-4a0f-bf90-8844dfeb832c/points.geojson \
     out.geojson
 ERROR [step copy_expect_linestring.cwl] output 'lines' file 'out.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoJSON: FAILURE: File geometry types ['POINT'] do not include expected type 'LINESTRING'.
 ERROR [job copy_expect_linestring.cwl] Job error:

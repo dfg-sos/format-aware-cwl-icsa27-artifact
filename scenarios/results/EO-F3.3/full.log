@@ -5,29 +5,29 @@ INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_docker.cwl' to 
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/5bde6rl8$ docker \
+INFO [job relabel] /tmp/gxnjj9ac$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/5bde6rl8,target=/Ahmcwi \
-    --mount=type=bind,source=/tmp/1jrw9fph,target=/tmp \
-    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/roads.geojson,target=/var/lib/cwl/stgf773dacd-c3e2-4ad3-b9fb-8e7735d7510a/roads.geojson,readonly \
-    --workdir=/Ahmcwi \
+    --mount=type=bind,source=/tmp/gxnjj9ac,target=/bgmNMj \
+    --mount=type=bind,source=/tmp/bep80wgp,target=/tmp \
+    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/roads.geojson,target=/var/lib/cwl/stgf21b3e67-ceac-435c-8ef2-c188f3541131/roads.geojson,readonly \
+    --workdir=/bgmNMj \
     --read-only=true \
     --net=none \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/y3hndm81/20261029182927-646527.cid \
+    --cidfile=/tmp/sr8r2zld/20261029213653-136517.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/Ahmcwi \
+    --env=HOME=/bgmNMj \
     alpine:3.20 \
     cp \
-    /var/lib/cwl/stgf773dacd-c3e2-4ad3-b9fb-8e7735d7510a/roads.geojson \
+    /var/lib/cwl/stgf21b3e67-ceac-435c-8ef2-c188f3541131/roads.geojson \
     out.tif
-ERROR [step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_x3hf98og/out.tif' with RasterIO:
-'/tmp/sos_validate_x3hf98og/out.tif' not recognized as being in a supported file format.
+ERROR [step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_4v68370o/out.tif' with RasterIO:
+'/tmp/sos_validate_4v68370o/out.tif' not recognized as being in a supported file format.
 ERROR [job relabel] Job error:
-[step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_x3hf98og/out.tif' with RasterIO:
-'/tmp/sos_validate_x3hf98og/out.tif' not recognized as being in a supported file format.
+[step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_4v68370o/out.tif' with RasterIO:
+'/tmp/sos_validate_4v68370o/out.tif' not recognized as being in a supported file format.
 WARNING [job relabel] completed permanentFail
 ERROR [step relabel] Output is missing expected field file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_docker.cwl#relabel/raster
 WARNING [step relabel] completed permanentFail

@@ -1,20 +1,20 @@
 {
     "size": {
-        "location": "file:///tmp/tmptsp6b5sz/out/size.txt",
+        "location": "file:///tmp/tmp8j3ee8gi/out/size.txt",
         "basename": "size.txt",
         "class": "File",
-        "checksum": "sha1$1e5a64dae95f67718b26890edba58f470233ccf9",
-        "size": 78,
-        "path": "/tmp/tmptsp6b5sz/out/size.txt"
+        "checksum": "sha1$5249796b6dcc9f91196c6f77b7cebb55743044cb",
+        "size": 79,
+        "path": "/tmp/tmp8j3ee8gi/out/size.txt"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
-INFO Resolved 'scenarios/fixtures/workflows/consume_fasta_input.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/consume_fasta_input.cwl'
+INFO Resolved 'scenarios/fixtures/workflows/consume_fastq_input.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/consume_fastq_input.cwl'
 INFO [workflow ] start
 INFO [workflow ] starting step consume
 INFO [step consume] start
-INFO [job consume] /tmp/wm9lqrie$ wc \
+INFO [job consume] /tmp/u65n1skg$ wc \
     -c \
-    /tmp/h_3xhpci/stg067d03b7-9004-4128-9279-41993c9531fc/seqs_truncated.fasta > /tmp/wm9lqrie/size.txt
+    /tmp/cjg73vl1/stga00e2d73-1f5d-4084-bbed-278638e4bda7/reads_truncated.fastq > /tmp/u65n1skg/size.txt
 INFO [job consume] completed success
 INFO [step consume] completed success
 INFO [workflow ] completed success

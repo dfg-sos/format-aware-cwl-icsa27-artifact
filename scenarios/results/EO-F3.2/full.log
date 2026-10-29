@@ -5,14 +5,14 @@ INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume.cwl' to 'file:/
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/udmn4ppu$ cp \
-    /tmp/c9p00ev1/stg672a5daa-3186-4ffc-9f6c-7ea8ff1c0457/roads.geojson \
+INFO [job relabel] /tmp/tf2h5fm0$ cp \
+    /tmp/ia7bel94/stg5ce7210d-e7bb-4159-b9b4-fe63156af6f8/roads.geojson \
     out.tif
-ERROR [step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_ext4iq87/out.tif' with RasterIO:
-'/tmp/sos_validate_ext4iq87/out.tif' not recognized as being in a supported file format.
+ERROR [step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_13gui_79/out.tif' with RasterIO:
+'/tmp/sos_validate_13gui_79/out.tif' not recognized as being in a supported file format.
 ERROR [job relabel] Job error:
-[step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_ext4iq87/out.tif' with RasterIO:
-'/tmp/sos_validate_ext4iq87/out.tif' not recognized as being in a supported file format.
+[step relabel] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_13gui_79/out.tif' with RasterIO:
+'/tmp/sos_validate_13gui_79/out.tif' not recognized as being in a supported file format.
 WARNING [job relabel] completed permanentFail
 ERROR [step relabel] Output is missing expected field file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume.cwl#relabel/raster
 WARNING [step relabel] completed permanentFail

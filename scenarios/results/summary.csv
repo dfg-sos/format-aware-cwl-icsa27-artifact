@@ -1,143 +1,158 @@
 id,domain,run,expected_exit,exit,consistent,failed_check,steps_not_run,wall_s
-F1.1,EO,off,1,1,True,,consume,2.33
-F1.1,EO,basic,1,1,True,,consume,1.513
-F1.1,EO,structural,1,1,True,,consume,1.274
-F1.1,EO,full,1,1,True,,consume,1.259
-F1.1,EO,lint,1,1,True,,,0.383
-F1.1,Bio,off,1,1,True,,consume,6.065
-F1.1,Bio,basic,1,1,True,,consume,5.948
-F1.1,Bio,structural,1,1,True,,consume,5.592
-F1.1,Bio,full,1,1,True,,consume,5.481
-F1.1,Bio,lint,1,1,True,,,0.383
-F1.2,EO,off,0,0,True,,,1.271
-F1.2,EO,basic,0,0,True,,,1.236
-F1.2,EO,structural,0,0,True,,,1.274
-F1.2,EO,full,0,0,True,,,1.238
-F1.2,EO,lint,1,1,True,,,0.418
-F1.2,Bio,off,0,0,True,,,5.947
-F1.2,Bio,basic,0,0,True,,,6.084
-F1.2,Bio,structural,0,0,True,,,5.559
-F1.2,Bio,full,0,0,True,,,5.564
+F1.1,EO,off,1,1,True,,consume,2.693
+F1.1,EO,basic,1,1,True,,consume,1.975
+F1.1,EO,structural,1,1,True,,consume,1.292
+F1.1,EO,full,1,1,True,,consume,1.312
+F1.1,EO,lint,1,1,True,,,0.689
+F1.1,Bio,off,1,1,True,,consume,5.784
+F1.1,Bio,basic,1,1,True,,consume,5.713
+F1.1,Bio,structural,1,1,True,,consume,5.702
+F1.1,Bio,full,1,1,True,,consume,5.884
+F1.1,Bio,lint,1,1,True,,,0.396
+F1.2,EO,off,0,0,True,,,1.364
+F1.2,EO,basic,0,0,True,,,1.38
+F1.2,EO,structural,0,0,True,,,1.325
+F1.2,EO,full,0,0,True,,,1.296
+F1.2,EO,lint,1,1,True,,,0.408
+F1.2,Bio,off,0,0,True,,,5.94
+F1.2,Bio,basic,0,0,True,,,5.744
+F1.2,Bio,structural,0,0,True,,,5.854
+F1.2,Bio,full,0,0,True,,,5.76
 F1.2,Bio,lint,1,1,True,,,0.385
-F1.3,EO,off,1,1,True,,consume,1.243
-F1.3,EO,basic,1,1,True,,consume,1.349
-F1.3,EO,structural,1,1,True,,consume,1.325
-F1.3,EO,full,1,1,True,,consume,1.35
-F1.3,EO,lint,1,1,True,,,0.403
-F1.3,Bio,off,1,1,True,,consume,6.036
-F1.3,Bio,basic,1,1,True,,consume,5.515
-F1.3,Bio,structural,1,1,True,,consume,5.649
-F1.3,Bio,full,1,1,True,,consume,6.032
-F1.3,Bio,lint,1,1,True,,,0.364
-F2.1,EO,off,0,0,True,,,1.316
-F2.1,EO,basic,1,1,True,consume/data pre FAILURE,consume,1.241
-F2.1,EO,structural,1,1,True,consume/data pre FAILURE,consume,1.246
-F2.1,EO,full,1,1,True,consume/data pre FAILURE,consume,1.348
-F2.1,EO,lint,0,0,True,,,0.416
-F2.1,Bio,off,0,0,True,,,5.892
-F2.1,Bio,basic,1,1,True,consume/data pre FAILURE,consume,6.2
-F2.1,Bio,structural,1,1,True,consume/data pre FAILURE,consume,5.559
-F2.1,Bio,full,1,1,True,consume/data pre FAILURE,consume,5.928
-F2.1,Bio,lint,0,0,True,,,0.385
-F2.2,EO,off,0,0,True,,,1.33
-F2.2,EO,basic,0,0,True,,,1.251
-F2.2,EO,structural,0,0,True,,,1.418
-F2.2,EO,full,1,1,True,consume/data pre FAILURE,consume,1.311
-F2.2,EO,lint,0,0,True,,,0.374
-F2.2,Bio,off,0,0,True,,,5.826
-F2.2,Bio,basic,0,0,True,,,6.004
-F2.2,Bio,structural,0,0,True,,,5.807
-F2.2,Bio,full,1,1,True,consume/data pre FAILURE,consume,6.018
-F2.2,Bio,lint,0,0,True,,,0.404
-F3.1,EO,off,0,0,True,,,1.419
-F3.1,EO,basic,1,1,True,relabel/raster post FAILURE,consume,1.322
-F3.1,EO,structural,1,1,True,relabel/raster post FAILURE,consume,1.28
-F3.1,EO,full,1,1,True,relabel/raster post FAILURE,consume,1.356
-F3.1,EO,lint,0,0,True,,,0.443
-F3.2,EO,off,0,0,True,,,1.393
-F3.2,EO,basic,0,0,True,,,1.406
-F3.2,EO,structural,0,0,True,,,1.306
-F3.2,EO,full,1,1,True,relabel/raster post FAILURE,consume,1.286
-F3.2,EO,lint,0,0,True,,,0.396
-F3.3,EO,off,0,0,True,,,3.365
-F3.3,EO,basic,0,0,True,,,4.366
-F3.3,EO,structural,0,0,True,,,3.493
-F3.3,EO,full,1,1,True,relabel/raster post FAILURE,consume,2.427
-F3.3,EO,lint,0,0,True,,,0.648
-F3.1,Bio,off,0,0,True,,,7.741
-F3.1,Bio,basic,1,1,True,relabel/seqs post FAILURE,consume,6.058
-F3.1,Bio,structural,1,1,True,relabel/seqs post FAILURE,consume,6.001
-F3.1,Bio,full,1,1,True,relabel/seqs post FAILURE,consume,6.416
-F3.1,Bio,lint,0,0,True,,,0.4
-F3.2,Bio,off,0,0,True,,,6.345
-F3.2,Bio,basic,0,0,True,,,5.871
-F3.2,Bio,structural,0,0,True,,,5.795
-F3.2,Bio,full,1,1,True,relabel/seqs post FAILURE,consume,6.442
-F3.2,Bio,lint,0,0,True,,,0.406
-F3.3,Bio,off,0,0,True,,,8.585
-F3.3,Bio,basic,0,0,True,,,9.888
-F3.3,Bio,structural,0,0,True,,,10.318
-F3.3,Bio,full,1,1,True,relabel/seqs post FAILURE,consume,7.214
-F3.3,Bio,lint,0,0,True,,,0.601
-F4.1,EO,off,0,0,True,,,1.871
-F4.1,EO,basic,0,0,True,,,1.377
-F4.1,EO,structural,0,0,True,,,1.398
-F4.1,EO,full,1,1,True,copy_expect_crs.cwl/raster post FAILURE,,1.306
-F4.1,EO,lint,0,0,True,,,0.377
-F4.2,EO,off,0,0,True,,,1.295
-F4.2,EO,basic,0,0,True,,,1.365
-F4.2,EO,structural,0,0,True,,,1.395
-F4.2,EO,full,1,1,True,copy_expect_linestring.cwl/lines post FAILURE,,1.355
-F4.2,EO,lint,0,0,True,,,0.391
-F4.3,EO,off,0,0,True,,,1.343
-F4.3,EO,basic,0,0,True,,,1.505
-F4.3,EO,structural,0,0,True,,,1.378
-F4.3,EO,full,1,1,True,geotiff_expect_geometry.cwl/raster post ERROR,,1.443
-F4.3,EO,full-service-error-warn,0,0,True,geotiff_expect_geometry.cwl/raster post ERROR,,1.456
-F4.3,EO,lint,0,0,True,,,0.423
-F5.1,EO,off,0,0,True,,,1.317
-F5.1,EO,basic,0,0,True,,,1.428
-F5.1,EO,structural,0,0,True,,,1.388
-F5.1,EO,full,1,1,True,consume/data pre FAILURE,consume,1.324
-F5.1,EO,lint,0,0,True,,,0.378
-F5.1,Bio,off,0,0,True,,,5.708
-F5.1,Bio,basic,0,0,True,,,5.639
-F5.1,Bio,structural,0,0,True,,,5.584
-F5.1,Bio,full,1,1,True,consume/data pre FAILURE,consume,5.563
-F5.1,Bio,lint,0,0,True,,,0.37
-OK.1,EO,off,0,0,True,,,1.264
-OK.1,EO,basic,0,0,True,,,1.288
-OK.1,EO,structural,0,0,True,,,1.302
-OK.1,EO,full,0,0,True,,,1.29
-OK.1,EO,lint,0,0,True,,,0.378
-OK.1,Bio,off,0,0,True,,,6.003
-OK.1,Bio,basic,0,0,True,,,5.695
-OK.1,Bio,structural,0,0,True,,,5.682
-OK.1,Bio,full,0,0,True,,,5.849
-OK.1,Bio,lint,0,0,True,,,0.429
-OK.2,EO,off,0,0,True,,,1.39
-OK.2,EO,basic,0,0,True,,,1.334
-OK.2,EO,structural,0,0,True,,,1.267
-OK.2,EO,full,0,0,True,,,1.353
-OK.2,EO,lint,0,0,True,,,0.39
-OK.2,Bio,off,0,0,True,,,5.703
-OK.2,Bio,basic,0,0,True,,,5.636
-OK.2,Bio,structural,0,0,True,,,5.772
-OK.2,Bio,full,0,0,True,,,5.729
-OK.2,Bio,lint,0,0,True,,,0.403
-OK.3,EO,off,0,0,True,,,1.294
-OK.3,EO,basic,0,0,True,,,1.284
-OK.3,EO,structural,0,0,True,,,1.374
-OK.3,EO,full,0,0,True,,,1.341
-OK.3,EO,lint,0,0,True,,,0.362
-OK.4,EO,off,0,0,True,,,1.215
-OK.4,EO,basic,0,0,True,,,1.249
-OK.4,EO,structural,0,0,True,,,1.243
-OK.4,EO,full,0,0,True,,,1.21
-X.1,EO,off,0,0,True,,,1.278
-X.1,EO,basic,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.276
-X.1,EO,structural,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.292
-X.1,EO,full,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.331
-X.1,EO,uncertain-fail,1,1,True,unsupported_format.cwl/geom post UNCERTAIN,,1.336
-X.1,EO,lint,0,0,True,,,0.369
-X.2,EO,lint,1,1,True,,,0.393
+F1.3,EO,off,1,1,True,,consume,1.338
+F1.3,EO,basic,1,1,True,,consume,1.314
+F1.3,EO,structural,1,1,True,,consume,1.239
+F1.3,EO,full,1,1,True,,consume,1.278
+F1.3,EO,lint,1,1,True,,,0.387
+F1.3,Bio,off,1,1,True,,consume,5.696
+F1.3,Bio,basic,1,1,True,,consume,5.519
+F1.3,Bio,structural,1,1,True,,consume,5.512
+F1.3,Bio,full,1,1,True,,consume,5.544
+F1.3,Bio,lint,1,1,True,,,0.373
+F2.1,EO,off,0,0,True,,,1.28
+F2.1,EO,basic,1,1,True,consume/data pre FAILURE,consume,1.231
+F2.1,EO,structural,1,1,True,consume/data pre FAILURE,consume,1.269
+F2.1,EO,full,1,1,True,consume/data pre FAILURE,consume,1.299
+F2.1,EO,lint,0,0,True,,,0.375
+F2.1,Bio,off,0,0,True,,,5.687
+F2.1,Bio,basic,1,1,True,consume/data pre FAILURE,consume,5.594
+F2.1,Bio,structural,1,1,True,consume/data pre FAILURE,consume,5.675
+F2.1,Bio,full,1,1,True,consume/data pre FAILURE,consume,5.626
+F2.1,Bio,lint,0,0,True,,,0.371
+F2.2,EO,off,0,0,True,,,1.291
+F2.2,EO,basic,0,0,True,,,1.257
+F2.2,EO,structural,0,0,True,,,1.261
+F2.2,EO,full,1,1,True,consume/data pre FAILURE,consume,1.29
+F2.2,EO,lint,0,0,True,,,0.366
+F2.2,Bio,off,0,0,True,,,5.666
+F2.2,Bio,basic,0,0,True,,,5.483
+F2.2,Bio,structural,0,0,True,,,5.519
+F2.2,Bio,full,1,1,True,consume/data pre FAILURE,consume,5.544
+F2.2,Bio,lint,0,0,True,,,0.371
+F2.3,EO,off,1,1,True,,consume,1.284
+F2.3,EO,basic,1,1,True,,consume,1.245
+F2.3,EO,structural,1,1,True,,consume,1.246
+F2.3,EO,full,1,1,True,,consume,1.302
+F2.3,EO,lint,0,0,True,,,0.367
+F2.3,Bio,off,1,1,True,,consume,5.795
+F2.3,Bio,basic,1,1,True,,consume,5.529
+F2.3,Bio,structural,1,1,True,,consume,5.463
+F2.3,Bio,full,1,1,True,,consume,5.526
+F2.3,Bio,lint,0,0,True,,,0.368
+F2.4,EO,off,1,1,True,,consume,1.291
+F2.4,EO,basic,1,1,True,,consume,1.293
+F2.4,EO,structural,1,1,True,,consume,1.239
+F2.4,EO,full,1,1,True,,consume,1.303
+F2.4,EO,lint,0,0,True,,,0.365
+F3.1,EO,off,0,0,True,,,1.317
+F3.1,EO,basic,1,1,True,relabel/raster post FAILURE,consume,1.313
+F3.1,EO,structural,1,1,True,relabel/raster post FAILURE,consume,1.299
+F3.1,EO,full,1,1,True,relabel/raster post FAILURE,consume,1.281
+F3.1,EO,lint,0,0,True,,,0.383
+F3.2,EO,off,0,0,True,,,1.267
+F3.2,EO,basic,0,0,True,,,1.316
+F3.2,EO,structural,0,0,True,,,1.327
+F3.2,EO,full,1,1,True,relabel/raster post FAILURE,consume,1.271
+F3.2,EO,lint,0,0,True,,,0.374
+F3.3,EO,off,0,0,True,,,3.407
+F3.3,EO,basic,0,0,True,,,4.396
+F3.3,EO,structural,0,0,True,,,4.449
+F3.3,EO,full,1,1,True,relabel/raster post FAILURE,consume,3.44
+F3.3,EO,lint,0,0,True,,,0.682
+F3.1,Bio,off,0,0,True,,,7.416
+F3.1,Bio,basic,1,1,True,relabel/seqs post FAILURE,consume,5.812
+F3.1,Bio,structural,1,1,True,relabel/seqs post FAILURE,consume,5.829
+F3.1,Bio,full,1,1,True,relabel/seqs post FAILURE,consume,5.857
+F3.1,Bio,lint,0,0,True,,,0.375
+F3.2,Bio,off,0,0,True,,,5.878
+F3.2,Bio,basic,0,0,True,,,5.893
+F3.2,Bio,structural,0,0,True,,,5.877
+F3.2,Bio,full,1,1,True,relabel/seqs post FAILURE,consume,5.768
+F3.2,Bio,lint,0,0,True,,,0.375
+F3.3,Bio,off,0,0,True,,,8.388
+F3.3,Bio,basic,0,0,True,,,10.672
+F3.3,Bio,structural,0,0,True,,,10.78
+F3.3,Bio,full,1,1,True,relabel/seqs post FAILURE,consume,9.435
+F3.3,Bio,lint,0,0,True,,,0.682
+F4.1,EO,off,0,0,True,,,1.477
+F4.1,EO,basic,0,0,True,,,1.317
+F4.1,EO,structural,0,0,True,,,1.248
+F4.1,EO,full,1,1,True,copy_expect_crs.cwl/raster post FAILURE,,1.248
+F4.1,EO,lint,0,0,True,,,0.368
+F4.2,EO,off,0,0,True,,,1.229
+F4.2,EO,basic,0,0,True,,,1.301
+F4.2,EO,structural,0,0,True,,,1.288
+F4.2,EO,full,1,1,True,copy_expect_linestring.cwl/lines post FAILURE,,1.271
+F4.2,EO,lint,0,0,True,,,0.359
+F4.3,EO,off,0,0,True,,,1.245
+F4.3,EO,basic,0,0,True,,,1.246
+F4.3,EO,structural,0,0,True,,,1.269
+F4.3,EO,full,1,1,True,geotiff_expect_geometry.cwl/raster post ERROR,,1.274
+F4.3,EO,full-service-error-warn,0,0,True,geotiff_expect_geometry.cwl/raster post ERROR,,1.267
+F4.3,EO,lint,0,0,True,,,0.364
+F5.1,EO,off,0,0,True,,,1.251
+F5.1,EO,basic,0,0,True,,,1.276
+F5.1,EO,structural,0,0,True,,,1.299
+F5.1,EO,full,1,1,True,consume/data pre FAILURE,consume,1.282
+F5.1,EO,lint,0,0,True,,,0.369
+F5.1,Bio,off,0,0,True,,,5.745
+F5.1,Bio,basic,0,0,True,,,5.549
+F5.1,Bio,structural,0,0,True,,,5.586
+F5.1,Bio,full,1,1,True,consume/data pre FAILURE,consume,5.603
+F5.1,Bio,lint,0,0,True,,,0.383
+OK.1,EO,off,0,0,True,,,1.293
+OK.1,EO,basic,0,0,True,,,1.243
+OK.1,EO,structural,0,0,True,,,1.255
+OK.1,EO,full,0,0,True,,,1.291
+OK.1,EO,lint,0,0,True,,,0.382
+OK.1,Bio,off,0,0,True,,,5.628
+OK.1,Bio,basic,0,0,True,,,5.543
+OK.1,Bio,structural,0,0,True,,,5.636
+OK.1,Bio,full,0,0,True,,,5.524
+OK.1,Bio,lint,0,0,True,,,0.364
+OK.2,EO,off,0,0,True,,,1.284
+OK.2,EO,basic,0,0,True,,,1.252
+OK.2,EO,structural,0,0,True,,,1.259
+OK.2,EO,full,0,0,True,,,1.324
+OK.2,EO,lint,0,0,True,,,0.368
+OK.2,Bio,off,0,0,True,,,5.584
+OK.2,Bio,basic,0,0,True,,,5.556
+OK.2,Bio,structural,0,0,True,,,5.6
+OK.2,Bio,full,0,0,True,,,5.543
+OK.2,Bio,lint,0,0,True,,,0.374
+OK.3,EO,off,0,0,True,,,1.28
+OK.3,EO,basic,0,0,True,,,1.245
+OK.3,EO,structural,0,0,True,,,1.266
+OK.3,EO,full,0,0,True,,,1.677
+OK.3,EO,lint,0,0,True,,,0.381
+OK.4,EO,off,0,0,True,,,1.222
+OK.4,EO,basic,0,0,True,,,1.214
+OK.4,EO,structural,0,0,True,,,1.199
+OK.4,EO,full,0,0,True,,,1.233
+X.1,EO,off,0,0,True,,,1.265
+X.1,EO,basic,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.228
+X.1,EO,structural,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.252
+X.1,EO,full,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.263
+X.1,EO,uncertain-fail,1,1,True,unsupported_format.cwl/geom post UNCERTAIN,,1.252
+X.1,EO,lint,0,0,True,,,0.363
+X.2,EO,lint,1,1,True,,,0.374

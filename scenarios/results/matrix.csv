@@ -9,6 +9,9 @@ F2.1,EO,workflow input `roads.geojson` labelled GeoTIFF by the job,0,0,1,1,1,,in
 F2.1,Bio,workflow input `reads.fastq` labelled FASTA by the job (validator plug-in),0,0,1,1,1,,input check of `consume`; `consume` not run
 F2.2,EO,"GeoJSON content named `roads_as.tif`, labelled GeoTIFF",0,0,0,0,1,,as F2.1
 F2.2,Bio,"FASTQ content named `reads_as.fasta`, labelled FASTA (validator plug-in)",0,0,0,0,1,,as F2.1
+F2.3,EO,"the job names `missing.tif`, which does not exist",1,0,1,1,1,,"cwltool, when it loads the job; no step runs"
+F2.3,Bio,"the job names `missing.fasta`, which does not exist",1,0,1,1,1,,"cwltool, when it loads the job; no step runs"
+F2.4,EO,"a Shapefile without its `.dbf`, which the workflow input requires as a secondary file",1,0,1,1,1,,"cwltool, when it loads the job; no step runs"
 F3.1,EO,a tool writes GeoJSON as `out.geojson` and labels it GeoTIFF,0,0,1,1,1,,output check of `relabel`; `consume` not run
 F3.2,EO,"as F3.1, but named `out.tif`",0,0,0,0,1,,as F3.1
 F3.3,EO,F3.2 with all steps in `alpine` containers,0,0,0,0,1,,as F3.1
@@ -19,7 +22,7 @@ F4.1,EO,"GeoTIFF in EPSG:4326, output declares `sos:expectedCRS: EPSG:3857`",0,0
 F4.2,EO,"Point GeoJSON, output declares `sos:expectedGeometryType: LineString`",0,0,0,0,1,,output check of the tool
 F4.3,EO,"`sos:expectedGeometryType` on a GeoTIFF output: the service rejects the request in full mode (`ERROR`, HTTP 400)",0,0,0,0,1,full-service-error-warn: 0,"full: output check of the tool; the runner treats the rejected request as a service error, so with `--format-service-error warn` it completes with a warning"
 F5.1,EO,GeoTIFF truncated at 64 bytes,0,0,0,0,1,,as F2.1
-F5.1,Bio,FASTA whose last record has no sequence (validator plug-in),0,0,0,0,1,,as F2.1
+F5.1,Bio,FASTQ cut off inside its second record (validator plug-in),0,0,0,0,1,,as F2.1
 OK.1,EO,"none, a valid GeoTIFF into the F2 workflow",0,0,0,0,0,,completes
 OK.1,Bio,"none, a valid FASTA into the F2 workflow (validator plug-in)",0,0,0,0,0,,completes
 OK.2,EO,"none, Shapefile into an `eo:Vector` port (subclass, multi-file format)",0,0,0,0,0,,completes

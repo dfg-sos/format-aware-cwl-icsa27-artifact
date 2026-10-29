@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.271,
+      "wall_s": 1.364,
       "failed_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
@@ -15,16 +15,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.271,
-        1.225,
-        1.242
+        1.364,
+        1.321,
+        1.286
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.236,
+      "wall_s": 1.38,
       "failed_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
@@ -33,16 +33,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.236,
-        1.286,
-        1.233
+        1.38,
+        1.478,
+        1.33
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.274,
+      "wall_s": 1.325,
       "failed_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
@@ -51,16 +51,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.274,
-        1.28,
-        1.255
+        1.325,
+        1.299,
+        1.323
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.238,
+      "wall_s": 1.296,
       "failed_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
@@ -69,25 +69,25 @@
         0
       ],
       "wall_s_per_rep": [
-        1.238,
-        1.325,
-        1.534
+        1.296,
+        1.308,
+        1.312
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 0.418,
+      "wall_s": 0.408,
       "exit_per_rep": [
         1,
         1,
         1
       ],
       "wall_s_per_rep": [
-        0.418,
-        0.387,
-        0.433
+        0.408,
+        0.414,
+        0.391
       ],
       "consistent": true
     }

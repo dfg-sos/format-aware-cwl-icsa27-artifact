@@ -5,12 +5,46 @@ INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl' to '
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/3k0ob653$ cp \
-    /tmp/ys4t802w/stg1178dc09-eeed-4f90-811a-1a50e36cf349/reads.fastq \
+INFO [job relabel] /tmp/4grndn7x$ cp \
+    /tmp/_naaqg40/stgd52c635a-b341-4db3-89a0-307a4acda672/reads.fastq \
     out.fastq
-ERROR [step relabel] output 'seqs' file 'out.fastq' is not valid http://edamontology.org/format_1929: FAILURE: File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Line 1: Expected a header starting with '>'.
+ERROR [step relabel] output 'seqs' file 'out.fastq' is not valid http://edamontology.org/format_1929: FAILURE: File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not
+allowed by the 'fasta' parser.
+
+To parse this file, you have three options:
+
+(1) Modify your FASTA file to remove such comments at the beginning of the
+file.
+
+(2) Use SeqIO.parse with the 'fasta-pearson' format instead of 'fasta'. This
+format is consistent with the FASTA format defined by William Pearson's FASTA
+aligner software. This format allows for comments before the first sequence;
+lines starting with the ';' character anywhere in the file are also regarded
+as comment lines and are ignored.
+
+(3) Use the 'fasta-blast' format. This format regards any lines "starting with
+'!', '#', or ';' as comment lines. The 'fasta-blast' format may be safer than
+the 'fasta-pearson' format, as it explicitly indicates which lines are comments.
+
 ERROR [job relabel] Job error:
-[step relabel] output 'seqs' file 'out.fastq' is not valid http://edamontology.org/format_1929: FAILURE: File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Line 1: Expected a header starting with '>'.
+[step relabel] output 'seqs' file 'out.fastq' is not valid http://edamontology.org/format_1929: FAILURE: File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not
+allowed by the 'fasta' parser.
+
+To parse this file, you have three options:
+
+(1) Modify your FASTA file to remove such comments at the beginning of the
+file.
+
+(2) Use SeqIO.parse with the 'fasta-pearson' format instead of 'fasta'. This
+format is consistent with the FASTA format defined by William Pearson's FASTA
+aligner software. This format allows for comments before the first sequence;
+lines starting with the ';' character anywhere in the file are also regarded
+as comment lines and are ignored.
+
+(3) Use the 'fasta-blast' format. This format regards any lines "starting with
+'!', '#', or ';' as comment lines. The 'fasta-blast' format may be safer than
+the 'fasta-pearson' format, as it explicitly indicates which lines are comments.
+
 WARNING [job relabel] completed permanentFail
 ERROR [step relabel] Output is missing expected field file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl#relabel/seqs
 WARNING [step relabel] completed permanentFail

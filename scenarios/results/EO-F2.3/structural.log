@@ -1,0 +1,45 @@
+{
+    "size": null
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/consume_input.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/consume_input.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step consume
+INFO [step consume] start
+ERROR Unexpected exception
+Traceback (most recent call last):
+  File "/home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/lib/python3.12/site-packages/cwltool/pathmapper.py", line 162, in visit
+    st = os.lstat(deref)
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/missing.tif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/lib/python3.12/site-packages/cwltool/workflow.py", line 435, in job
+    yield from self.embedded_tool.job(
+  File "/home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/lib/python3.12/site-packages/format_aware_cwl/tool.py", line 122, in job
+    for j in super().job(job_order, output_callbacks, runtimeContext):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/lib/python3.12/site-packages/cwltool/command_line_tool.py", line 1035, in job
+    builder.pathmapper = self.make_path_mapper(reffiles, builder.stagedir, runtimeContext, True)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/lib/python3.12/site-packages/cwltool/command_line_tool.py", line 497, in make_path_mapper
+    return default_make_path_mapper(reffiles, stagedir, runtimeContext, separateDirs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/lib/python3.12/site-packages/cwltool/command_line_tool.py", line 418, in default_make_path_mapper
+    return path_mapper_class(reffiles, runtimeContext.basedir, stagedir, separateDirs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/lib/python3.12/site-packages/cwltool/pathmapper.py", line 88, in __init__
+    self.setup(dedup(referenced_files), basedir)
+  File "/home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/lib/python3.12/site-packages/cwltool/pathmapper.py", line 196, in setup
+    self.visit(
+  File "/home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/lib/python3.12/site-packages/cwltool/pathmapper.py", line 151, in visit
+    with SourceLine(
+         ^^^^^^^^^^^
+  File "src/schema_salad/sourceline.py", line 255, in __exit__
+schema_salad.exceptions.ValidationException: scenarios/fixtures/jobs/raster_missing.yml:1:23: [Errno 2] No such file or directory:
+                                                 '/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/missing.tif'
+ERROR [step consume] Cannot make job: scenarios/fixtures/jobs/raster_missing.yml:1:23: [Errno 2] No such file or directory:
+                                                 '/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/missing.tif'
+INFO [workflow ] completed permanentFail
+WARNING Final process status is permanentFail

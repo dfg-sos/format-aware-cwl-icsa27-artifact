@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 7.741,
+      "wall_s": 7.416,
       "failed_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
@@ -15,16 +15,16 @@
         0
       ],
       "wall_s_per_rep": [
-        7.741,
-        5.888,
-        6.406
+        7.416,
+        5.844,
+        5.796
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 6.058,
+      "wall_s": 5.812,
       "failed_checks": [
         {
           "step": "relabel",
@@ -44,16 +44,16 @@
         1
       ],
       "wall_s_per_rep": [
-        6.058,
-        6.128,
-        6.292
+        5.812,
+        5.83,
+        5.837
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 6.001,
+      "wall_s": 5.829,
       "failed_checks": [
         {
           "step": "relabel",
@@ -73,16 +73,16 @@
         1
       ],
       "wall_s_per_rep": [
-        6.001,
-        5.845,
-        5.932
+        5.829,
+        5.861,
+        5.881
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 6.416,
+      "wall_s": 5.857,
       "failed_checks": [
         {
           "step": "relabel",
@@ -90,7 +90,7 @@
           "direction": "post",
           "file": "out.fastq",
           "result": "FAILURE",
-          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Line 1: Expected a header starting with '>'."
+          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not\nallowed by the 'fasta' parser.\n\nTo parse this file, you have three options:\n\n(1) Modify your FASTA file to remove such comments at the beginning of the\nfile.\n\n(2) Use SeqIO.parse with the 'fasta-pearson' format instead of 'fasta'. This\nformat is consistent with the FASTA format defined by William Pearson's FASTA\naligner software. This format allows for comments before the first sequence;\nlines starting with the ';' character anywhere in the file are also regarded\nas comment lines and are ignored.\n\n(3) Use the 'fasta-blast' format. This format regards any lines \"starting with\n'!', '#', or ';' as comment lines. The 'fasta-blast' format may be safer than\nthe 'fasta-pearson' format, as it explicitly indicates which lines are comments.\n"
         }
       ],
       "steps_not_run": [
@@ -102,25 +102,25 @@
         1
       ],
       "wall_s_per_rep": [
-        6.416,
-        6.254,
-        6.251
+        5.857,
+        5.987,
+        5.871
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.4,
+      "wall_s": 0.375,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.4,
-        0.382,
-        0.426
+        0.375,
+        0.375,
+        0.376
       ],
       "consistent": true
     }

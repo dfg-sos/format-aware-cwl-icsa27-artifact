@@ -1,12 +1,12 @@
 {
   "id": "F5.1",
   "domain": "Bio",
-  "workflow": "consume_fasta_input.cwl",
+  "workflow": "consume_fastq_input.cwl",
   "runs": {
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.708,
+      "wall_s": 5.745,
       "failed_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
@@ -15,16 +15,16 @@
         0
       ],
       "wall_s_per_rep": [
-        5.708,
-        5.587,
-        5.575
+        5.745,
+        5.567,
+        5.553
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.639,
+      "wall_s": 5.549,
       "failed_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
@@ -33,16 +33,16 @@
         0
       ],
       "wall_s_per_rep": [
-        5.639,
-        5.632,
-        5.619
+        5.549,
+        5.597,
+        5.544
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.584,
+      "wall_s": 5.586,
       "failed_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
@@ -51,24 +51,24 @@
         0
       ],
       "wall_s_per_rep": [
-        5.584,
-        5.498,
-        5.541
+        5.586,
+        5.544,
+        5.552
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.563,
+      "wall_s": 5.603,
       "failed_checks": [
         {
           "step": "consume",
           "port": "data",
           "direction": "pre",
-          "file": "seqs_truncated.fasta",
+          "file": "reads_truncated.fastq",
           "result": "FAILURE",
-          "message": "Line 4: Record has no sequence."
+          "message": "Biopython cannot parse the file as fastq: End of file without quality information."
         }
       ],
       "steps_not_run": [
@@ -80,25 +80,25 @@
         1
       ],
       "wall_s_per_rep": [
-        5.563,
-        5.536,
-        5.546
+        5.603,
+        5.567,
+        5.551
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.37,
+      "wall_s": 0.383,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.37,
-        0.36,
-        0.39
+        0.383,
+        0.371,
+        0.369
       ],
       "consistent": true
     }

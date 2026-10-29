@@ -4,6 +4,8 @@ F1.2,"Abstract input, matching file","EO, Bio",○,●,○,○,○,linter
 F1.3,"Abstract input, other subformat","EO, Bio",●,●,●,●,●,linter; else label check
 F2.1,"Mislabelled input, by extension","EO, Bio",○,○,●,●,●,input check
 F2.2,"Mislabelled input, by content","EO, Bio",○,○,○,○,●,input check
+F2.3,Missing input file,"EO, Bio",●,○,●,●,●,cwltool at start
+F2.4,Missing secondary file,EO,●,○,●,●,●,cwltool at start
 F3.1,"Mislabelled output, by extension","EO, Bio",○,○,●,●,●,output check
 F3.2,"Mislabelled output, by content","EO, Bio",○,○,○,○,●,output check
 F3.3,"Mislabelled output, by content, in containers","EO, Bio",○,○,○,○,●,output check

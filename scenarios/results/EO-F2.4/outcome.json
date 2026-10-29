@@ -1,0 +1,103 @@
+{
+  "id": "F2.4",
+  "domain": "EO",
+  "workflow": "wire_shapefile_to_vector.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.291,
+      "failed_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.291,
+        1.292,
+        1.265
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.293,
+      "failed_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.293,
+        1.291,
+        1.294
+      ],
+      "consistent": true
+    },
+    "structural": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.239,
+      "failed_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.239,
+        1.233,
+        1.266
+      ],
+      "consistent": true
+    },
+    "full": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.303,
+      "failed_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.303,
+        1.286,
+        1.25
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.365,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.365,
+        0.368,
+        0.389
+      ],
+      "consistent": true
+    }
+  }
+}

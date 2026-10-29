@@ -1,58 +1,58 @@
 {
     "size": {
-        "location": "file:///tmp/tmpgssbpogr/out/size.txt",
+        "location": "file:///tmp/tmpvcv7yxi2/out/size.txt",
         "basename": "size.txt",
         "class": "File",
-        "checksum": "sha1$cd3c9f64e72032ba493732adb3533581fcf120d8",
+        "checksum": "sha1$b0111315bd6e7e02836b49a90ecc205964b1d574",
         "size": 66,
-        "path": "/tmp/tmpgssbpogr/out/size.txt"
+        "path": "/tmp/tmpvcv7yxi2/out/size.txt"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl'
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/22_0psbp$ docker \
+INFO [job relabel] /tmp/2fyof3lr$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/22_0psbp,target=/cYbveO \
-    --mount=type=bind,source=/tmp/4_u81211,target=/tmp \
-    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/reads.fastq,target=/var/lib/cwl/stg3ad1784b-2b79-4515-bf62-47475a437fe0/reads.fastq,readonly \
-    --workdir=/cYbveO \
+    --mount=type=bind,source=/tmp/2fyof3lr,target=/EvzCFo \
+    --mount=type=bind,source=/tmp/moadlz39,target=/tmp \
+    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/reads.fastq,target=/var/lib/cwl/stg9a526518-09bd-45ae-9df6-d77b3cd00589/reads.fastq,readonly \
+    --workdir=/EvzCFo \
     --read-only=true \
     --net=none \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/5xkc6tpp/20261029183211-932230.cid \
+    --cidfile=/tmp/ej55fyro/20261029213932-056995.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/cYbveO \
+    --env=HOME=/EvzCFo \
     alpine:3.20 \
     cp \
-    /var/lib/cwl/stg3ad1784b-2b79-4515-bf62-47475a437fe0/reads.fastq \
+    /var/lib/cwl/stg9a526518-09bd-45ae-9df6-d77b3cd00589/reads.fastq \
     out.fasta
 INFO [job relabel] completed success
 INFO [step relabel] completed success
 INFO [workflow ] starting step consume
 INFO [step consume] start
-INFO [job consume] /tmp/y6495l3r$ docker \
+INFO [job consume] /tmp/40mtfmzj$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/y6495l3r,target=/cYbveO \
-    --mount=type=bind,source=/tmp/s9gtavqz,target=/tmp \
-    --mount=type=bind,source=/tmp/22_0psbp/out.fasta,target=/var/lib/cwl/stg12270684-3c4e-4929-9827-27d52cb0aad3/out.fasta,readonly \
-    --workdir=/cYbveO \
+    --mount=type=bind,source=/tmp/40mtfmzj,target=/EvzCFo \
+    --mount=type=bind,source=/tmp/88ajyosa,target=/tmp \
+    --mount=type=bind,source=/tmp/2fyof3lr/out.fasta,target=/var/lib/cwl/stgbc9a1191-595e-47bd-b782-d56ca56dc0b8/out.fasta,readonly \
+    --workdir=/EvzCFo \
     --read-only=true \
     --net=none \
     --log-driver=none \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/yaiuvi_3/20261029183212-937910.cid \
+    --cidfile=/tmp/suksxq0o/20261029213933-063732.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/cYbveO \
+    --env=HOME=/EvzCFo \
     alpine:3.20 \
     wc \
     -c \
-    /var/lib/cwl/stg12270684-3c4e-4929-9827-27d52cb0aad3/out.fasta > /tmp/y6495l3r/size.txt
+    /var/lib/cwl/stgbc9a1191-595e-47bd-b782-d56ca56dc0b8/out.fasta > /tmp/40mtfmzj/size.txt
 INFO [job consume] completed success
 INFO [step consume] completed success
 INFO [workflow ] completed success
