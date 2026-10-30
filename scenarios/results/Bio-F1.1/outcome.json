@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.784,
+      "wall_s": 5.653,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -17,17 +18,18 @@
         1
       ],
       "wall_s_per_rep": [
-        5.784,
-        5.848,
-        5.719
+        5.653,
+        5.718,
+        5.693
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.713,
+      "wall_s": 5.681,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -37,17 +39,18 @@
         1
       ],
       "wall_s_per_rep": [
-        5.713,
-        5.744,
-        5.67
+        5.681,
+        5.626,
+        5.583
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.702,
+      "wall_s": 5.736,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -57,17 +60,18 @@
         1
       ],
       "wall_s_per_rep": [
-        5.702,
-        5.69,
-        5.702
+        5.736,
+        5.688,
+        5.775
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.884,
+      "wall_s": 5.504,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -77,25 +81,25 @@
         1
       ],
       "wall_s_per_rep": [
-        5.884,
-        5.704,
-        5.675
+        5.504,
+        5.442,
+        5.49
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 0.396,
+      "wall_s": 0.368,
       "exit_per_rep": [
         1,
         1,
         1
       ],
       "wall_s_per_rep": [
-        0.396,
-        0.386,
-        0.381
+        0.368,
+        0.362,
+        0.366
       ],
       "consistent": true
     }

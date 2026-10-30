@@ -37,8 +37,8 @@ input file, F3 a tool stamps the wrong label on its output, F4 wrong or inapplic
 corrupt file; OK are controls (no fault), X limits of the runtime checks. Each scenario belongs to one
 application domain: EO (the EO formats ontology) or Bio (EDAM; the runtime checks through the validator plug-in
 `plugins/format-validator-bio`). The same ID in both domains is the same fault: Bio F1.1 is EO F1.1 with FASTQ and FASTA
-instead of Shapefile and GeoTIFF. F4 and X run in EO only: F4 checks EO metadata (CRS, geometry type), X.1 an EO format
-without validator, X.2 an output without format. Results are kept per `<domain>-<id>`, e.g. `results/Bio-F1.1/`. The
+instead of Shapefile and GeoTIFF. F4 and X.1 run in EO only: F4 checks EO metadata (CRS, geometry type), X.1 an EO format
+without validator. X.2, an output without format, belongs to no domain (`none`). Results are kept per `<domain>-<id>`, e.g. `results/Bio-F1.1/`. The
 fixtures (`fixtures/workflows/`, `tools/`, `jobs/`, `data/`) derive from the runner's `tests/fixtures/`.
 
 [`run.py`](run.py) runs each scenario as `off`, `basic`, `structural`, `full` (transfer `auto`), and through
@@ -84,7 +84,7 @@ declares no `$schemas` to lint.
 | OK.2 | Bio | none, FASTA into a port accepting any sequence format (subclass) | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.3 | EO | none, the F4.2 tool with LineStrings | 0 | 0 | 0 | 0 | 0 |  | completes |
 | X.1 | EO | output labelled `eo:WKB`, which the service cannot validate: `UNCERTAIN` | 0 | 0 | 0 | 0 | 0 | uncertain-fail: 1 | completes with a warning; with `--format-uncertain fail`: output check of the tool |
-| X.2 | EO | output without `format`: the runner skips its check and sends nothing to the service | 0 |  | 0 | 0 | 0 |  | completes, not checked (logged as skipped) |
+| X.2 | none | output without `format`: the runner skips its check and sends nothing to the service | 0 |  | 0 | 0 | 0 |  | completes, not checked (logged as skipped) |
 
 **Findings:**
 - **Plain cwltool misses every runtime fault** (exit 0): it stamps the declared label on outputs and never looks at file content. It stops F1.1 and F1.3 only at runtime, when it creates the `consume` job; the linter rejects their workflows before any job runs.

@@ -1,13 +1,14 @@
 {
-  "id": "OK.4",
-  "domain": "EO",
+  "id": "X.2",
+  "domain": "none",
   "workflow": "unannotated_output.cwl",
   "runs": {
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.222,
+      "wall_s": 1.243,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -15,17 +16,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.222,
-        1.201,
-        1.201
+        1.243,
+        1.373,
+        1.246
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.214,
+      "wall_s": 1.243,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "unannotated_output.cwl",
+          "port": "plain",
+          "direction": "post",
+          "file": "plain.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -33,17 +43,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.214,
-        1.236,
-        1.202
+        1.243,
+        1.243,
+        1.243
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.199,
+      "wall_s": 1.275,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "unannotated_output.cwl",
+          "port": "plain",
+          "direction": "post",
+          "file": "plain.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -51,17 +70,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.199,
-        1.2,
-        1.255
+        1.275,
+        1.363,
+        1.295
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.233,
+      "wall_s": 1.242,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "unannotated_output.cwl",
+          "port": "plain",
+          "direction": "post",
+          "file": "plain.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -69,9 +97,9 @@
         0
       ],
       "wall_s_per_rep": [
-        1.233,
-        1.198,
-        1.198
+        1.242,
+        1.224,
+        1.289
       ],
       "consistent": true
     }

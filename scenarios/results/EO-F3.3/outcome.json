@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 3.407,
+      "wall_s": 3.336,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -15,17 +16,33 @@
         0
       ],
       "wall_s_per_rep": [
-        3.407,
-        4.443,
-        4.408
+        3.336,
+        3.308,
+        3.342
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 4.396,
+      "wall_s": 3.339,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "relabel",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "reason": "no format"
+        },
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -33,17 +50,33 @@
         0
       ],
       "wall_s_per_rep": [
-        4.396,
-        4.45,
-        4.425
+        3.339,
+        3.326,
+        3.319
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 4.449,
+      "wall_s": 3.341,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "relabel",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "reason": "no format"
+        },
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -51,16 +84,16 @@
         0
       ],
       "wall_s_per_rep": [
-        4.449,
-        4.474,
-        4.609
+        3.341,
+        3.347,
+        3.336
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 3.44,
+      "wall_s": 2.344,
       "failed_checks": [
         {
           "step": "relabel",
@@ -68,7 +101,16 @@
           "direction": "post",
           "file": "out.tif",
           "result": "FAILURE",
-          "message": "Failed to open file '/tmp/sos_validate_4v68370o/out.tif' with RasterIO:\n'/tmp/sos_validate_4v68370o/out.tif' not recognized as being in a supported file format."
+          "message": "Failed to open file '/tmp/sos_validate_f1ji8uyi/out.tif' with RasterIO:\n'/tmp/sos_validate_f1ji8uyi/out.tif' not recognized as being in a supported file format."
+        }
+      ],
+      "skipped_checks": [
+        {
+          "step": "relabel",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "reason": "no format"
         }
       ],
       "steps_not_run": [
@@ -80,25 +122,25 @@
         1
       ],
       "wall_s_per_rep": [
-        3.44,
-        3.437,
-        3.432
+        2.344,
+        2.33,
+        2.322
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.682,
+      "wall_s": 0.373,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.682,
-        0.682,
-        0.706
+        0.373,
+        0.385,
+        0.371
       ],
       "consistent": true
     }

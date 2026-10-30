@@ -1,17 +1,17 @@
 {
     "lines": {
-        "location": "file:///tmp/tmp7qa684w5/out/out.geojson",
+        "location": "file:///tmp/tmpt8onu_83/out/out.geojson",
         "basename": "out.geojson",
         "class": "File",
         "checksum": "sha1$2bdca1be12416a28903e32fedcdbee3e9ec60718",
         "size": 442,
         "format": "https://dfg-sos.github.io/ontologies/eo-formats#GeoJSON",
-        "path": "/tmp/tmp7qa684w5/out/out.geojson"
+        "path": "/tmp/tmpt8onu_83/out/out.geojson"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/copy_expect_linestring.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/copy_expect_linestring.cwl'
-INFO [job copy_expect_linestring.cwl] /tmp/4jla816f$ cp \
-    /tmp/mto8ajsc/stg99494883-fbef-4dec-bf25-a55ffbaec626/roads.geojson \
+INFO [job copy_expect_linestring.cwl] /tmp/fvvlh8kw$ cp \
+    /tmp/s6h99p9h/stg592c783b-c58c-43dc-a80c-d1db4e595a1c/roads.geojson \
     out.geojson
 INFO [job copy_expect_linestring.cwl] completed success
 INFO Final process status is success

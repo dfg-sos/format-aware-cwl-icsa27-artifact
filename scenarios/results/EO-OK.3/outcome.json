@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.28,
+      "wall_s": 1.303,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -15,17 +16,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.28,
-        1.275,
-        1.237
+        1.303,
+        1.259,
+        1.316
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.245,
+      "wall_s": 1.352,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -33,17 +43,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.245,
-        1.274,
-        1.251
+        1.352,
+        1.331,
+        1.309
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.266,
+      "wall_s": 1.343,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -51,17 +70,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.266,
-        1.25,
-        1.297
+        1.343,
+        1.271,
+        1.26
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.677,
+      "wall_s": 1.259,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -69,25 +97,25 @@
         0
       ],
       "wall_s_per_rep": [
-        1.677,
-        1.386,
-        1.588
+        1.259,
+        1.266,
+        1.303
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.381,
+      "wall_s": 0.416,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.381,
-        0.393,
-        0.374
+        0.416,
+        0.418,
+        0.43
       ],
       "consistent": true
     }

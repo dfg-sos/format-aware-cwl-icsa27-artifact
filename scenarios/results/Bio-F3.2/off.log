@@ -1,27 +1,27 @@
 {
     "size": {
-        "location": "file:///tmp/tmpgum7zle9/out/size.txt",
+        "location": "file:///tmp/tmpktrct54n/out/size.txt",
         "basename": "size.txt",
         "class": "File",
-        "checksum": "sha1$06c5aff06a624d8cc78df11eeccdfcee309fe687",
+        "checksum": "sha1$8aa828f82ca0c8527b6e0f5298587c205d389622",
         "size": 67,
-        "path": "/tmp/tmpgum7zle9/out/size.txt"
+        "path": "/tmp/tmpktrct54n/out/size.txt"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl'
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/1dp2k2e0$ cp \
-    /tmp/sg703tez/stge8087edb-a2db-48e5-887d-8cf9e21b949f/reads.fastq \
+INFO [job relabel] /tmp/srzdjd2c$ cp \
+    /tmp/1f5iplol/stgc0d48c4f-07dd-4ae5-874b-63efe182da09/reads.fastq \
     out.fasta
 INFO [job relabel] completed success
 INFO [step relabel] completed success
 INFO [workflow ] starting step consume
 INFO [step consume] start
-INFO [job consume] /tmp/wnrsid_9$ wc \
+INFO [job consume] /tmp/nm8dsx8n$ wc \
     -c \
-    /tmp/q_nrk9d7/stg21847171-7ffa-421e-ab27-073ad5f22dc0/out.fasta > /tmp/wnrsid_9/size.txt
+    /tmp/zuboawll/stg6e382843-8347-4b66-a7c8-481494968ce1/out.fasta > /tmp/nm8dsx8n/size.txt
 INFO [job consume] completed success
 INFO [step consume] completed success
 INFO [workflow ] completed success

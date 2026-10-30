@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.251,
+      "wall_s": 1.267,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -15,17 +16,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.251,
         1.267,
-        1.29
+        1.25,
+        1.24
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.276,
+      "wall_s": 1.261,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -33,17 +43,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.276,
-        1.253,
-        1.244
+        1.261,
+        1.251,
+        1.262
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.299,
+      "wall_s": 1.265,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -51,16 +70,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.299,
-        1.261,
-        1.277
+        1.265,
+        1.314,
+        1.279
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.282,
+      "wall_s": 1.312,
       "failed_checks": [
         {
           "step": "consume",
@@ -68,9 +87,10 @@
           "direction": "pre",
           "file": "raster_truncated.tif",
           "result": "FAILURE",
-          "message": "Failed to open file '/tmp/sos_validate_vdf9mkmj/raster_truncated.tif' with RasterIO:\nraster_truncated.tif: TIFFReadDirectory:Failed to read directory at offset 8"
+          "message": "Failed to open file '/tmp/sos_validate_w_3y49hu/raster_truncated.tif' with RasterIO:\nraster_truncated.tif: TIFFReadDirectory:Failed to read directory at offset 8"
         }
       ],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -80,25 +100,25 @@
         1
       ],
       "wall_s_per_rep": [
-        1.282,
-        1.28,
-        1.244
+        1.312,
+        1.269,
+        1.257
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.369,
+      "wall_s": 0.371,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.369,
         0.371,
-        0.372
+        0.368,
+        0.367
       ],
       "consistent": true
     }

@@ -5,8 +5,8 @@ INFO Resolved 'scenarios/fixtures/workflows/consume_input.cwl' to 'file:///home/
 INFO [workflow ] start
 INFO [workflow ] starting step consume
 INFO [step consume] start
-ERROR [step consume] input 'data' file 'roads_as.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_qenk80s3/roads_as.tif' with RasterIO:
-'/tmp/sos_validate_qenk80s3/roads_as.tif' not recognized as being in a supported file format.
+ERROR [step consume] input 'data' file 'roads_as.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to open file '/tmp/sos_validate_vs3ywgl3/roads_as.tif' with RasterIO:
+'/tmp/sos_validate_vs3ywgl3/roads_as.tif' not recognized as being in a supported file format.
 ERROR [step consume] Output is missing expected field file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/consume_input.cwl#consume/size
 WARNING [step consume] completed permanentFail
 INFO [workflow ] completed permanentFail

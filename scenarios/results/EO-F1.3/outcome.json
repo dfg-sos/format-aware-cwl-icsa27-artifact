@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.338,
+      "wall_s": 1.209,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -17,17 +18,18 @@
         1
       ],
       "wall_s_per_rep": [
-        1.338,
-        1.279,
-        1.262
+        1.209,
+        1.262,
+        1.246
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.314,
+      "wall_s": 1.237,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -37,17 +39,18 @@
         1
       ],
       "wall_s_per_rep": [
-        1.314,
-        1.31,
-        1.258
+        1.237,
+        1.229,
+        1.221
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.239,
+      "wall_s": 1.238,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -57,17 +60,18 @@
         1
       ],
       "wall_s_per_rep": [
-        1.239,
-        1.246,
-        1.308
+        1.238,
+        1.243,
+        1.243
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.278,
+      "wall_s": 1.248,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -77,25 +81,25 @@
         1
       ],
       "wall_s_per_rep": [
-        1.278,
-        1.256,
-        1.237
+        1.248,
+        1.284,
+        1.241
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 0.387,
+      "wall_s": 0.367,
       "exit_per_rep": [
         1,
         1,
         1
       ],
       "wall_s_per_rep": [
-        0.387,
-        0.396,
-        0.39
+        0.367,
+        0.366,
+        0.394
       ],
       "consistent": true
     }

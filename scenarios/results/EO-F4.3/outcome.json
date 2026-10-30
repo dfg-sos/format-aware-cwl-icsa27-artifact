@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.245,
+      "wall_s": 1.239,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -15,17 +16,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.245,
-        1.244,
-        1.329
+        1.239,
+        1.232,
+        1.226
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.246,
+      "wall_s": 1.238,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "geotiff_expect_geometry.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "raster_4326.tif",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -33,17 +43,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.246,
-        1.227,
-        1.226
+        1.238,
+        1.238,
+        1.243
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.269,
+      "wall_s": 1.248,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "geotiff_expect_geometry.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "raster_4326.tif",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -51,16 +70,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.269,
-        1.249,
-        1.239
+        1.248,
+        1.289,
+        1.252
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.274,
+      "wall_s": 1.273,
       "failed_checks": [
         {
           "step": "geotiff_expect_geometry.cwl",
@@ -69,6 +88,15 @@
           "file": "out.tif",
           "result": "ERROR",
           "message": "format service HTTP 400: Unsupported metadata keys ['geometry_type'], supported keys are ['crs']."
+        }
+      ],
+      "skipped_checks": [
+        {
+          "step": "geotiff_expect_geometry.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "raster_4326.tif",
+          "reason": "no format"
         }
       ],
       "steps_not_run": [],
@@ -78,16 +106,16 @@
         1
       ],
       "wall_s_per_rep": [
-        1.274,
-        1.286,
-        1.238
+        1.273,
+        1.245,
+        1.263
       ],
       "consistent": true
     },
     "full-service-error-warn": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.267,
+      "wall_s": 1.238,
       "failed_checks": [
         {
           "step": "geotiff_expect_geometry.cwl",
@@ -98,6 +126,15 @@
           "message": "format service HTTP 400: Unsupported metadata keys ['geometry_type'], supported keys are ['crs']."
         }
       ],
+      "skipped_checks": [
+        {
+          "step": "geotiff_expect_geometry.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "raster_4326.tif",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -105,25 +142,25 @@
         0
       ],
       "wall_s_per_rep": [
-        1.267,
-        1.253,
-        1.266
+        1.238,
+        1.249,
+        1.254
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.364,
+      "wall_s": 0.362,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.364,
-        0.363,
-        0.365
+        0.362,
+        0.362,
+        0.361
       ],
       "consistent": true
     }

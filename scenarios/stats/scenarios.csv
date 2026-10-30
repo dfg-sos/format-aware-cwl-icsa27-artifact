@@ -16,5 +16,5 @@ F5.1,Truncated file,"EO, Bio",○,○,○,○,●,input check
 OK.1,Valid input,"EO, Bio",○,○,○,○,○,completes
 OK.2,Subformat into abstract port,"EO, Bio",○,○,○,○,○,completes
 OK.3,Expected geometry type,EO,○,○,○,○,○,completes
-OK.4,Unannotated output,EO,○,,○,○,○,completes
 X.1,No validator for the format,EO,○,○,○,○,○,"completes, warns"
+X.2,No format declared,none,○,,○,○,○,"completes, not checked"

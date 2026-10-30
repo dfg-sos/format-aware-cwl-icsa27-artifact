@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.291,
+      "wall_s": 1.233,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -15,17 +16,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.291,
-        1.335,
-        1.275
+        1.233,
+        1.247,
+        1.237
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.257,
+      "wall_s": 1.255,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -33,17 +43,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.257,
-        1.306,
-        1.264
+        1.255,
+        1.259,
+        1.242
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.261,
+      "wall_s": 1.262,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -51,16 +70,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.261,
-        1.258,
-        1.32
+        1.262,
+        1.254,
+        1.254
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.29,
+      "wall_s": 1.266,
       "failed_checks": [
         {
           "step": "consume",
@@ -68,9 +87,10 @@
           "direction": "pre",
           "file": "roads_as.tif",
           "result": "FAILURE",
-          "message": "Failed to open file '/tmp/sos_validate_qenk80s3/roads_as.tif' with RasterIO:\n'/tmp/sos_validate_qenk80s3/roads_as.tif' not recognized as being in a supported file format."
+          "message": "Failed to open file '/tmp/sos_validate_vs3ywgl3/roads_as.tif' with RasterIO:\n'/tmp/sos_validate_vs3ywgl3/roads_as.tif' not recognized as being in a supported file format."
         }
       ],
+      "skipped_checks": [],
       "steps_not_run": [
         "consume"
       ],
@@ -80,25 +100,25 @@
         1
       ],
       "wall_s_per_rep": [
-        1.29,
-        1.256,
-        1.251
+        1.266,
+        1.263,
+        1.237
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.366,
+      "wall_s": 0.369,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.366,
-        0.371,
-        0.404
+        0.369,
+        0.382,
+        0.401
       ],
       "consistent": true
     }

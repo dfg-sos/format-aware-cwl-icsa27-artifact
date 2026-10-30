@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.477,
+      "wall_s": 1.524,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -15,17 +16,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.477,
-        1.227,
-        1.225
+        1.524,
+        1.24,
+        1.219
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.317,
+      "wall_s": 1.233,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_crs.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "raster_4326.tif",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -33,17 +43,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.317,
-        1.277,
-        1.231
+        1.233,
+        1.226,
+        1.217
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.248,
+      "wall_s": 1.24,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_crs.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "raster_4326.tif",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -51,16 +70,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.248,
-        1.285,
-        1.253
+        1.24,
+        1.267,
+        1.262
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.248,
+      "wall_s": 1.274,
       "failed_checks": [
         {
           "step": "copy_expect_crs.cwl",
@@ -71,6 +90,15 @@
           "message": "File CRS'EPSG:4326' does not match expected CRS 'EPSG:3857'."
         }
       ],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_crs.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "raster_4326.tif",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         1,
@@ -78,25 +106,25 @@
         1
       ],
       "wall_s_per_rep": [
-        1.248,
-        1.247,
-        1.329
+        1.274,
+        1.272,
+        1.26
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.368,
+      "wall_s": 0.365,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
+        0.365,
         0.368,
-        0.361,
-        0.369
+        0.374
       ],
       "consistent": true
     }

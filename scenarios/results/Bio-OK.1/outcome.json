@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.628,
+      "wall_s": 5.645,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -15,17 +16,26 @@
         0
       ],
       "wall_s_per_rep": [
-        5.628,
-        5.564,
-        5.534
+        5.645,
+        5.688,
+        5.675
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.543,
+      "wall_s": 5.91,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -33,17 +43,26 @@
         0
       ],
       "wall_s_per_rep": [
-        5.543,
-        5.528,
-        5.569
+        5.91,
+        6.247,
+        5.698
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.636,
+      "wall_s": 5.815,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -51,17 +70,26 @@
         0
       ],
       "wall_s_per_rep": [
-        5.636,
-        5.59,
-        5.542
+        5.815,
+        5.97,
+        5.903
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.524,
+      "wall_s": 5.989,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -69,25 +97,25 @@
         0
       ],
       "wall_s_per_rep": [
-        5.524,
-        5.593,
-        5.569
+        5.989,
+        6.15,
+        6.354
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.364,
+      "wall_s": 0.456,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.364,
-        0.379,
-        0.369
+        0.456,
+        0.402,
+        0.414
       ],
       "consistent": true
     }

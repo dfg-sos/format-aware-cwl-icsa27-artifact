@@ -6,8 +6,9 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.229,
+      "wall_s": 1.241,
       "failed_checks": [],
+      "skipped_checks": [],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -15,17 +16,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.229,
-        1.226,
-        1.25
+        1.241,
+        1.244,
+        1.242
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.301,
+      "wall_s": 1.239,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "points.geojson",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -33,17 +43,26 @@
         0
       ],
       "wall_s_per_rep": [
-        1.301,
-        1.241,
-        1.226
+        1.239,
+        1.303,
+        1.241
       ],
       "consistent": true
     },
     "structural": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.288,
+      "wall_s": 1.249,
       "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "points.geojson",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         0,
@@ -51,16 +70,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.288,
-        1.282,
-        1.237
+        1.249,
+        1.248,
+        1.27
       ],
       "consistent": true
     },
     "full": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.271,
+      "wall_s": 1.277,
       "failed_checks": [
         {
           "step": "copy_expect_linestring.cwl",
@@ -71,6 +90,15 @@
           "message": "File geometry types ['POINT'] do not include expected type 'LINESTRING'."
         }
       ],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "points.geojson",
+          "reason": "no format"
+        }
+      ],
       "steps_not_run": [],
       "exit_per_rep": [
         1,
@@ -78,25 +106,25 @@
         1
       ],
       "wall_s_per_rep": [
-        1.271,
-        1.266,
-        1.284
+        1.277,
+        1.273,
+        1.282
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.359,
+      "wall_s": 0.404,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.359,
-        0.367,
-        0.361
+        0.404,
+        0.364,
+        0.391
       ],
       "consistent": true
     }

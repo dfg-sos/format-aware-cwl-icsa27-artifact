@@ -5,23 +5,23 @@ INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cw
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/44jphaao$ docker \
+INFO [job relabel] /tmp/5w2zgzip$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/44jphaao,target=/LJhOIS \
-    --mount=type=bind,source=/tmp/lcv_wggh,target=/tmp \
-    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/reads.fastq,target=/var/lib/cwl/stgb9bd1c4a-bed9-48ff-a3a0-be95652249ed/reads.fastq,readonly \
-    --workdir=/LJhOIS \
+    --mount=type=bind,source=/tmp/5w2zgzip,target=/vFDXka \
+    --mount=type=bind,source=/tmp/je6j58rt,target=/tmp \
+    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/reads.fastq,target=/var/lib/cwl/stgc796625a-f96a-44fd-85b1-ce5907515fd9/reads.fastq,readonly \
+    --workdir=/vFDXka \
     --read-only=true \
     --net=none \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/rehvp6u7/20261029214107-346754.cid \
+    --cidfile=/tmp/8kaqnb9_/20261030032007-687105.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/LJhOIS \
+    --env=HOME=/vFDXka \
     alpine:3.20 \
     cp \
-    /var/lib/cwl/stgb9bd1c4a-bed9-48ff-a3a0-be95652249ed/reads.fastq \
+    /var/lib/cwl/stgc796625a-f96a-44fd-85b1-ce5907515fd9/reads.fastq \
     out.fasta
 ERROR [step relabel] output 'seqs' file 'out.fasta' is not valid http://edamontology.org/format_1929: FAILURE: Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not
 allowed by the 'fasta' parser.

@@ -5,8 +5,8 @@ INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume.cwl' to 'file:/
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/4bdkk_5q$ cp \
-    /tmp/0ueoz785/stg1cf9690c-df4e-40f5-a5bb-b787e82bc3df/roads.geojson \
+INFO [job relabel] /tmp/p7scye9n$ cp \
+    /tmp/n6c7v9a3/stg00b296be-6a49-45de-85ef-029de75bd7bb/roads.geojson \
     out.geojson
 ERROR [step relabel] output 'raster' file 'out.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.
 ERROR [job relabel] Job error:

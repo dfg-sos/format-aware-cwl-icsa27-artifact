@@ -29,5 +29,5 @@
 | OK.2 | EO | none, Shapefile into an `eo:Vector` port (subclass, multi-file format) | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.2 | Bio | none, FASTA into a port accepting any sequence format (subclass) | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.3 | EO | none, the F4.2 tool with LineStrings | 0 | 0 | 0 | 0 | 0 |  | completes |
-| OK.4 | EO | none, unannotated output (skipped, not sent to the service) | 0 |  | 0 | 0 | 0 |  | completes |
 | X.1 | EO | output labelled `eo:WKB`, which the service cannot validate: `UNCERTAIN` | 0 | 0 | 0 | 0 | 0 | uncertain-fail: 1 | completes with a warning; with `--format-uncertain fail`: output check of the tool |
+| X.2 | none | output without `format`: the runner skips its check and sends nothing to the service | 0 |  | 0 | 0 | 0 |  | completes, not checked (logged as skipped) |

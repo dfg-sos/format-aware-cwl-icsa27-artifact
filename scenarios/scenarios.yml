@@ -301,7 +301,7 @@
   at: completes, warns
   stops: "completes with a warning; with `--format-uncertain fail`: output check of the tool"
 - id: X.2
-  domain: EO
+  domain: none
   label: No format declared
   fault: "output without `format`: the runner skips its check and sends nothing to the service"
   workflow: unannotated_output.cwl

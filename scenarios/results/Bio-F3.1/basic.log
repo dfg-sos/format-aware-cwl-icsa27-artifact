@@ -5,8 +5,8 @@ INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl' to '
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/za9kqj5i$ cp \
-    /tmp/kxupzfa3/stg1f5acc16-09ca-4496-b9e7-e1800b931d9c/reads.fastq \
+INFO [job relabel] /tmp/b9llcczg$ cp \
+    /tmp/lnmf9tbi/stg0b1dab08-fb0f-4353-85eb-abdf34324600/reads.fastq \
     out.fastq
 ERROR [step relabel] output 'seqs' file 'out.fastq' is not valid http://edamontology.org/format_1929: FAILURE: File extension of input file with suffix .fastq does not match expected ones for format FASTA.
 ERROR [job relabel] Job error:
