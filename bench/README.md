@@ -99,7 +99,8 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
 
   All measured runs passed verification (1080 for RQ2(b)/(c), 60 for RQ2(a)), and none had an `UNCERTAIN`,
   `FAILURE` or `ERROR` result. A validated Sympolis run makes 899 checks (633 on inputs, 266 on outputs),
-  because steps scattered over the 16 tiles check each tile. Every run also skips 264 Files whose port declares
+  because steps scattered over the 16 tiles check each tile. These checks cover 3957 MB (3,957,211,136 bytes,
+  `bytes_checked`), which the `upload` variants send to the service in every run. Every run also skips 264 Files whose port declares
   no format (`skips`): Sympolis' internal graph files (`.bin`, 206) and workload lists (`.json`, 58), for which
   the ontology has no class. They are not sent to the service.
 - **Metrics per run:**
