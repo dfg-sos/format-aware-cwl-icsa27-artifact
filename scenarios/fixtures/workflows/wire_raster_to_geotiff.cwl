@@ -1,7 +1,7 @@
-# F1.2/F1.3: the workflow input accepts any raster (abstract eo:Raster), but the step it feeds needs eo:GeoTIFF.
-# cwltool checks the labels of the files of one job only: a GeoTIFF job (F1.2) passes every runtime variant,
-# a NetCDF raster (F1.3) is a valid workflow input and fails cwltool's label check at consume.
-# The linter compares the declared formats and reports Raster -> GeoTIFF as incompatible without a job.
+# F1.2/F1.3: a broken format contract. The workflow input declares abstract eo:Raster, i.e. any raster is valid, but
+# the step it feeds needs eo:GeoTIFF. cwltool accepts the workflow and checks only the labels of the given job: a
+# GeoTIFF job (F1.2) completes in every runtime variant, a NetCDF raster (F1.3), which the contract admits, stops at
+# cwltool's label check when it creates the consume job. The linter rejects Raster -> GeoTIFF without a job.
 cwlVersion: v1.2
 $namespaces: {eo: "https://dfg-sos.github.io/ontologies/eo-formats#", sos: "https://dfg-sos.github.io/ontologies/cwl#"}
 $schemas: [https://dfg-sos.github.io/ontologies/eo-formats.owl]

@@ -34,17 +34,17 @@
   stops: as F1.1
 - id: F1.2
   domain: EO
-  label: Abstract input, matching file
-  fault: workflow input declares abstract `eo:Raster`, wired to a GeoTIFF port; the job passes a valid GeoTIFF
+  label: Broken contract, required subformat
+  fault: "workflow input declares abstract `eo:Raster` (any raster is valid), wired to a GeoTIFF port: a contract the tool cannot keep; the job passes a valid GeoTIFF"
   workflow: wire_raster_to_geotiff.cwl
   job: raster_geotiff.yml
   expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 1}
   at: linter
-  stops: "linter only, before any job; no runtime variant sees a fault with this job"
+  stops: "linter, before any job; cwltool accepts the workflow, and the run completes because the job passes the GeoTIFF that `consume` needs"
 - id: F1.2
   domain: Bio
-  label: Abstract input, matching file
-  fault: workflow input declares any sequence format (abstract), wired to a FASTA port; the job passes a valid FASTA
+  label: Broken contract, required subformat
+  fault: "workflow input declares any sequence format (abstract), wired to a FASTA port: a contract the tool cannot keep; the job passes a valid FASTA"
   workflow: wire_sequence_to_fasta.cwl
   job: fasta_valid.yml
   expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 1}
@@ -52,22 +52,22 @@
   stops: as F1.2
 - id: F1.3
   domain: EO
-  label: Abstract input, other subformat
-  fault: as F1.2, the job passes a valid NetCDF raster (`eo:NetCDF_CF`, a `Raster`)
+  label: Broken contract, sibling subformat
+  fault: as F1.2, the job passes a valid NetCDF raster (`eo:NetCDF_CF`), which the `Raster` contract admits
   workflow: wire_raster_to_geotiff.cwl
   job: raster_netcdf.yml
   expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 1}
   at: linter; else label check
-  stops: as F1.1
+  stops: "linter, before any job; cwltool accepts the workflow and the job, and stops at `consume`, whose GeoTIFF port rejects the NetCDF label (tool not run)"
 - id: F1.3
   domain: Bio
-  label: Abstract input, other subformat
-  fault: as F1.2, the job passes a valid FASTQ (EDAM `format_1930`, a sequence format)
+  label: Broken contract, sibling subformat
+  fault: as F1.2, the job passes a valid FASTQ (EDAM `format_1930`), which the sequence-format contract admits
   workflow: wire_sequence_to_fasta.cwl
   job: fastq_valid.yml
   expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 1}
   at: linter; else label check
-  stops: as F1.1
+  stops: as F1.3
 
 # F2: wrong workflow input file
 - id: F2.1

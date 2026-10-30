@@ -1,10 +1,10 @@
 id,domain,fault,off,lint,basic,structural,full,other,stops
 F1.1,EO,Shapefile input wired to a GeoTIFF port,1,1,1,1,1,,linter: before any job; otherwise cwltool's label check when it creates the `consume` job
 F1.1,Bio,FASTQ input wired to a FASTA port,1,1,1,1,1,,as F1.1
-F1.2,EO,"workflow input declares abstract `eo:Raster`, wired to a GeoTIFF port; the job passes a valid GeoTIFF",0,1,0,0,0,,"linter only, before any job; no runtime variant sees a fault with this job"
-F1.2,Bio,"workflow input declares any sequence format (abstract), wired to a FASTA port; the job passes a valid FASTA",0,1,0,0,0,,as F1.2
-F1.3,EO,"as F1.2, the job passes a valid NetCDF raster (`eo:NetCDF_CF`, a `Raster`)",1,1,1,1,1,,as F1.1
-F1.3,Bio,"as F1.2, the job passes a valid FASTQ (EDAM `format_1930`, a sequence format)",1,1,1,1,1,,as F1.1
+F1.2,EO,"workflow input declares abstract `eo:Raster` (any raster is valid), wired to a GeoTIFF port: a contract the tool cannot keep; the job passes a valid GeoTIFF",0,1,0,0,0,,"linter, before any job; cwltool accepts the workflow, and the run completes because the job passes the GeoTIFF that `consume` needs"
+F1.2,Bio,"workflow input declares any sequence format (abstract), wired to a FASTA port: a contract the tool cannot keep; the job passes a valid FASTA",0,1,0,0,0,,as F1.2
+F1.3,EO,"as F1.2, the job passes a valid NetCDF raster (`eo:NetCDF_CF`), which the `Raster` contract admits",1,1,1,1,1,,"linter, before any job; cwltool accepts the workflow and the job, and stops at `consume`, whose GeoTIFF port rejects the NetCDF label (tool not run)"
+F1.3,Bio,"as F1.2, the job passes a valid FASTQ (EDAM `format_1930`), which the sequence-format contract admits",1,1,1,1,1,,as F1.3
 F2.1,EO,workflow input `roads.geojson` labelled GeoTIFF by the job,0,0,1,1,1,,input check of `consume`; `consume` not run
 F2.1,Bio,workflow input `reads.fastq` labelled FASTA by the job (validator plug-in),0,0,1,1,1,,input check of `consume`; `consume` not run
 F2.2,EO,"GeoJSON content named `roads_as.tif`, labelled GeoTIFF",0,0,0,0,1,,as F2.1
