@@ -155,4 +155,3 @@ X.1,EO,structural,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.252
 X.1,EO,full,0,0,True,unsupported_format.cwl/geom post UNCERTAIN,,1.263
 X.1,EO,uncertain-fail,1,1,True,unsupported_format.cwl/geom post UNCERTAIN,,1.252
 X.1,EO,lint,0,0,True,,,0.363
-X.2,EO,lint,1,1,True,,,0.374

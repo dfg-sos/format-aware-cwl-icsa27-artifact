@@ -18,4 +18,3 @@ OK.2,Subformat into abstract port,"EO, Bio",○,○,○,○,○,completes
 OK.3,Expected geometry type,EO,○,○,○,○,○,completes
 OK.4,Unannotated output,EO,○,,○,○,○,completes
 X.1,No validator for the format,EO,○,○,○,○,○,"completes, warns"
-X.2,Format not in the ontology,EO,,●,,,,linter
