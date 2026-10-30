@@ -34,11 +34,11 @@ Sympolis scenario (wrong CRS in a real workflow) was run by hand; see [below](#s
 The scenarios are listed in [`scenarios.yml`](scenarios.yml): fixture workflow and job, injected fault and expected exit
 code per variant. IDs follow the fault classes of the paper: F1 incompatible formats wired together, F2 wrong workflow
 input file, F3 a tool stamps the wrong label on its output, F4 wrong or inapplicable metadata (CRS, geometry type), F5
-corrupt file; OK are controls (no fault), X limits of the service and the linter. Each scenario belongs to one
+corrupt file; OK are controls (no fault), X limits of the runtime checks. Each scenario belongs to one
 application domain: EO (the EO formats ontology) or Bio (EDAM; the runtime checks through the validator plug-in
 `plugins/format-validator-bio`). The same ID in both domains is the same fault: Bio F1.1 is EO F1.1 with FASTQ and FASTA
 instead of Shapefile and GeoTIFF. F4 and X run in EO only: F4 checks EO metadata (CRS, geometry type), X.1 an EO format
-without validator, X.2 EO formats against EDAM. Results are kept per `<domain>-<id>`, e.g. `results/Bio-F1.1/`. The
+without validator, X.2 an output without format. Results are kept per `<domain>-<id>`, e.g. `results/Bio-F1.1/`. The
 fixtures (`fixtures/workflows/`, `tools/`, `jobs/`, `data/`) derive from the runner's `tests/fixtures/`.
 
 [`run.py`](run.py) runs each scenario as `off`, `basic`, `structural`, `full` (transfer `auto`), and through
@@ -49,8 +49,8 @@ check fails it after it ran, and the workflow stops. `UNCERTAIN` results only wa
 
 ## Results
 
-Exit codes (1 = stopped, 0 = completed, empty = not run; bold: the earliest variant that detects the fault). OK.4
-declares no `$schemas` to lint; X.2 is a limit of the linter alone.
+Exit codes (1 = stopped, 0 = completed, empty = not run; bold: the earliest variant that detects the fault). X.2
+declares no `$schemas` to lint.
 
 | ID | Domain | Injected fault | `off` | `lint` | `basic` | `structural` | `full` | Other variants | Where it stops |
 |---|---|---|---|---|---|---|---|---|---|
@@ -83,20 +83,19 @@ declares no `$schemas` to lint; X.2 is a limit of the linter alone.
 | OK.2 | EO | none, Shapefile into an `eo:Vector` port (subclass, multi-file format) | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.2 | Bio | none, FASTA into a port accepting any sequence format (subclass) | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.3 | EO | none, the F4.2 tool with LineStrings | 0 | 0 | 0 | 0 | 0 |  | completes |
-| OK.4 | EO | none, unannotated output (skipped, not sent to the service) | 0 |  | 0 | 0 | 0 |  | completes |
 | X.1 | EO | output labelled `eo:WKB`, which the service cannot validate: `UNCERTAIN` | 0 | 0 | 0 | 0 | 0 | uncertain-fail: 1 | completes with a warning; with `--format-uncertain fail`: output check of the tool |
-| X.2 | EO | EO formats checked against EDAM, which does not define them (`unknown-format`) |  | 1 |  |  |  |  | linter |
+| X.2 | EO | output without `format`: the runner skips its check and sends nothing to the service | 0 |  | 0 | 0 | 0 |  | completes, not checked (logged as skipped) |
 
 **Findings:**
 - **Plain cwltool misses every runtime fault** (exit 0): it stamps the declared label on outputs and never looks at file content. It stops F1.1 and F1.3 only at runtime, when it creates the `consume` job; the linter rejects their workflows before any job runs.
 - **The linter rejects broken format contracts that cwltool accepts** (F1.2, F1.3): a workflow input declared as abstract `eo:Raster` promises that any raster is valid; wiring it to a tool that requires `eo:GeoTIFF` breaks that promise. cwltool accepts the workflow and checks only the labels of the given job: the run completes when the job passes a GeoTIFF (F1.2) and stops at the tool when it passes a NetCDF, a raster the contract admits as well (F1.3). The linter checks the declared formats of the ports and rejects the workflow in both cases, before any job.
-- **The wiring checks are not bound to one ontology:** Bio F1.1–F1.3 repeat EO F1.1–F1.3 with EDAM sequence formats, checked against the online `EDAM.owl`, with the same outcome in every variant: FASTQ wired to a FASTA port (F1.1), an abstract sequence-format input wired to a FASTA port, rejected by the linter, completing with a FASTA job (F1.2) and stopped at runtime by a valid FASTQ (F1.3); FASTA into a sequence-format port completes (OK.2, a subclass). Formats that the given ontology does not define are reported as `unknown-format`, not as incompatible (X.2).
+- **The wiring checks are not bound to one ontology:** Bio F1.1–F1.3 repeat EO F1.1–F1.3 with EDAM sequence formats, checked against the online `EDAM.owl`, with the same outcome in every variant: FASTQ wired to a FASTA port (F1.1), an abstract sequence-format input wired to a FASTA port, rejected by the linter, completing with a FASTA job (F1.2) and stopped at runtime by a valid FASTQ (F1.3); FASTA into a sequence-format port completes (OK.2, a subclass).
 - **The runtime checks extend to another domain without changing the runner or the service** (Bio F2.1–F3.3, F5.1, OK.1): the plug-in `plugins/format-validator-bio` adds FASTA and FASTQ validators (EDAM `format_1929`, `format_1930`), built on Biopython's parsers, to the service image, and its mapping file maps EDAM to them. The unchanged runner v0.1.0 detects a FASTQ file labelled FASTA by its name in `basic` mode (F2.1), and FASTQ content named `.fasta` (F2.2) and a FASTQ cut off inside a record (F5.1) only in `full`, as in EO; the same holds for a tool that labels its FASTQ output FASTA (F3.1–F3.3). Every fault run in both domains has the same outcome in both (`tables.py` checks this).
 - **The linter misses all runtime faults** (F2–F5): their labels are consistent, and it does not read jobs. Linter and runner are complementary.
 - **`basic` catches wrong extensions** (F2.1, F3.1). Wrong content, CRS, geometry type and truncation need `full`. `structural` caught nothing that `basic` missed, because cwltool never hands over a missing file: it rejects a missing input file (F2.3) and a missing secondary file (F2.4) when it loads the job, in every variant, and missing outputs when it collects them.
 - **Detection stops the workflow before the next step:** output faults at the producing step (F3: `consume` not run), input faults before the consuming step (F2, F5.1). All outcomes were identical in the three repetitions, and the EO scenarios had the same outcomes (exit codes, failed checks, steps run) with service 0.1.0 and 0.2.0.
 - **Metadata the format cannot carry is an annotation fault** (F4.3, `sos:expectedGeometryType` on a GeoTIFF): the linter does not check which metadata a format supports, and only `full` sends metadata. The service rejects the request (HTTP 400), which the runner reports as `ERROR`, like an unreachable service: it stops the workflow by default, but only warns with `--format-service-error warn`.
-- **No false positives** in the controls (OK). **Limits:** a format without validator gives `UNCERTAIN`, which only warns or stops as the policy says (X.1); a format that the given ontology does not define is `unknown-format` to the linter (X.2).
+- **No false positives** in the controls (OK). **Limits:** a format without validator gives `UNCERTAIN`, which only warns or stops as the policy says (X.1). A port without `format` is skipped and never sent to the service (X.2): the checks cover only what the workflow declares, and workflows without annotations run unchanged.
 
 **Verification:** every run's exit code matched the expected one, and exit code, failed checks and steps run were
 identical in all three repetitions (`run.py` checks both).

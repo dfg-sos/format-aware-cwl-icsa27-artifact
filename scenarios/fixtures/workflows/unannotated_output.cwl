@@ -1,4 +1,4 @@
-# OK.4: no format declared -> skipped and counted, never sent to the service.
+# X.2: no format declared -> skipped and counted, never sent to the service.
 cwlVersion: v1.2
 class: CommandLineTool
 baseCommand: [sh, -c, 'echo hi > plain.txt']

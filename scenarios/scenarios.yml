@@ -288,16 +288,8 @@
   expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
   at: completes
   stops: completes
-- id: OK.4
-  domain: EO
-  label: Unannotated output
-  fault: none, unannotated output (skipped, not sent to the service)
-  workflow: unannotated_output.cwl
-  expect: {off: 0, basic: 0, structural: 0, full: 0}  # not linted: the document has no $schemas
-  at: completes
-  stops: completes
 
-# X: limits of the service and the linter
+# X: limits of the runtime checks
 - id: X.1
   domain: EO
   label: No validator for the format
@@ -310,9 +302,9 @@
   stops: "completes with a warning; with `--format-uncertain fail`: output check of the tool"
 - id: X.2
   domain: EO
-  label: Format not in the ontology
-  fault: EO formats checked against EDAM, which does not define them (`unknown-format`)
-  workflow: eo_formats_against_edam.cwl
-  expect: {lint: 1}
-  at: linter
-  stops: linter
+  label: No format declared
+  fault: "output without `format`: the runner skips its check and sends nothing to the service"
+  workflow: unannotated_output.cwl
+  expect: {off: 0, basic: 0, structural: 0, full: 0}  # not linted: the document has no $schemas
+  at: completes, not checked
+  stops: completes, not checked (logged as skipped)

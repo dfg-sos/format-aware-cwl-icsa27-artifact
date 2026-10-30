@@ -8,12 +8,13 @@ exit codes are listed in scenarios/scenarios.yml. Each scenario runs in the vari
 `off` (`--format-validation off`: plain cwltool, but the timing log records which steps ran), `basic`,
 `structural` and `full` mode with
 the default `fail` policy, extra flag variants, and `lint` (`cwl-format-lint`). Every run is repeated
-`--repeat` times; the outcome (exit code, non-SUCCESS checks, steps that ran) must be the same in every
+`--repeat` times; the outcome (exit code, non-SUCCESS and skipped checks, steps that ran) must be the same in every
 repetition and match the expected exit code.
 Writes to `<--out>/`:
   <domain>-<id>/command.txt    the commands, relative to the repository root
   <domain>-<id>/<run>.log      console output (stdout and stderr) of the first repetition
-  <domain>-<id>/outcome.json   per run: expected and observed exit codes, wall seconds, failed checks, steps not run
+  <domain>-<id>/outcome.json   per run: expected and observed exit codes, wall seconds, failed and skipped checks,
+                               steps not run
   summary.csv                  one row per scenario and run
   env.txt                      date, host, repository commit, service URL and image, versions
 Violations are printed and make the exit code 1. scenarios/tables.py turns the results into the tables.
@@ -53,7 +54,7 @@ def steps_of(workflow: Path) -> list[str]:
 
 
 def outcome(log: Path, steps: list[str]) -> dict:
-    """Failed checks and steps not run, from the runner's timing log."""
+    """Failed and skipped checks and steps not run, from the runner's timing log."""
     records = [json.loads(line) for line in log.read_text().splitlines()] if log.exists() else []
     ran = {r["step"] for r in records if r["record"] == "main"}
     failed = [
@@ -61,13 +62,17 @@ def outcome(log: Path, steps: list[str]) -> dict:
         for r in records
         if r["record"] == "check" and r["result"] != "SUCCESS"
     ]
-    return {"failed_checks": failed, "steps_not_run": [s for s in steps if s not in ran]}
+    skipped = [
+        {k: r[k] for k in ("step", "port", "direction", "file", "reason")} for r in records if r["record"] == "skip"
+    ]
+    return {"failed_checks": failed, "skipped_checks": skipped, "steps_not_run": [s for s in steps if s not in ran]}
 
 
 def comparable(o: dict) -> tuple:
     """The part of an outcome that must not change between repetitions (messages carry temp paths)."""
     checks = tuple((c["step"], c["port"], c["direction"], c["result"]) for c in o.get("failed_checks", []))
-    return o["exit"], checks, tuple(o.get("steps_not_run", []))
+    skipped = tuple((c["step"], c["port"], c["direction"], c["reason"]) for c in o.get("skipped_checks", []))
+    return o["exit"], checks, skipped, tuple(o.get("steps_not_run", []))
 
 
 def run_once(cmd: list[str]) -> tuple[int, float, str]:
