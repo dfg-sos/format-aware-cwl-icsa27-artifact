@@ -10,7 +10,7 @@ Variants and shared versions: [`README.md`](../README.md). How to run it on Slur
 
 ```
 run.py          one overhead set: runs every variant, writes runs.csv and timing.jsonl, verifies the runs
-make_inputs.py  synthetic GeoTIFF / Shapefile / GeoPackage inputs and copy-chain workflows
+make_inputs.py  synthetic GeoTIFF / GeoPackage / FASTQ inputs and copy-chain workflows
 hpc/            the Slurm script and its README
 results/        raw results (CSV, JSONL, console logs, env.txt per job)
 ```
@@ -21,8 +21,8 @@ RQ2(b), and `rq3-*-abstract` is RQ2(c).
 | | Measured runs per variant | Variants | Results |
 |---|---|---|---|
 | RQ2(a) | 10 | all six | `results/hpc-14606014/` |
-| RQ2(b) | 10 | all six | `results/hpc-14595040` … `43/rq2-*` (1, 10, 100, 1000 MB) |
-| RQ2(c) | 10 | `basic`, `structural-local`, `full-local`; compared with the RQ2(b) runs of the same size, on the same node | `results/hpc-14595040` … `43/rq3-*` |
+| RQ2(b) | 10 | all six | `results/hpc-14614765` … `68/rq2-*` (1, 10, 100, 1000 MB) |
+| RQ2(c) | 10 | `basic`, `structural-local`, `full-local`; compared with the RQ2(b) runs of the same size, on the same node | `results/hpc-14614765` … `68/rq3-*` |
 | RQ3 | as RQ2 | `upload` vs. `local` of RQ2(a) and RQ2(b) | as RQ2 |
 
 All six variants: `off`, `basic`, and `structural`/`full` × `upload`/`local`. The runs use the `warn` policy
@@ -31,8 +31,7 @@ All six variants: `off`, `basic`, and `structural`/`full` × `upload`/`local`. T
 ## Local check
 
 The paper's numbers come from the HPC runs; absolute timings depend on the machine. A quick check of one copy chain,
-against a service started as in [`scenarios/README.md`](../scenarios/README.md#reproduce) (0.2.0 validates EO formats
-like 0.1.0; it adds plug-in loading):
+against a service started as in [`scenarios/README.md`](../scenarios/README.md#reproduce), the image of the HPC runs:
 ```sh
 uv run bench/make_inputs.py 1
 uv run python bench/run.py bench/inputs/geotiff_concrete_chain.cwl bench/inputs/geotiff_1MB_concrete.yml \
@@ -59,21 +58,25 @@ Sympolis is a CWL workflow for spatial clustering of building footprints, at rel
 
 A workflow of three steps, each running `cp` on its input file. Only parameter
 references are used, no JavaScript, so Node.js does not inflate the baseline. One chain per format, with synthetic data
-(seeded RNG, EPSG:4326):
+(seeded RNG; EPSG:4326 for the EO formats):
 
 | Format | Content | Size of the 1 / 10 / 100 / 1000 MB inputs (bytes, incl. sidecar files) |
 |---|---|---|
 | GeoTIFF | uncompressed `uint8` noise, 1 band, untiled | 1,049,710 / 10,494,724 / 104,919,406 / 1,048,723,813 |
-| Shapefile | random-walk LineStrings, 256 vertices each (`.shp` + `.shx/.dbf/.prj/.cpg`) | 1,027,963 / 10,313,434 / 103,151,436 / 1,031,535,633 |
-| GeoPackage | the same LineStrings | 1,245,184 / 11,616,256 / 115,273,728 / 1,152,102,400 |
+| GeoPackage | random-walk LineStrings, 256 vertices each | 1,245,184 / 11,616,256 / 115,273,728 / 1,152,102,400 |
+| FASTQ | reads of 150 random bases with random Phred+33 qualities | 1,048,826 / 10,485,818 / 104,857,822 / 1,048,576,132 |
 
-- **Concrete labels (RQ2(b), RQ3):** every port and file is labelled `eo:GeoTIFF`, `eo:Shapefile` or `eo:GeoPackage`.
-- **Abstract labels (RQ2(c)):** the same data, with every port and file labelled `eo:Raster` or `eo:Vector`.
-  Figure: concrete vs. abstract per format and mode. Abstract labels add 1–2 ms service time per run (subclass
-  lookup) in every case except `full` on GeoTIFF (`eo:Raster`): +32 to +47 ms service time and +32 to +48 ms round trip
-  per run (6 checks), independent of file size; wall time changes by under 3 %.
-- **Output annotations:** outputs declare `sos:expectedCRS: EPSG:4326`, and vector outputs also declare
-  `sos:expectedGeometryType: LineString`.
+- **Concrete labels (RQ2(b), RQ3):** every port and file is labelled `eo:GeoTIFF`, `eo:GeoPackage` or EDAM
+  `format_1930` (FASTQ).
+- **Abstract labels (RQ2(c)):** the same data, with every port and file labelled `eo:Raster`, `eo:Vector` or EDAM
+  `format_1919` (sequence record format). Abstract labels add at most 2 ms service time per run (subclass lookup) in
+  every case except `full` on GeoTIFF (`eo:Raster`): +39 to +47 ms service time and +39 to +48 ms round trip per run
+  (6 checks), independent of file size. Wall time changes by under 3 %. FASTQ `full` at 1000 MB is the one outlier in
+  the other direction: the abstract set ran 2.1 s per run (1.9 %) faster. Both sets parsed every record with the same
+  result; the difference is drift between two sets of 110 s CPU-bound runs, which the per-set bootstrap interval does
+  not cover, not an effect of the label.
+- **Output annotations:** EO outputs declare `sos:expectedCRS: EPSG:4326`, and GeoPackage outputs also declare
+  `sos:expectedGeometryType: LineString`. FASTQ outputs declare no metadata.
 - **Checks per run:** each validated run makes 6 checks, an input and an output check for each of the 3 steps.
 
 ### How RQ3 is derived
@@ -125,20 +128,23 @@ RQ3 needs no extra runs. For each size and format, compare `structural-upload` w
 | Node.js (cwltool's JavaScript engine, RQ2(a) only) | 26.13.0 |
 | Apptainer | 1.2.5 |
 | file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0), as in RQ1 without the plug-in, run with Apptainer, uvicorn |
-| file-format-service, RQ2(b)/(c) | `ghcr.io/dfg-sos/file-format-service:0.1.0` (revision `6e2070f`, format-validator 0.2.3), run with Apptainer, uvicorn |
+| file-format-service, RQ2(b)/(c) | `ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:cafddc3f…`, the RQ1 image (0.2.0 plus the plug-in `plugins/format-validator-bio` 0.3.0), run with Apptainer, uvicorn |
 | EO formats ontology | eo-formats 1.0.0, local copy (sha256 `7e867b2d…03ed`) |
+| EDAM, RQ2(b)/(c) | EDAM 1.25, local copy (sha256 `af29132f…4f48`) |
 | Container images (sha256 of the `.sif`) | fishnet-apps 2.0.1 `88ec6e10…3598`; sympolis 1.2.0 `6167ccbe…67d9` |
 
 `env.txt` in each results directory records the full hardware listing, the versions and the checksums.
-In the RQ2(b)/(c) jobs, the service image `@sha256:8997661d…c291` is an earlier build of the same revision `6e2070f`,
-made before the `0.1.0` tag. RQ2(a) mounts only the EO mapping (`mappings/eo-formats.json`): the EDAM mapping needs the
+RQ2(a) mounts only the EO mapping (`mappings/eo-formats.json`): the EDAM mapping needs the
 validator plug-in, which the plain 0.2.0 image lacks.
 
 ## Notes
 
 - **Synthetic data:** the copy chains isolate the cost of validation. Their steps do almost no work, so
-  the relative overhead is an upper bound. The baseline at 1000 MB (≈ 7 s) is dominated by cwltool
-  staging and copying the files.
+  the relative overhead is an upper bound. The baseline at 1000 MB (≈ 7 s for GeoTIFF and GeoPackage, ≈ 14 s for
+  FASTQ) is dominated by cwltool staging and copying the files.
+- **`full` cost depends on the validator:** for GeoTIFF and GeoPackage it reads header and metadata through GDAL
+  (about 6 and 16 ms per check, independent of size); for FASTQ it parses every record with Biopython and grows
+  linearly, from 27 ms at 1 MB to 18.8 s per check at 1000 MB (about 19 s per GB).
 - **Upload over loopback:** `upload` runs send the files over loopback on the same node. Over a network,
   upload costs depend on the bandwidth, while `local` costs do not. RQ3 therefore compares the two access paths on one host only.
 - **Geometry types in Sympolis:** its ports declare `sos:expectedGeometryType: Polygon`, while Kahama holds

@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from load_results import load_all
 
-FORMATS = [("geotiff", "GeoTIFF"), ("shapefile", "Shapefile"), ("geopackage", "GeoPackage")]
+FORMATS = [("geotiff", "GeoTIFF"), ("geopackage", "GeoPackage"), ("fastq", "FASTQ")]
 SIZES = [1, 10, 100, 1000]
 
 # Okabe-Ito; checked for colour-vision deficiency and contrast against white
@@ -103,15 +103,17 @@ def plot_validation_latency(sets: dict, out: Path) -> None:
     fig, axes = plt.subplots(1, 3, figsize=(TEXTWIDTH, 2.3), sharey=True)
     group = np.arange(len(SIZES))
     step = 0.17  # bar width plus a small gap
+    top = 0.0  # highest whisker of all panels
     for ax, (fmt, title) in zip(axes, FORMATS, strict=True):
         ax.set_title(title, fontweight="bold")
         for i, variant in enumerate(VALIDATED):
             mean, sd = [], []
             for size in SIZES:
-                per_check = np.array([c["duration_ms"] for c in chains[(fmt, size)].variant_checks(variant)])
+                per_check = np.array([c["duration_ms"] / 1000 for c in chains[(fmt, size)].variant_checks(variant)])
                 mean.append(per_check.mean())
                 sd.append(per_check.std(ddof=1))
             mean, sd = np.array(mean), np.array(sd)
+            top = max(top, (mean + sd).max())
             lower = np.minimum(sd, mean * 0.999)  # keep the whisker above 0 on the log axis
             x = group + (i - (len(VALIDATED) - 1) / 2) * step
             variant_bar(
@@ -124,12 +126,12 @@ def plot_validation_latency(sets: dict, out: Path) -> None:
                 error_kw={"elinewidth": 0.6, "capsize": 1.2, "capthick": 0.6, "ecolor": INK},
             )
         ax.set_yscale("log")
-        ax.set_ylim(bottom=1)
         ax.set_xticks(group, [f"{s:g}" for s in SIZES])
         ax.tick_params(axis="x", length=0)
         ax.grid(axis="x", visible=False)
         ax.set_xlabel("Input file size (MB)")
-    axes[0].set_ylabel("Validation latency per check (ms)")
+    axes[0].set_ylim(1e-3, 10 ** np.ceil(np.log10(top)))  # shared: the next power of ten above every whisker
+    axes[0].set_ylabel("Validation latency per check (s)")
     axes[0].yaxis.set_major_formatter(mpl.ticker.FuncFormatter(lambda v, _: f"{v:g}"))
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="upper center", ncol=5, frameon=False, bbox_to_anchor=(0.5, 1.08))
