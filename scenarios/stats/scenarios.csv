@@ -1,7 +1,7 @@
 id,label,domains,off,lint,basic,structural,full,at
 F1.1,Incompatible formats wired,"EO, Bio",●,●,●,●,●,linter; else label check
-F1.2,"Abstract input, matching file","EO, Bio",○,●,○,○,○,linter
-F1.3,"Abstract input, other subformat","EO, Bio",●,●,●,●,●,linter; else label check
+F1.2,"Broken contract, required subformat","EO, Bio",○,●,○,○,○,linter
+F1.3,"Broken contract, sibling subformat","EO, Bio",●,●,●,●,●,linter; else label check
 F2.1,"Mislabelled input, by extension","EO, Bio",○,○,●,●,●,input check
 F2.2,"Mislabelled input, by content","EO, Bio",○,○,○,○,●,input check
 F2.3,Missing input file,"EO, Bio",●,○,●,●,●,cwltool at start
