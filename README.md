@@ -12,7 +12,7 @@ The questions are numbered as in the paper (Section "Evaluation").
 
 | | Question | Workload | Measured runs per variant | Paper section | Setup and results |
 |---|---|---|---|---|---|
-| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 32 fault-injection scenarios (linter and runner): 20 with EO formats, 12 of them repeated in bioinformatics (EDAM, runtime checks via a validator plug-in) | 3 (deterministic; repeated to confirm) | Effectiveness | [`scenarios/`](scenarios/README.md) |
+| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 31 fault-injection scenarios (linter and runner): 18 with EO formats, 12 of them repeated in bioinformatics (EDAM, runtime checks via a validator plug-in), and 1 without any format | 3 (deterministic; repeated to confirm) | Effectiveness | [`scenarios/`](scenarios/README.md) |
 | RQ2 | Overhead: what do the validation modes add, as a function of file size, format label and relative to task runtime? | (a) Sympolis on Kahama.gpkg; (b) three-step copy chain, concrete formats; (c) the (b) chains with abstract formats | 10 | Overhead by mode and file size; Overhead on an EO workflow | [`bench/`](bench/README.md) |
 | RQ3 | Access path: how does validating an uploaded file compare with validating a local file on the same host? | no separate runs: the `upload` and `local` variants of `structural` and `full` in RQ2(a) and RQ2(b) | as RQ2 | Overhead by mode and file size | [`bench/`](bench/README.md) |
 
@@ -26,7 +26,7 @@ scenarios/            RQ1, fault injection
   stats/              the paper table
 bench/                RQ2 and RQ3, overhead
   run.py              one overhead set: runs every variant, writes runs.csv and timing.jsonl, verifies the runs
-  make_inputs.py      synthetic GeoTIFF / Shapefile / GeoPackage inputs and copy-chain workflows
+  make_inputs.py      synthetic GeoTIFF / GeoPackage / FASTQ inputs and copy-chain workflows
   hpc/                the Slurm script and its README
   results/            raw results (CSV, JSONL, console logs, env.txt per job)
 mappings/             the format mappings the service needs (EO formats, EDAM), for both
@@ -60,7 +60,7 @@ Validation runs on the inputs and outputs of every step (`--format-check both`).
 
 ## Reproduce
 
-- **RQ1** (about 5 minutes, any Linux machine with Docker): [`scenarios/README.md`](scenarios/README.md#reproduce)
+- **RQ1** (about 15 minutes, any Linux machine with Docker): [`scenarios/README.md`](scenarios/README.md#reproduce)
 - **RQ2 and RQ3** (2–4 hours on one exclusive HPC node): [`bench/hpc/README.md`](bench/hpc/README.md); a quick local
   check of one copy chain: [`bench/README.md`](bench/README.md#local-check)
 
@@ -72,10 +72,10 @@ Validation runs on the inputs and outputs of every step (`--format-check both`).
 | cwltool / schema-salad / cwl-utils | 3.3.20260925135507 / 8.10.20260825112551 / 0.45 |
 | file-format-service, RQ1 | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0` (`sha256:cafddc3f…`): `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0) plus the plug-in `plugins/format-validator-bio` 0.3.0 (Biopython 1.88), Docker |
 | file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.2.0`, without the plug-in, Apptainer |
-| file-format-service, RQ2(b), (c) | `ghcr.io/dfg-sos/file-format-service:0.1.0` (commit `6e2070f`, format-validator 0.2.3), Apptainer; the default in `bench/hpc/bench.sh` |
+| file-format-service, RQ2(b), (c) | the RQ1 image, Apptainer; the default in `bench/hpc/bench.sh` |
 | Sympolis, RQ2(a) | release `v1.2.0`, image `ghcr.io/dfg-sos/sympolis:1.2.0` |
 
-Neither the runner nor the service was changed for the plug-in; 0.2.0 differs from 0.1.0 in loading plug-ins.
+Neither the runner nor the service was changed for the plug-in.
 `env.txt` in each result directory records the runner commit the run used, the service image, the ontology and the
 container checksums. Further versions per environment: [`scenarios/README.md`](scenarios/README.md#environment),
 [`bench/README.md`](bench/README.md#environment).
