@@ -147,7 +147,7 @@ def write_cwl(out: Path, fmt: str, schema: str) -> None:
     header = HEADERS[ns].replace("ONTOLOGY", schema)
     sec_in = f", secondaryFiles: [{', '.join(secondary)}]" if secondary else ""
     sec_out = f"\n    secondaryFiles: [{', '.join(secondary)}]" if secondary else ""
-    # expected metadata for full mode: CRS of the EO formats, geometry type of the vector formats; none for FASTQ
+    # expected metadata for metadata and content mode: CRS of the EO formats, geometry type of the vector formats; none for FASTQ
     metadata = '\n    sos:expectedCRS: "EPSG:4326"' if ns == "eo" else ""
     if ns == "eo" and fmt != "geotiff":
         metadata += '\n    sos:expectedGeometryType: "LineString"'

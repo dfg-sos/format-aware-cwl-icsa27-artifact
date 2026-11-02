@@ -26,10 +26,10 @@ from load_results import VARIANTS, load_all
 LABEL = {
     "off": "off (no validation)",
     "basic": "basic",
-    "structural-local": "structural, local",
-    "structural-upload": "structural, upload",
-    "full-local": "full, local",
-    "full-upload": "full, upload",
+    "metadata-local": "metadata, local",
+    "metadata-upload": "metadata, upload",
+    "content-local": "content, local",
+    "content-upload": "content, upload",
 }
 
 

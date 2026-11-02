@@ -15,8 +15,8 @@ from pathlib import Path
 
 RESULTS = Path(__file__).parent / "results"
 
-# variant ids as in run.py: off, basic, structural-upload, structural-local, full-upload, full-local
-VARIANTS = ["off", "basic", "structural-local", "structural-upload", "full-local", "full-upload"]
+# variant ids as in run.py: off, basic, metadata-upload, metadata-local, content-upload, content-local
+VARIANTS = ["off", "basic", "metadata-local", "metadata-upload", "content-local", "content-upload"]
 
 CHAIN = re.compile(
     r"rq[23]-(?P<format>geotiff|shapefile|geopackage|fastq)-(?P<size>\d+)MB-(?P<labels>concrete|abstract)"
@@ -41,7 +41,7 @@ class ResultSet:
 
 
 def variant_of(run_id: str) -> str:
-    """`full-local-3` -> `full-local`, `basic-0` -> `basic`."""
+    """`content-local-3` -> `content-local`, `basic-0` -> `basic`."""
     return run_id.rsplit("-", 1)[0]
 
 

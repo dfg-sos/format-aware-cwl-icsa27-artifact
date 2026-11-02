@@ -4,7 +4,7 @@
   runtime? (a) Sympolis on Kahama.gpkg; (b) three-step copy chains, concrete formats; (c) the (b) chains with abstract
   formats.
 - **RQ3, access path:** how does validating an uploaded file compare with validating a local file on the same host?
-  No separate runs: the `upload` and `local` variants of `structural` and `full` in RQ2(a) and RQ2(b).
+  No separate runs: the `upload` and `local` variants of `metadata` and `content` in RQ2(a) and RQ2(b).
 
 Variants and shared versions: [`README.md`](../README.md). How to run it on Slurm: [`hpc/README.md`](hpc/README.md).
 
@@ -22,10 +22,10 @@ RQ2(b), and `rq3-*-abstract` is RQ2(c).
 |---|---|---|---|
 | RQ2(a) | 10 | all six | `results/hpc-14606014/` |
 | RQ2(b) | 10 | all six | `results/hpc-14614765` … `68/rq2-*` (1, 10, 100, 1000 MB) |
-| RQ2(c) | 10 | `basic`, `structural-local`, `full-local`; compared with the RQ2(b) runs of the same size, on the same node | `results/hpc-14614765` … `68/rq3-*` |
+| RQ2(c) | 10 | `basic`, `metadata-local`, `content-local`; compared with the RQ2(b) runs of the same size, on the same node | `results/hpc-14614765` … `68/rq3-*` |
 | RQ3 | as RQ2 | `upload` vs. `local` of RQ2(a) and RQ2(b) | as RQ2 |
 
-All six variants: `off`, `basic`, and `structural`/`full` × `upload`/`local`. The runs use the `warn` policy
+All six variants: `off`, `basic`, and `metadata`/`content` × `upload`/`local`. The runs use the `warn` policy
 (`--format-validation warn`), so an invalid file never shortens a run.
 
 ## Local check
@@ -81,11 +81,11 @@ references are used, no JavaScript, so Node.js does not inflate the baseline. On
 
 ### How RQ3 is derived
 
-RQ3 needs no extra runs. For each size and format, compare `structural-upload` with `structural-local` and `full-upload` with `full-local` from the RQ2(a) and RQ2(b) runs. Report the difference in client round trip (`check_ms`) and the service-side time (`service_validate_ms`), so the transfer cost is separated from the validation cost.
+RQ3 needs no extra runs. For each size and format, compare `metadata-upload` with `metadata-local` and `content-upload` with `content-local` from the RQ2(a) and RQ2(b) runs. Report the difference in client round trip (`check_ms`) and the service-side time (`service_validate_ms`), so the transfer cost is separated from the validation cost.
 
 ## Procedure
 
-- **Interleaving:** the variants are interleaved within each repetition (off, basic, structural-upload, …),
+- **Interleaving:** the variants are interleaved within each repetition (off, basic, metadata-upload, …),
   so drift affects all variants equally.
 - **Warmup:** each set first runs one unrecorded warmup repetition.
 - **Fresh service per set:** the format service is restarted for every set (one workload × format × size),

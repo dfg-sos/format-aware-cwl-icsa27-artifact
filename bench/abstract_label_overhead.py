@@ -1,7 +1,7 @@
 """Statistics for RQ2(c): abstract (`eo:Raster`, `eo:Vector`, EDAM `format_1919`) vs. concrete format labels on the
 copy chains.
 
-For every format, size and validated variant of the abstract sets (`basic`, `structural-local`, `full-local`), compares
+For every format, size and validated variant of the abstract sets (`basic`, `metadata-local`, `content-local`), compares
 the 10 abstract runs with the 10 concrete runs of the same size, which ran on the same node. Per metric (summed
 client round trip `check_ms`, service-side `service_validate_ms`, `wall_ms`) it reports the medians, the difference of
 the medians (abstract - concrete, absolute and relative) and a 95 % bootstrap interval of that difference (resampling

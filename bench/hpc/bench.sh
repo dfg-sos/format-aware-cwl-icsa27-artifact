@@ -178,7 +178,7 @@ for rq in $RQS; do
         if [ "$rq" = 2 ]; then
             label=concrete args=(--transfers upload,local)
         else
-            label=abstract args=(--modes basic,structural,full --transfers "$RQ3_TRANSFERS")
+            label=abstract args=(--modes basic,metadata,content --transfers "$RQ3_TRANSFERS")
         fi
         for fmt in $FORMATS; do
             for mb in $SIZES; do
