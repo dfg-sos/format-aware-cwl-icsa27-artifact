@@ -25,7 +25,7 @@ def plugins():
     assert "bio" in registry.load_plugins()
 
 
-def run(identifier: FormatIdentifier, name: str, mode=ValidationMode.FULL):
+def run(identifier: FormatIdentifier, name: str, mode=ValidationMode.CONTENT):
     return validate(build_request(identifier, FileInput(path=DATA / name), mode))
 
 
@@ -72,7 +72,7 @@ def test_validate(fmt, name, status):
 def test_fasta_problems(tmp_path, content, message):
     path = tmp_path / "x.fasta"
     path.write_text(content)
-    result = validate(build_request(FormatIdentifier("FASTA"), FileInput(path=path), ValidationMode.FULL))
+    result = validate(build_request(FormatIdentifier("FASTA"), FileInput(path=path), ValidationMode.CONTENT))
     assert result.status == ValidationStatus.FAILURE
     assert message in str(result.to_dict())
 
@@ -91,7 +91,7 @@ def test_fasta_problems(tmp_path, content, message):
 def test_fastq_problems(tmp_path, content, message):
     path = tmp_path / "x.fastq"
     path.write_text(content)
-    result = validate(build_request(FormatIdentifier("FASTQ"), FileInput(path=path), ValidationMode.FULL))
+    result = validate(build_request(FormatIdentifier("FASTQ"), FileInput(path=path), ValidationMode.CONTENT))
     assert result.status == ValidationStatus.FAILURE
     assert message in str(result.to_dict())
 
@@ -99,9 +99,27 @@ def test_fastq_problems(tmp_path, content, message):
 def test_binary_file_fails(tmp_path):
     path = tmp_path / "x.fastq"
     path.write_bytes(b"\x89PNG\r\n\x1a\n\xff")
-    result = validate(build_request(FormatIdentifier("FASTQ"), FileInput(path=path), ValidationMode.FULL))
+    result = validate(build_request(FormatIdentifier("FASTQ"), FileInput(path=path), ValidationMode.CONTENT))
     assert result.status == ValidationStatus.FAILURE
 
 
 def test_basic_mode_does_not_read(tmp_path):
     assert run(FormatIdentifier("FASTA"), "missing.fasta", ValidationMode.BASIC).status == ValidationStatus.SUCCESS
+
+
+def test_metadata_mode_reads_first_record_only(tmp_path):
+    """A FASTQ broken after its first record passes METADATA and fails CONTENT."""
+    path = tmp_path / "x.fastq"
+    path.write_text("@r1\nACGT\n+\nIIII\n@r2\nACGT\n+\nIII\n")
+    request = lambda mode: build_request(FormatIdentifier("FASTQ"), FileInput(path=path), mode)
+    assert validate(request(ValidationMode.METADATA)).status == ValidationStatus.SUCCESS
+    assert validate(request(ValidationMode.CONTENT)).status == ValidationStatus.FAILURE
+
+
+@pytest.mark.parametrize("name, content", [("x.fasta", "@r\nACGT\n+\nIIII\n"), ("x.fastq", ">r\nACGT\n")])
+def test_metadata_mode_detects_other_format(tmp_path, name, content):
+    path = tmp_path / name
+    path.write_text(content)
+    fmt = "FASTA" if name.endswith(".fasta") else "FASTQ"
+    result = validate(build_request(FormatIdentifier(fmt), FileInput(path=path), ValidationMode.METADATA))
+    assert result.status == ValidationStatus.FAILURE
