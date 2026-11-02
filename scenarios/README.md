@@ -106,7 +106,7 @@ run were identical in all three repetitions (`run.py` checks both).
 
 Run once, by hand, locally; not in `run.py`. The fixture steps take milliseconds, so they cannot show time saved; this scenario does. `Kahama_Small.gpkg` reprojected (`ogr2ogr -t_srs`) from EPSG:4326 to EPSG:32736 (UTM 36S) or EPSG:3857 runs through plain Sympolis with exit 0 in about 25 s, but yields 13 clusters instead of 3: the result changes silently. With `sos:expectedCRS: "EPSG:4326"` added to the `vectorFile` input of `cwl/FishnetSplit.cwl` (Sympolis declares no CRS; this is the only change), `metadata` stops the UTM run at the input check of `split`, the first step, after 3.3 s (cwltool start-up plus one check); `basic` does not detect it; the EPSG:4326 control passes.
 
-**Time saved** needs no extra runs: on the cluster, that check (`full`, now `metadata`, input of `split`, 68 MB `Kahama.gpkg`) took about 20 ms with `local` and 180 ms with `upload` transfer (RQ2(a) timing log, [`bench/README.md`](../bench/README.md)), while the whole plain run took 134 s (median of `off`). A wrong CRS therefore stops the workflow before its first step and saves almost the whole execution time.
+**Time saved** needs no extra runs: on the cluster, that check (`metadata`, input of `split`, 68 MB `Kahama.gpkg`) took about 21 ms with `local` and 183 ms with `upload` transfer (RQ2(a) timing log, [`bench/README.md`](../bench/README.md)), while the whole plain run took 134 s (median of `off`). In `content` mode the same check reads all 232,521 features and takes 4.6 s, still a small fraction of the run. A wrong CRS therefore stops the workflow before its first step and saves almost the whole execution time.
 
 ## Raw results
 

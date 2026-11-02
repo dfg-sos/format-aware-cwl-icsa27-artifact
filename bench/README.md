@@ -65,19 +65,24 @@ references are used, no JavaScript, so Node.js does not inflate the baseline. On
 
 | Format | Content | Size of the 1 / 10 / 100 / 1000 MB inputs (bytes, incl. sidecar files) |
 |---|---|---|
-| GeoTIFF | uncompressed `uint8` noise, 1 band, untiled | 1,049,710 / 10,494,724 / 104,919,406 / 1,048,723,813 |
-| GeoPackage | random-walk LineStrings, 256 vertices each | 1,245,184 / 11,616,256 / 115,273,728 / 1,152,102,400 |
+| GeoTIFF | uncompressed `uint8` noise, 1 band, 256 × 256 tiles | 1,049,082 / 11,077,314 / 104,870,778 / 1,057,159,554 |
+| GeoPackage | random-walk LineStrings, 256 vertices each | 1,245,184 / 11,616,256 / 115,261,440 / 1,152,126,976 |
 | FASTQ | reads of 150 random bases with random Phred+33 qualities | 1,048,826 / 10,485,818 / 104,857,822 / 1,048,576,132 |
 
 - **Concrete labels (RQ2(b), RQ3):** every port and file is labelled `eo:GeoTIFF`, `eo:GeoPackage` or EDAM
   `format_1930` (FASTQ).
 - **Abstract labels (RQ2(c)):** the same data, with every port and file labelled `eo:Raster`, `eo:Vector` or EDAM
-  `format_1919` (sequence record format). Abstract labels add at most 2 ms service time per run (subclass lookup) in
-  every case except `full` on GeoTIFF (`eo:Raster`): +39 to +47 ms service time and +39 to +48 ms round trip per run
-  (6 checks), independent of file size. Wall time changes by under 3 %. FASTQ `full` at 1000 MB is the one outlier in
-  the other direction: the abstract set ran 2.1 s per run (1.9 %) faster. Both sets parsed every record with the same
-  result; the difference is drift between two sets of 110 s CPU-bound runs, which the per-set bootstrap interval does
-  not cover, not an effect of the label.
+  `format_1919` (sequence record format). The service validates a file with an abstract label against every concrete
+  subclass whose extension matches, and the file is valid if any of them succeeds. For `eo:Vector` (`.gpkg`) and the
+  sequence formats (`.fastq`) one subclass matches, and the abstract label changes the service time per run by at most
+  ±4.4 ms in `basic` and `metadata`, within the noise. For `eo:Raster`, five subclasses match a `.tif` (COG, DEM, DSM, DTM, GeoTIFF), and all
+  five run to completion before the first success is taken. In `metadata` this adds 37 to 46 ms service time per
+  run (6 checks), independent of file size, under 3.2 % of the wall time. In `content` each of the five reads every
+  pixel block: the abstract label costs about 4.8 times the concrete one, +69 ms per run at 1 MB and +19.9 s at
+  1000 MB (25.0 instead of 5.2 s service time per run; wall time +163 %). Reading the pixels once for all subclasses
+  that share the GeoTIFF container would remove this cost. The abstract `content` sets of GeoPackage and FASTQ ran
+  up to 0.2 and 1.0 s per run faster at 1000 MB (≤ 1.1 % of the wall time): drift between two sets of CPU-bound
+  runs, which the per-set bootstrap interval does not cover, not an effect of the label.
 - **Output annotations:** EO outputs declare `sos:expectedCRS: EPSG:4326`, and GeoPackage outputs also declare
   `sos:expectedGeometryType: LineString`. FASTQ outputs declare no metadata.
 - **Checks per run:** each validated run makes 6 checks, an input and an output check for each of the 3 steps.
@@ -118,9 +123,13 @@ RQ3 needs no extra runs. For each size and format, compare `metadata-upload` wit
 - **Cluster:** LRZ HPDA2, partition `hpda2_compute`. Each Slurm job ran exclusively (`--exclusive`) on
   one node. The service and cwltool ran on the same node, with the service on `127.0.0.1`.
 - **Jobs:**
-  - RQ2(a): one job (node `hpdar03c03s04`, same hardware).
-  - RQ2(b) and RQ2(c): one job per size, in parallel on four identical nodes (1 MB `hpdar10c04s11`,
-    10 MB `hpdar09c05s01`, 100 MB `hpdar09c05s02`, 1000 MB `hpdar09c05s03`).
+  - RQ2(a): one job (node `hpdar07c03s07`).
+  - RQ2(b) and RQ2(c), GeoPackage and FASTQ: one job per size, in parallel on four nodes (1 MB `hpdar09c04s01`,
+    10 MB `hpdar07c04s02`, 100 MB `hpdar09c02s09`, 1000 MB `hpdar09c03s09`).
+  - RQ2(b) and RQ2(c), GeoTIFF: one later job per size with tiled inputs (`env-<job>.txt`, `inputs-<job>.txt`),
+    on four further nodes (1 MB `hpdar09c02s04`, 10 MB `hpdar09c03s08`, 100 MB `hpdar12c03s04`, 1000 MB
+    `hpdar12c03s06`). The concrete and abstract sets of a format and size always ran in the same job.
+  - All nodes have the same hardware.
 - **Node:** 2× Intel Xeon Platinum 8380 (2 × 40 cores, 160 threads, max. 2.3 GHz, 4 NUMA nodes), 1 TB RAM,
   SLES 15 SP7 (kernel 6.4.0). The default frequency scaling was left on, and no CPU pinning was used.
 - **Storage:** all inputs and cwltool's working and output directories were on node-local NVMe (`/tmp`).
@@ -146,9 +155,16 @@ validator plug-in, which the plain 0.3.0 image lacks.
 - **Synthetic data:** the copy chains isolate the cost of validation. Their steps do almost no work, so
   the relative overhead is an upper bound. The baseline at 1000 MB (≈ 7 s for GeoTIFF and GeoPackage, ≈ 14 s for
   FASTQ) is dominated by cwltool staging and copying the files.
-- **`full` cost depends on the validator:** for GeoTIFF and GeoPackage it reads header and metadata through GDAL
-  (about 6 and 16 ms per check, independent of size); for FASTQ it parses every record with Biopython and grows
-  linearly, from 27 ms at 1 MB to 18.8 s per check at 1000 MB (about 19 s per GB).
+- **`metadata` is independent of the file size:** with `local` transfer a check takes about 6 ms for GeoTIFF,
+  15 ms for GeoPackage (GDAL opens the file, reads CRS and samples up to 50 features) and 4 ms for FASTQ (first
+  record), from 1 to 1000 MB. Most of it is the round trip; the service itself needs 0.2 to 12 ms.
+- **`content` grows linearly with the file size:** it reads every pixel block, feature or record. At 1000 MB a
+  `local` check takes 0.86 s for GeoTIFF, 9.8 s for GeoPackage (fiona iterates 1 GB of LineStrings) and 18.7 s for
+  FASTQ (Biopython parses every record), so a run of 6 checks grows by 70 %, 761 % and 794 % over the copy chain.
+  In Sympolis (68 MB GeoPackage, 899 checks) `content` adds 114 s (+85 %) with `local`, `metadata` 3.6 s (+2.7 %).
+  `metadata` is the fast path for every run; `content` pays off for small files or when it runs off the critical path.
+- **`upload` adds the transfer:** the files go over HTTP in every check, about 2.2 to 2.4 s per check at 1000 MB
+  for every format, the same in `metadata` and `content`. With `local` the service reads the file in place.
 - **Upload over loopback:** `upload` runs send the files over loopback on the same node. Over a network,
   upload costs depend on the bandwidth, while `local` costs do not. RQ3 therefore compares the two access paths on one host only.
 - **Geometry types in Sympolis:** its ports declare `sos:expectedGeometryType: Polygon`, while Kahama holds
