@@ -1,0 +1,10 @@
+{}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/copy_expect_linestring.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/copy_expect_linestring.cwl'
+INFO [job copy_expect_linestring.cwl] /tmp/gyyqc7i8$ cp \
+    /tmp/6w8hdrf7/stgdb57507c-9f0d-4abb-bece-dbb9343ae83d/roads_stray_point.geojson \
+    out.geojson
+ERROR [step copy_expect_linestring.cwl] output 'lines' file 'out.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoJSON: FAILURE: 1 of 61 features have geometry types incompatible with expected type 'LINESTRING': {'POINT': 1}.
+ERROR [job copy_expect_linestring.cwl] Job error:
+[step copy_expect_linestring.cwl] output 'lines' file 'out.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoJSON: FAILURE: 1 of 61 features have geometry types incompatible with expected type 'LINESTRING': {'POINT': 1}.
+WARNING [job copy_expect_linestring.cwl] completed permanentFail
+WARNING Final process status is permanentFail

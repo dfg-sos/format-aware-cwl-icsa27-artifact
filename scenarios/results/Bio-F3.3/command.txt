@@ -1,14 +1,14 @@
 # off
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation off scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl scenarios/fixtures/jobs/fastq_named_fasta.yml
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation off scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl scenarios/fixtures/jobs/fastq_named_fasta.yml
 
 # basic
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode basic scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl scenarios/fixtures/jobs/fastq_named_fasta.yml
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode basic scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl scenarios/fixtures/jobs/fastq_named_fasta.yml
 
-# structural
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode structural scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl scenarios/fixtures/jobs/fastq_named_fasta.yml
+# metadata
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode metadata scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl scenarios/fixtures/jobs/fastq_named_fasta.yml
 
-# full
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode full scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl scenarios/fixtures/jobs/fastq_named_fasta.yml
+# content
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode content scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl scenarios/fixtures/jobs/fastq_named_fasta.yml
 
 # lint
-cwl-format-lint --format-service-url http://localhost:8010 scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl
+cwl-format-lint --format-service-url http://localhost:8001 scenarios/fixtures/workflows/relabel_then_consume_fasta_docker.cwl

@@ -22,7 +22,7 @@ docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/mappings:/app/mappings:ro" \
 uv run python scenarios/run.py --out /tmp/scenarios
 uv run python scenarios/tables.py --results /tmp/scenarios --out /tmp/scenarios/stats   # compare with results/matrix.md
 ```
-The image is the one the results were produced with (`sha256:cafddc3f…`, see `results/env.txt`); to build it from
+The image is the one the results were produced with (`sha256:8152fa23…`, see `results/env.txt`); to build it from
 [`plugins/format-validator-bio`](../plugins/format-validator-bio/Dockerfile) instead:
 `docker build -t file-format-service-eo-bio:0.3.0 plugins/format-validator-bio`.
 `run.py` exits 1 if any exit code differs from the expected one or between repetitions, `tables.py` if a fault's EO
@@ -119,11 +119,11 @@ Run once, by hand, locally; not in `run.py`. The fixture steps take milliseconds
 
 ## Environment
 
-Not on the cluster (no timing involved). A laptop (Linux 7.0, Python 3.12.13, Docker 29.4.3), runner v0.1.0. The
-service image is `ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0` (`sha256:cafddc3f…`, also used for RQ2(b) and
-(c)): `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0, which loads validator plug-ins) plus
-`plugins/format-validator-bio` 0.3.0 with Biopython 1.88 ([`Dockerfile`](../plugins/format-validator-bio/Dockerfile)),
-run with Docker on `localhost:8010` and the mappings in `mappings/` (EO formats, EDAM). `results/env.txt` records the
+Not on the cluster (no timing involved). A laptop (Linux 7.0, Python 3.12.13, Docker 29.5.3), runner v0.2.0. The
+service image is `ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0` (`sha256:8152fa23…`, also used for RQ2(b) and
+(c)): `ghcr.io/dfg-sos/file-format-service:0.3.0` (format-validator 0.4.0, which loads validator plug-ins) plus
+`plugins/format-validator-bio` 0.4.0 with Biopython 1.88 ([`Dockerfile`](../plugins/format-validator-bio/Dockerfile)),
+run with Docker on `localhost:8001` and the mappings in `mappings/` (EO formats, EDAM). `results/env.txt` records the
 image digest.
 
 Timings in `results/` are wall times of single runs on a laptop with the `fail` policy; do not compare them with the

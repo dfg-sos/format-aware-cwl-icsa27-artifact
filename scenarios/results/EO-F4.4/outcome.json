@@ -1,0 +1,132 @@
+{
+  "id": "F4.4",
+  "domain": "EO",
+  "workflow": "copy_expect_linestring.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.33,
+      "failed_checks": [],
+      "skipped_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.33,
+        1.275,
+        1.273
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.302,
+      "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads_stray_point.geojson",
+          "reason": "no format"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.302,
+        1.312,
+        1.283
+      ],
+      "consistent": true
+    },
+    "metadata": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.324,
+      "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads_stray_point.geojson",
+          "reason": "no format"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.324,
+        1.3,
+        1.344
+      ],
+      "consistent": true
+    },
+    "content": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.35,
+      "failed_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "lines",
+          "direction": "post",
+          "file": "out.geojson",
+          "result": "FAILURE",
+          "message": "1 of 61 features have geometry types incompatible with expected type 'LINESTRING': {'POINT': 1}."
+        }
+      ],
+      "skipped_checks": [
+        {
+          "step": "copy_expect_linestring.cwl",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads_stray_point.geojson",
+          "reason": "no format"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.35,
+        1.34,
+        1.33
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.386,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.386,
+        0.38,
+        0.393
+      ],
+      "consistent": true
+    }
+  }
+}

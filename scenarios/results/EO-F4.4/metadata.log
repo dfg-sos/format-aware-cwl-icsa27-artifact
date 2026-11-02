@@ -1,0 +1,17 @@
+{
+    "lines": {
+        "location": "file:///tmp/tmph5ohh1q8/out/out.geojson",
+        "basename": "out.geojson",
+        "class": "File",
+        "checksum": "sha1$678e387ce5cfe5d5ac6d3b3a6e86aa5e0db7d6b7",
+        "size": 8560,
+        "format": "https://dfg-sos.github.io/ontologies/eo-formats#GeoJSON",
+        "path": "/tmp/tmph5ohh1q8/out/out.geojson"
+    }
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/copy_expect_linestring.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/copy_expect_linestring.cwl'
+INFO [job copy_expect_linestring.cwl] /tmp/qcol6oux$ cp \
+    /tmp/uri82n8_/stgfb032f4d-f422-4b67-8225-e74c945fc4ef/roads_stray_point.geojson \
+    out.geojson
+INFO [job copy_expect_linestring.cwl] completed success
+INFO Final process status is success

@@ -1,20 +1,20 @@
 {
     "size": {
-        "location": "file:///tmp/tmpd3xebigc/out/size.txt",
+        "location": "file:///tmp/tmp8gfhk8mq/out/size.txt",
         "basename": "size.txt",
         "class": "File",
-        "checksum": "sha1$7da2e45f83bdc111f5d80d5a94cb2f532a63bf09",
+        "checksum": "sha1$5712f9294a979625357350cd336be4e9bd87f1fe",
         "size": 74,
-        "path": "/tmp/tmpd3xebigc/out/size.txt"
+        "path": "/tmp/tmp8gfhk8mq/out/size.txt"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/wire_raster_to_geotiff.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/wire_raster_to_geotiff.cwl'
 INFO [workflow ] start
 INFO [workflow ] starting step consume
 INFO [step consume] start
-INFO [job consume] /tmp/5zuqslfx$ wc \
+INFO [job consume] /tmp/_re0io14$ wc \
     -c \
-    /tmp/98jsp3km/stg9be388cb-0f6f-4c09-b48f-dc50b8f1fd2e/raster_4326.tif > /tmp/5zuqslfx/size.txt
+    /tmp/tn5ipdco/stg22f17018-4831-4500-8cb9-0b7c09b893c8/raster_4326.tif > /tmp/_re0io14/size.txt
 INFO [job consume] completed success
 INFO [step consume] completed success
 INFO [workflow ] completed success

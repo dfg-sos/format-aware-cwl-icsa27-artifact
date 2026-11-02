@@ -1,0 +1,10 @@
+{}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/geotiff_expect_geometry.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/geotiff_expect_geometry.cwl'
+INFO [job geotiff_expect_geometry.cwl] /tmp/a38dmd3s$ cp \
+    /tmp/9b5s55xt/stg9ad5453b-423e-4fd0-88bb-d2663d3df372/raster_4326.tif \
+    out.tif
+ERROR [step geotiff_expect_geometry.cwl] output 'raster' file 'out.tif' could not be validated as https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: ERROR: format service HTTP 400: Unsupported metadata keys ['geometry_type'], supported keys are ['crs'].
+ERROR [job geotiff_expect_geometry.cwl] Job error:
+[step geotiff_expect_geometry.cwl] output 'raster' file 'out.tif' could not be validated as https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: ERROR: format service HTTP 400: Unsupported metadata keys ['geometry_type'], supported keys are ['crs'].
+WARNING [job geotiff_expect_geometry.cwl] completed permanentFail
+WARNING Final process status is permanentFail

@@ -1,58 +1,58 @@
 {
     "size": {
-        "location": "file:///tmp/tmpfkx1tdgo/out/size.txt",
+        "location": "file:///tmp/tmpnbq6rw02/out/size.txt",
         "basename": "size.txt",
         "class": "File",
-        "checksum": "sha1$d6cd8405bf2220b3fca964e0767792b0969bb74e",
+        "checksum": "sha1$a9a22e91aa32b68d5a4dd53104313324ae34b993",
         "size": 65,
-        "path": "/tmp/tmpfkx1tdgo/out/size.txt"
+        "path": "/tmp/tmpnbq6rw02/out/size.txt"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_docker.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_docker.cwl'
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/5fs5j58p$ docker \
+INFO [job relabel] /tmp/1hjs5vgs$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/5fs5j58p,target=/PPzpUG \
-    --mount=type=bind,source=/tmp/hrah51n5,target=/tmp \
-    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/roads.geojson,target=/var/lib/cwl/stga609bc51-54d3-44f8-bc7a-4b44fa110635/roads.geojson,readonly \
-    --workdir=/PPzpUG \
+    --mount=type=bind,source=/tmp/1hjs5vgs,target=/FZqIQl \
+    --mount=type=bind,source=/tmp/6dmgk19p,target=/tmp \
+    --mount=type=bind,source=/home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/data/roads.geojson,target=/var/lib/cwl/stgafc16062-25f1-4714-a5fe-4cb27915a2d0/roads.geojson,readonly \
+    --workdir=/FZqIQl \
     --read-only=true \
     --net=none \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/22ccmqt8/20261030031557-585385.cid \
+    --cidfile=/tmp/krm_cb6a/20261102170822-109708.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/PPzpUG \
+    --env=HOME=/FZqIQl \
     alpine:3.20 \
     cp \
-    /var/lib/cwl/stga609bc51-54d3-44f8-bc7a-4b44fa110635/roads.geojson \
+    /var/lib/cwl/stgafc16062-25f1-4714-a5fe-4cb27915a2d0/roads.geojson \
     out.tif
 INFO [job relabel] completed success
 INFO [step relabel] completed success
 INFO [workflow ] starting step consume
 INFO [step consume] start
-INFO [job consume] /tmp/cbctw27o$ docker \
+INFO [job consume] /tmp/_di7brb3$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/cbctw27o,target=/PPzpUG \
-    --mount=type=bind,source=/tmp/ofi9xrpl,target=/tmp \
-    --mount=type=bind,source=/tmp/5fs5j58p/out.tif,target=/var/lib/cwl/stgb4f8c2c2-6c1f-4ff6-9b17-c5ba627bfecf/out.tif,readonly \
-    --workdir=/PPzpUG \
+    --mount=type=bind,source=/tmp/_di7brb3,target=/FZqIQl \
+    --mount=type=bind,source=/tmp/c_vmnakm,target=/tmp \
+    --mount=type=bind,source=/tmp/1hjs5vgs/out.tif,target=/var/lib/cwl/stg5a3a6c59-1042-480c-b951-2e67b2e4e28e/out.tif,readonly \
+    --workdir=/FZqIQl \
     --read-only=true \
     --net=none \
     --log-driver=none \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/_l4a289k/20261030031558-604328.cid \
+    --cidfile=/tmp/o2hra19t/20261102170823-125924.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/PPzpUG \
+    --env=HOME=/FZqIQl \
     alpine:3.20 \
     wc \
     -c \
-    /var/lib/cwl/stgb4f8c2c2-6c1f-4ff6-9b17-c5ba627bfecf/out.tif > /tmp/cbctw27o/size.txt
+    /var/lib/cwl/stg5a3a6c59-1042-480c-b951-2e67b2e4e28e/out.tif > /tmp/_di7brb3/size.txt
 INFO [job consume] completed success
 INFO [step consume] completed success
 INFO [workflow ] completed success

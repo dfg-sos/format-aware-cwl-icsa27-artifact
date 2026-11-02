@@ -1,0 +1,10 @@
+{}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/copy_expect_crs.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/copy_expect_crs.cwl'
+INFO [job copy_expect_crs.cwl] /tmp/ood0qd8r$ cp \
+    /tmp/qzjbj16j/stg36897814-a9b9-4404-827c-65bbe6b65137/raster_4326.tif \
+    out.tif
+ERROR [step copy_expect_crs.cwl] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: File CRS'EPSG:4326' does not match expected CRS 'EPSG:3857'.
+ERROR [job copy_expect_crs.cwl] Job error:
+[step copy_expect_crs.cwl] output 'raster' file 'out.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: File CRS'EPSG:4326' does not match expected CRS 'EPSG:3857'.
+WARNING [job copy_expect_crs.cwl] completed permanentFail
+WARNING Final process status is permanentFail

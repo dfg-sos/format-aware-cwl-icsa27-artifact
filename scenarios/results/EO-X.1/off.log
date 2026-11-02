@@ -1,16 +1,16 @@
 {
     "geom": {
-        "location": "file:///tmp/tmpp_ficxud/out/out.wkb",
+        "location": "file:///tmp/tmpjo8fm6wz/out/out.wkb",
         "basename": "out.wkb",
         "class": "File",
         "checksum": "sha1$11f6ad8ec52a2984abaafd7c3b516503785c2072",
         "size": 1,
         "format": "https://dfg-sos.github.io/ontologies/eo-formats#WKB",
-        "path": "/tmp/tmpp_ficxud/out/out.wkb"
+        "path": "/tmp/tmpjo8fm6wz/out/out.wkb"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/unsupported_format.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/unsupported_format.cwl'
-INFO [job unsupported_format.cwl] /tmp/kuiczk0i$ sh \
+INFO [job unsupported_format.cwl] /tmp/98lizotl$ sh \
     -c \
     'printf x > out.wkb'
 INFO [job unsupported_format.cwl] completed success
