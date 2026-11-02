@@ -1,5 +1,5 @@
 # F4.3: a GeoTIFF output annotated with sos:expectedGeometryType, which raster formats do not support.
-# In full mode the service rejects the request (400) -> error: fails by default, a warning with
+# In metadata and content mode the service rejects the request (400) -> error: fails by default, a warning with
 # --format-service-error warn. Other modes send no metadata and pass.
 cwlVersion: v1.2
 $namespaces: {eo: "https://dfg-sos.github.io/ontologies/eo-formats#", sos: "https://dfg-sos.github.io/ontologies/cwl#"}

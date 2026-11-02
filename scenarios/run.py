@@ -6,7 +6,7 @@ Needs a running format service (`--format-service-url`, default $SOS_FFS_URL or 
 plugins/format-validator-bio, with mappings/ mounted (README.md). The scenarios, their fixtures and expected
 exit codes are listed in scenarios/scenarios.yml. Each scenario runs in the variants it lists:
 `off` (`--format-validation off`: plain cwltool, but the timing log records which steps ran), `basic`,
-`structural` and `full` mode with
+`metadata` and `content` mode with
 the default `fail` policy, extra flag variants, and `lint` (`cwl-format-lint`). Every run is repeated
 `--repeat` times; the outcome (exit code, non-SUCCESS and skipped checks, steps that ran) must be the same in every
 repetition and match the expected exit code.
@@ -41,7 +41,7 @@ ROOT = Path(__file__).resolve().parent.parent
 FIXTURES = Path("scenarios/fixtures")
 BIN = Path(sys.executable).parent
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
-MODES = ("basic", "structural", "full")
+MODES = ("basic", "metadata", "content")
 
 MANIFEST = Path("scenarios/scenarios.yml")
 

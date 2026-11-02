@@ -18,13 +18,13 @@ About 15 minutes on any Linux machine with Docker, from the repository root:
 ```sh
 uv sync
 docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/mappings:/app/mappings:ro" \
-  ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0
+  ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0
 uv run python scenarios/run.py --out /tmp/scenarios
 uv run python scenarios/tables.py --results /tmp/scenarios --out /tmp/scenarios/stats   # compare with results/matrix.md
 ```
 The image is the one the results were produced with (`sha256:cafddc3f…`, see `results/env.txt`); to build it from
 [`plugins/format-validator-bio`](../plugins/format-validator-bio/Dockerfile) instead:
-`docker build -t file-format-service-eo-bio:0.2.0 plugins/format-validator-bio`.
+`docker build -t file-format-service-eo-bio:0.3.0 plugins/format-validator-bio`.
 `run.py` exits 1 if any exit code differs from the expected one or between repetitions, `tables.py` if a fault's EO
 and Bio scenarios differ in any variant. Scenarios EO-F3.3 and Bio-F3.3 are skipped without a Docker daemon. The
 Sympolis scenario (wrong CRS in a real workflow) was run by hand; see [below](#sympolis-wrong-crs-in-a-real-workflow).
@@ -34,14 +34,14 @@ Sympolis scenario (wrong CRS in a real workflow) was run by hand; see [below](#s
 The scenarios are listed in [`scenarios.yml`](scenarios.yml): fixture workflow and job, injected fault and expected exit
 code per variant. IDs follow the fault classes of the paper: F1 incompatible formats wired together, F2 wrong workflow
 input file, F3 a tool stamps the wrong label on its output, F4 wrong or inapplicable metadata (CRS, geometry type), F5
-corrupt file; OK are controls (no fault), X limits of the runtime checks. Each scenario belongs to one
+corrupt file (F5.1 in the metadata, F5.2 in the content); OK are controls (no fault), X limits of the runtime checks. Each scenario belongs to one
 application domain: EO (the EO formats ontology) or Bio (EDAM; the runtime checks through the validator plug-in
 `plugins/format-validator-bio`). The same ID in both domains is the same fault: Bio F1.1 is EO F1.1 with FASTQ and FASTA
-instead of Shapefile and GeoTIFF. F4 and X.1 run in EO only: F4 checks EO metadata (CRS, geometry type), X.1 an EO format
-without validator. X.2, an output without format, belongs to no domain (`none`). Results are kept per
+instead of Shapefile and GeoTIFF. F4, F5.1 and X.1 run in EO only: F4 checks EO metadata (CRS, geometry type), F5.1 metadata, which FASTQ does not have,
+X.1 an EO format without validator. X.2, an output without format, belongs to no domain (`none`). Results are kept per
 `<domain>-<id>`, e.g. `results/Bio-F1.1/`. The fixtures (`fixtures/workflows/`, `tools/`, `jobs/`, `data/`) derive from the runner's `tests/fixtures/`.
 
-[`run.py`](run.py) runs each scenario as `off`, `basic`, `structural`, `full` (transfer `auto`), and through
+[`run.py`](run.py) runs each scenario as `off`, `basic`, `metadata`, `content` (transfer `auto`), and through
 `cwl-format-lint`, three times each; [`tables.py`](tables.py) writes the table below as `results/matrix.md`. The runs
 use the default policy, `--format-validation fail`: a failed input check stops the step before it runs, a failed output
 check fails it after it ran, and the workflow stops. `UNCERTAIN` results only warn and service errors stop the step
@@ -52,7 +52,7 @@ check fails it after it ran, and the workflow stops. `UNCERTAIN` results only wa
 Exit codes (1 = stopped, 0 = completed, empty = not run; bold: the earliest variant that detects the fault). X.2
 declares no `$schemas` to lint.
 
-| ID | Domain | Injected fault | `off` | `lint` | `basic` | `structural` | `full` | Other variants | Where it stops |
+| ID | Domain | Injected fault | `off` | `lint` | `basic` | `metadata` | `content` | Other variants | Where it stops |
 |---|---|---|---|---|---|---|---|---|---|
 | F1.1 | EO | Shapefile input wired to a GeoTIFF port | 1 | **1** | 1 | 1 | 1 |  | linter: before any job; otherwise cwltool's label check when it creates the `consume` job |
 | F1.1 | Bio | FASTQ input wired to a FASTA port | 1 | **1** | 1 | 1 | 1 |  | as F1.1 |
@@ -62,22 +62,24 @@ declares no `$schemas` to lint.
 | F1.3 | Bio | as F1.2, the job passes a valid FASTQ (EDAM `format_1930`), which the sequence-format contract admits | 1 | **1** | 1 | 1 | 1 |  | as F1.3 |
 | F2.1 | EO | workflow input `roads.geojson` labelled GeoTIFF by the job | 0 | 0 | **1** | 1 | 1 |  | input check of `consume`; `consume` not run |
 | F2.1 | Bio | workflow input `reads.fastq` labelled FASTA by the job (validator plug-in) | 0 | 0 | **1** | 1 | 1 |  | input check of `consume`; `consume` not run |
-| F2.2 | EO | GeoJSON content named `roads_as.tif`, labelled GeoTIFF | 0 | 0 | 0 | 0 | **1** |  | as F2.1 |
-| F2.2 | Bio | FASTQ content named `reads_as.fasta`, labelled FASTA (validator plug-in) | 0 | 0 | 0 | 0 | **1** |  | as F2.1 |
+| F2.2 | EO | GeoJSON content named `roads_as.tif`, labelled GeoTIFF | 0 | 0 | 0 | **1** | 1 |  | as F2.1 |
+| F2.2 | Bio | FASTQ content named `reads_as.fasta`, labelled FASTA (validator plug-in) | 0 | 0 | 0 | **1** | 1 |  | as F2.1 |
 | F2.3 | EO | the job names `missing.tif`, which does not exist | 1 | 0 | **1** | 1 | 1 |  | cwltool, when it loads the job; no step runs |
 | F2.3 | Bio | the job names `missing.fasta`, which does not exist | 1 | 0 | **1** | 1 | 1 |  | cwltool, when it loads the job; no step runs |
 | F2.4 | EO | a Shapefile without its `.dbf`, which the workflow input requires as a secondary file | 1 | 0 | **1** | 1 | 1 |  | cwltool, when it loads the job; no step runs |
 | F3.1 | EO | a tool writes GeoJSON as `out.geojson` and labels it GeoTIFF | 0 | 0 | **1** | 1 | 1 |  | output check of `relabel`; `consume` not run |
-| F3.2 | EO | as F3.1, but named `out.tif` | 0 | 0 | 0 | 0 | **1** |  | as F3.1 |
-| F3.3 | EO | F3.2 with all steps in `alpine` containers | 0 | 0 | 0 | 0 | **1** |  | as F3.1 |
+| F3.2 | EO | as F3.1, but named `out.tif` | 0 | 0 | 0 | **1** | 1 |  | as F3.1 |
+| F3.3 | EO | F3.2 with all steps in `alpine` containers | 0 | 0 | 0 | **1** | 1 |  | as F3.1 |
 | F3.1 | Bio | a tool writes FASTQ as `out.fastq` and labels it FASTA (validator plug-in) | 0 | 0 | **1** | 1 | 1 |  | output check of `relabel`; `consume` not run |
-| F3.2 | Bio | as F3.1, but named `out.fasta` | 0 | 0 | 0 | 0 | **1** |  | as F3.1 |
-| F3.3 | Bio | F3.2 with all steps in `alpine` containers | 0 | 0 | 0 | 0 | **1** |  | as F3.1 |
-| F4.1 | EO | GeoTIFF in EPSG:4326, output declares `sos:expectedCRS: EPSG:3857` | 0 | 0 | 0 | 0 | **1** |  | output check of the tool |
-| F4.2 | EO | Point GeoJSON, output declares `sos:expectedGeometryType: LineString` | 0 | 0 | 0 | 0 | **1** |  | output check of the tool |
-| F4.3 | EO | `sos:expectedGeometryType` on a GeoTIFF output: the service rejects the request in full mode (`ERROR`, HTTP 400) | 0 | 0 | 0 | 0 | **1** | full-service-error-warn: 0 | full: output check of the tool; the runner treats the rejected request as a service error, so with `--format-service-error warn` it completes with a warning |
-| F5.1 | EO | GeoTIFF truncated at 64 bytes | 0 | 0 | 0 | 0 | **1** |  | as F2.1 |
-| F5.1 | Bio | FASTQ cut off inside its second record (validator plug-in) | 0 | 0 | 0 | 0 | **1** |  | as F2.1 |
+| F3.2 | Bio | as F3.1, but named `out.fasta` | 0 | 0 | 0 | **1** | 1 |  | as F3.1 |
+| F3.3 | Bio | F3.2 with all steps in `alpine` containers | 0 | 0 | 0 | **1** | 1 |  | as F3.1 |
+| F4.1 | EO | GeoTIFF in EPSG:4326, output declares `sos:expectedCRS: EPSG:3857` | 0 | 0 | 0 | **1** | 1 |  | output check of the tool |
+| F4.2 | EO | Point GeoJSON, output declares `sos:expectedGeometryType: LineString` | 0 | 0 | 0 | **1** | 1 |  | output check of the tool |
+| F4.3 | EO | `sos:expectedGeometryType` on a GeoTIFF output: the service rejects the request in metadata and content mode (`ERROR`, HTTP 400) | 0 | 0 | 0 | **1** | 1 | metadata-service-error-warn: 0 | metadata and content: output check of the tool; the runner treats the rejected request as a service error, so with `--format-service-error warn` it completes with a warning |
+| F4.4 | EO | 60 LineStrings, then one Point (GeoJSON), output declares `sos:expectedGeometryType: LineString`: the metadata check samples the first 50 features | 0 | 0 | 0 | 0 | **1** |  | output check of the tool |
+| F5.1 | EO | GeoTIFF cut off at 64 bytes, inside its tag directory: size, CRS and pixel layout are missing | 0 | 0 | 0 | **1** | 1 |  | as F2.1 |
+| F5.2 | EO | GeoTIFF (64 x 64) cut off halfway: the metadata is intact, the pixel data is not | 0 | 0 | 0 | 0 | **1** |  | as F2.1 |
+| F5.2 | Bio | FASTQ cut off inside its second record; FASTQ has no metadata, its first record is intact (validator plug-in) | 0 | 0 | 0 | 0 | **1** |  | as F2.1 |
 | OK.1 | EO | none, a valid GeoTIFF into the F2 workflow | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.1 | Bio | none, a valid FASTA into the F2 workflow (validator plug-in) | 0 | 0 | 0 | 0 | 0 |  | completes |
 | OK.2 | EO | none, Shapefile into an `eo:Vector` port (subclass, multi-file format) | 0 | 0 | 0 | 0 | 0 |  | completes |
@@ -90,11 +92,11 @@ declares no `$schemas` to lint.
 - **Plain cwltool misses every label and content fault** (F2.1, F2.2, F3–F5; exit 0): it stamps the declared label on outputs and never looks at file content. It stops F1.1 and F1.3 only at runtime, when it creates the `consume` job; the linter rejects their workflows before any job runs.
 - **The linter rejects broken format contracts that cwltool accepts** (F1.2, F1.3): a workflow input declared as abstract `eo:Raster` promises that any raster is valid; wiring it to a tool that requires `eo:GeoTIFF` breaks that promise. cwltool accepts the workflow and checks only the labels of the given job: the run completes when the job passes a GeoTIFF (F1.2) and stops at the tool when it passes a NetCDF, a raster the contract admits as well (F1.3). The linter checks the declared formats of the ports and rejects the workflow in both cases, before any job.
 - **The wiring checks are not bound to one ontology:** Bio F1.1–F1.3 repeat EO F1.1–F1.3 with EDAM sequence formats, checked against the online `EDAM.owl`, with the same outcome in every variant: FASTQ wired to a FASTA port (F1.1), an abstract sequence-format input wired to a FASTA port, rejected by the linter, completing with a FASTA job (F1.2) and stopped at runtime by a valid FASTQ (F1.3); FASTA into a sequence-format port completes (OK.2, a subclass).
-- **The runtime checks extend to another domain without changing the runner or the service** (Bio F2.1–F3.3, F5.1, OK.1): the plug-in `plugins/format-validator-bio` adds FASTA and FASTQ validators (EDAM `format_1929`, `format_1930`), built on Biopython's parsers, to the service image, and its mapping file maps EDAM to them. The unchanged runner v0.1.0 detects a FASTQ file labelled FASTA by its name in `basic` mode (F2.1), and FASTQ content named `.fasta` (F2.2) and a FASTQ cut off inside a record (F5.1) only in `full`, as in EO; the same holds for a tool that labels its FASTQ output FASTA (F3.1–F3.3). Every fault run in both domains has the same outcome in both (`tables.py` checks this).
+- **The runtime checks extend to another domain without changing the runner or the service** (Bio F2.1–F3.3, F5.2, OK.1): the plug-in `plugins/format-validator-bio` adds FASTA and FASTQ validators (EDAM `format_1929`, `format_1930`), built on Biopython's parsers, to the service image, and its mapping file maps EDAM to them. The unchanged runner v0.2.0 detects a FASTQ file labelled FASTA by its name in `basic` mode (F2.1), FASTQ content named `.fasta` (F2.2) in `metadata` mode, and a FASTQ cut off inside its second record (F5.2) only in `content`, as in EO; the same holds for a tool that labels its FASTQ output FASTA (F3.1–F3.3). Every fault run in both domains has the same outcome in both (`tables.py` checks this).
 - **The linter misses all runtime faults** (F2–F5): their labels are consistent, and it does not read jobs. Linter and runner are complementary.
-- **`basic` catches wrong extensions** (F2.1, F3.1). Wrong content, CRS, geometry type and truncation need `full`. `structural` caught nothing that `basic` missed, because cwltool never hands over a missing file: it rejects a missing input file (F2.3) and a missing secondary file (F2.4) when it loads the job, in every variant, and missing outputs when it collects them.
-- **Detection stops the workflow before the next step:** output faults at the producing step (F3: `consume` not run), input faults before the consuming step (F2, F5.1). All outcomes were identical in the three repetitions.
-- **Metadata the format cannot carry is an annotation fault** (F4.3, `sos:expectedGeometryType` on a GeoTIFF): the linter does not check which metadata a format supports, and only `full` sends metadata. The service rejects the request (HTTP 400), which the runner reports as `ERROR`, like an unreachable service: it stops the workflow by default, but only warns with `--format-service-error warn`.
+- **`basic` catches wrong extensions** (F2.1, F3.1). **`metadata` catches the rest at a cost independent of the file size:** wrong content behind the right extension (F2.2, F3.2, F3.3), wrong CRS (F4.1), wrong declared geometry type (F4.2) and truncated metadata (F5.1). For FASTA and FASTQ, which carry no metadata, `metadata` parses the first record. **Only `content` catches faults beyond what `metadata` reads:** a geometry of the wrong type after the features `metadata` samples (F4.4) and data cut off behind intact metadata (F5.2). A missing file needs no check of its own, because cwltool never hands one over: it rejects a missing input file (F2.3) and a missing secondary file (F2.4) when it loads the job, in every variant, and missing outputs when it collects them.
+- **Detection stops the workflow before the next step:** output faults at the producing step (F3: `consume` not run), input faults before the consuming step (F2, F5). All outcomes were identical in the three repetitions.
+- **Metadata the format cannot carry is an annotation fault** (F4.3, `sos:expectedGeometryType` on a GeoTIFF): the linter does not check which metadata a format supports, and only `metadata` and `content` send metadata. The service rejects the request (HTTP 400), which the runner reports as `ERROR`, like an unreachable service: it stops the workflow by default, but only warns with `--format-service-error warn`.
 - **No false positives** in the controls (OK). **Limits:** a format without validator gives `UNCERTAIN`, which only warns or stops as the policy says (X.1). A port without `format` is skipped and never sent to the service (X.2): the checks cover only what the workflow declares, and workflows without annotations run unchanged.
 
 **Verification:** every run's exit code matched the expected one, and exit code, failed and skipped checks and steps
@@ -102,9 +104,9 @@ run were identical in all three repetitions (`run.py` checks both).
 
 ### Sympolis: wrong CRS in a real workflow
 
-Run once, by hand, locally; not in `run.py`. The fixture steps take milliseconds, so they cannot show time saved; this scenario does. `Kahama_Small.gpkg` reprojected (`ogr2ogr -t_srs`) from EPSG:4326 to EPSG:32736 (UTM 36S) or EPSG:3857 runs through plain Sympolis with exit 0 in about 25 s, but yields 13 clusters instead of 3: the result changes silently. With `sos:expectedCRS: "EPSG:4326"` added to the `vectorFile` input of `cwl/FishnetSplit.cwl` (Sympolis declares no CRS; this is the only change), `full` stops the UTM run at the input check of `split`, the first step, after 3.3 s (cwltool start-up plus one check); `basic` does not detect it; the EPSG:4326 control passes.
+Run once, by hand, locally; not in `run.py`. The fixture steps take milliseconds, so they cannot show time saved; this scenario does. `Kahama_Small.gpkg` reprojected (`ogr2ogr -t_srs`) from EPSG:4326 to EPSG:32736 (UTM 36S) or EPSG:3857 runs through plain Sympolis with exit 0 in about 25 s, but yields 13 clusters instead of 3: the result changes silently. With `sos:expectedCRS: "EPSG:4326"` added to the `vectorFile` input of `cwl/FishnetSplit.cwl` (Sympolis declares no CRS; this is the only change), `metadata` stops the UTM run at the input check of `split`, the first step, after 3.3 s (cwltool start-up plus one check); `basic` does not detect it; the EPSG:4326 control passes.
 
-**Time saved** needs no extra runs: on the cluster, that check (`full`, input of `split`, 68 MB `Kahama.gpkg`) took about 20 ms with `local` and 180 ms with `upload` transfer (RQ2(a) timing log, [`bench/README.md`](../bench/README.md)), while the whole plain run took 134 s (median of `off`). A wrong CRS therefore stops the workflow before its first step and saves almost the whole execution time.
+**Time saved** needs no extra runs: on the cluster, that check (`full`, now `metadata`, input of `split`, 68 MB `Kahama.gpkg`) took about 20 ms with `local` and 180 ms with `upload` transfer (RQ2(a) timing log, [`bench/README.md`](../bench/README.md)), while the whole plain run took 134 s (median of `off`). A wrong CRS therefore stops the workflow before its first step and saves almost the whole execution time.
 
 ## Raw results
 
