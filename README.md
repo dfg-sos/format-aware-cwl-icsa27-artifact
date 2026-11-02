@@ -1,7 +1,7 @@
 # Artifact: format validation in CWL workflows (ICSA 2027)
 
 Scripts, inputs and raw results of the evaluation of
-[format-aware-cwl-runner](https://github.com/dfg-sos/format-aware-cwl-runner/releases/tag/v0.1.0), which validates the files of a
+[format-aware-cwl-runner](https://github.com/dfg-sos/format-aware-cwl-runner/releases/tag/v0.2.0), which validates the files of a
 CWL workflow against their declared formats with the
 [SOS File Format Service](https://github.com/dfg-sos/file-format-service/pkgs/container/file-format-service): a design-time linter
 (`cwl-format-lint`) and a runtime extension of cwltool (`cwl-format-aware-runner`). The evaluation ran in October 2026.
@@ -12,9 +12,9 @@ The questions are numbered as in the paper (Section "Evaluation").
 
 | | Question | Workload | Measured runs per variant | Paper section | Setup and results |
 |---|---|---|---|---|---|
-| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 31 fault-injection scenarios (linter and runner): 18 with EO formats, 12 of them repeated in bioinformatics (EDAM, runtime checks via a validator plug-in), and 1 without any format | 3 (deterministic; repeated to confirm) | Effectiveness | [`scenarios/`](scenarios/README.md) |
+| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 33 fault-injection scenarios (linter and runner): 20 with EO formats, 12 of them repeated in bioinformatics (EDAM, runtime checks via a validator plug-in), and 1 without any format | 3 (deterministic; repeated to confirm) | Effectiveness | [`scenarios/`](scenarios/README.md) |
 | RQ2 | Overhead: what do the validation modes add, as a function of file size, format label and relative to task runtime? | (a) Sympolis on Kahama.gpkg; (b) three-step copy chain, concrete formats; (c) the (b) chains with abstract formats | 10 | Overhead by mode and file size; Overhead on an EO workflow | [`bench/`](bench/README.md) |
-| RQ3 | Access path: how does validating an uploaded file compare with validating a local file on the same host? | no separate runs: the `upload` and `local` variants of `structural` and `full` in RQ2(a) and RQ2(b) | as RQ2 | Overhead by mode and file size | [`bench/`](bench/README.md) |
+| RQ3 | Access path: how does validating an uploaded file compare with validating a local file on the same host? | no separate runs: the `upload` and `local` variants of `metadata` and `content` in RQ2(a) and RQ2(b) | as RQ2 | Overhead by mode and file size | [`bench/`](bench/README.md) |
 
 ```
 scenarios/            RQ1, fault injection
@@ -42,10 +42,10 @@ Each run is a fresh `cwl-format-aware-runner` process (cwltool with the format-v
 |---|---|
 | `off` | Baseline: plain cwltool, no service calls |
 | `basic` | The service checks file names only (extensions, multi-file components); no file content is sent |
-| `structural` | `basic`, plus the service checks that the files exist |
-| `full` | `structural`, plus the service opens each file as the declared format and checks CRS and geometry type |
+| `metadata` | `basic`, plus the service checks that the files exist, opens each file as the declared format and reads its header: CRS and declared geometry type (EO), the first record (FASTA, FASTQ) |
+| `content` | `metadata`, plus the service reads every pixel, feature or record of each file and checks that every feature has the expected geometry type |
 
-`structural` and `full` each run with two file transfers:
+`metadata` and `content` each run with two file transfers:
 - `upload`: the file bytes are sent over HTTP.
 - `local`: only the path is sent, and the service reads the file from a directory it shares with cwltool.
 
@@ -54,7 +54,7 @@ Validation runs on the inputs and outputs of every step (`--format-check both`).
 
 ## Requirements
 
-- [uv](https://docs.astral.sh/uv/) and Python 3.12 or 3.13; `uv sync` installs the runner from its tag `v0.1.0`
+- [uv](https://docs.astral.sh/uv/) and Python 3.12 or 3.13; `uv sync` installs the runner from its tag `v0.2.0`
 - Docker (RQ1) or Apptainer and Slurm (RQ2), for the service image
 - Node.js for cwltool's JavaScript (Sympolis only; `bench.sh prepare` installs it)
 
@@ -68,7 +68,7 @@ Validation runs on the inputs and outputs of every step (`--format-check both`).
 
 | Software | Version |
 |---|---|
-| format-aware-cwl-runner | v0.1.0 (commit `881ccdd`), pinned in `pyproject.toml` and `uv.lock` |
+| format-aware-cwl-runner | v0.2.0 (commit `8d2113f`), pinned in `pyproject.toml` and `uv.lock` |
 | cwltool / schema-salad / cwl-utils | 3.3.20260925135507 / 8.10.20260825112551 / 0.45 |
 | file-format-service, RQ1 | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0` (`sha256:cafddc3f…`): `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0) plus the plug-in `plugins/format-validator-bio` 0.3.0 (Biopython 1.88), Docker |
 | file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.2.0`, without the plug-in, Apptainer |
