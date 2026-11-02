@@ -38,9 +38,9 @@ set -euo pipefail
 
 REPO="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 BENCH_HOME="${BENCH_HOME:-$HOME/ffs-bench}"
-# file-format-service 0.2.0 (format-validator 0.3.0) with the plug-in format-validator-bio (FASTA, FASTQ):
-# ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0, pinned to the image the RQ1 scenarios ran on
-FFS_IMAGE="${FFS_IMAGE:-docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:cafddc3febdec3264e640b4b0b9be98d4b1b46150968c5738505bd7e09f8b059}"
+# file-format-service 0.3.0 (format-validator 0.4.0) with the plug-in format-validator-bio (FASTA, FASTQ):
+# ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0, pinned to the image the RQ1 scenarios ran on
+FFS_IMAGE="${FFS_IMAGE:-docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:8152fa239f959c889ffc01713eeb2be169b68845051685ca7448681fa3916ef3}"
 SYMPOLIS_URL=https://github.com/dfg-sos/sympolis.git
 SYMPOLIS_TAG=v1.2.0
 # its tools pull ghcr.io/dfg-sos/sympolis:latest; pinned to the image of the release

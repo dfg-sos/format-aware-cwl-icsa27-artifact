@@ -18,13 +18,13 @@ cd format-aware-cwl-icsa27-artifact   # the repository root; all commands run fr
 bash bench/hpc/bench.sh prepare
 ```
 This sets up the uv environment (Python 3.13), converts the service image (`FFS_IMAGE`, by default
-`ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0`, pinned by digest: file-format-service 0.2.0 with format-validator 0.3.0 and the
+`ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0`, pinned by digest: file-format-service 0.3.0 with format-validator 0.4.0 and the
 validator plug-in for FASTA and FASTQ, built from [`plugins/format-validator-bio`](../../plugins/format-validator-bio/Dockerfile))
 to `ffs.sif`, and downloads the EO formats ontology and EDAM 1.25. To use a local build instead of the registry image:
 ```sh
-docker build -t file-format-service-eo-bio:0.2.0 plugins/format-validator-bio   # on a machine with Docker
-docker save file-format-service-eo-bio:0.2.0 -o file-format-service-eo-bio-0.2.0.tar   # copy it to the cluster
-FFS_IMAGE=docker-archive://$HOME/file-format-service-eo-bio-0.2.0.tar bash bench/hpc/bench.sh prepare
+docker build -t file-format-service-eo-bio:0.3.0 plugins/format-validator-bio   # on a machine with Docker
+docker save file-format-service-eo-bio:0.3.0 -o file-format-service-eo-bio-0.3.0.tar   # copy it to the cluster
+FFS_IMAGE=docker-archive://$HOME/file-format-service-eo-bio-0.3.0.tar bash bench/hpc/bench.sh prepare
 ```
 `prepare` also installs Node.js if missing,
 clones Sympolis at its release tag (with its own image pinned to that release), and runs Sympolis
@@ -48,10 +48,10 @@ The paper's runs were split into separate jobs on identical nodes. RQ2(b) and (c
 ```sh
 for mb in 1 10 100 1000; do RQS="2 3" SIZES=$mb sbatch -p <partition> bench/hpc/bench.sh; done
 ```
-RQ2(a) (about 2.5 h) ran with the plain service image 0.2.0, without the plug-in (Sympolis uses EO formats only);
+RQ2(a) (about 2.5 h) ran with the plain service image 0.3.0, without the plug-in (Sympolis uses EO formats only);
 prepare and submit in the same shell:
 ```sh
-export BENCH_HOME=$HOME/ffs-bench-0.2.0 FFS_IMAGE=docker://ghcr.io/dfg-sos/file-format-service:0.2.0
+export BENCH_HOME=$HOME/ffs-bench-0.3.0 FFS_IMAGE=docker://ghcr.io/dfg-sos/file-format-service@sha256:e93ccf944cee2f620ed4a6a16a6b1d01c52978309ce957338efa2d46506cdc37
 bash bench/hpc/bench.sh prepare
 RQS=1 sbatch -p <partition> bench/hpc/bench.sh
 ```
@@ -67,7 +67,7 @@ RQS=1 sbatch -p <partition> bench/hpc/bench.sh
 | `NUMA_NODES` | `4` | abort unless the node has this many NUMA nodes (all reported runs had 4; some HPDA2 nodes have 2 and measure slower); empty to skip |
 | `BENCH_HOME` | `~/ffs-bench` | images, ontology, Node.js, Sympolis |
 | `BENCH_WORK` | `$TMPDIR/ffs-bench-<job>` | scratch shared with the service; deleted afterwards unless set explicitly |
-| `FFS_IMAGE` | `docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:cafddc3f…` | service image, anything `apptainer build` accepts |
+| `FFS_IMAGE` | `docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:8152fa23…` | service image, anything `apptainer build` accepts |
 | `PORT` | `8000` | service port on 127.0.0.1 |
 
 Set them in front of `sbatch`; Slurm passes the environment on.

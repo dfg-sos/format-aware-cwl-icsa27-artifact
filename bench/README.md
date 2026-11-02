@@ -128,15 +128,15 @@ RQ3 needs no extra runs. For each size and format, compare `metadata-upload` wit
 | Python / httpx | 3.13.14 / 0.28.1 |
 | Node.js (cwltool's JavaScript engine, RQ2(a) only) | 26.13.0 |
 | Apptainer | 1.2.5 |
-| file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0), as in RQ1 without the plug-in, run with Apptainer, uvicorn |
-| file-format-service, RQ2(b)/(c) | `ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:cafddc3f…`, the RQ1 image (0.2.0 plus the plug-in `plugins/format-validator-bio` 0.3.0), run with Apptainer, uvicorn |
+| file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.3.0` (`sha256:e93ccf94…`, format-validator 0.4.0), as in RQ1 without the plug-in, run with Apptainer, uvicorn |
+| file-format-service, RQ2(b)/(c) | `ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:8152fa23…`, the RQ1 image (0.3.0 plus the plug-in `plugins/format-validator-bio` 0.4.0), run with Apptainer, uvicorn |
 | EO formats ontology | eo-formats 1.0.0, local copy (sha256 `7e867b2d…03ed`) |
 | EDAM, RQ2(b)/(c) | EDAM 1.25, local copy (sha256 `af29132f…4f48`) |
 | Container images (sha256 of the `.sif`) | fishnet-apps 2.0.1 `88ec6e10…3598`; sympolis 1.2.0 `6167ccbe…67d9` |
 
 `env.txt` in each results directory records the full hardware listing, the versions and the checksums.
 RQ2(a) mounts only the EO mapping (`mappings/eo-formats.json`): the EDAM mapping needs the
-validator plug-in, which the plain 0.2.0 image lacks.
+validator plug-in, which the plain 0.3.0 image lacks.
 
 ## Notes
 

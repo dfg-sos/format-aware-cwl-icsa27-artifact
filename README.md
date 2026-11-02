@@ -70,8 +70,8 @@ Validation runs on the inputs and outputs of every step (`--format-check both`).
 |---|---|
 | format-aware-cwl-runner | v0.2.0 (commit `8d2113f`), pinned in `pyproject.toml` and `uv.lock` |
 | cwltool / schema-salad / cwl-utils | 3.3.20260925135507 / 8.10.20260825112551 / 0.45 |
-| file-format-service, RQ1 | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0` (`sha256:cafddc3f…`): `ghcr.io/dfg-sos/file-format-service:0.2.0` (format-validator 0.3.0) plus the plug-in `plugins/format-validator-bio` 0.3.0 (Biopython 1.88), Docker |
-| file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.2.0`, without the plug-in, Apptainer |
+| file-format-service, RQ1 | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0` (`sha256:8152fa23…`): `ghcr.io/dfg-sos/file-format-service:0.3.0` (format-validator 0.4.0) plus the plug-in `plugins/format-validator-bio` 0.4.0 (Biopython 1.88), Docker |
+| file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.3.0` (`sha256:e93ccf94…`), without the plug-in, Apptainer |
 | file-format-service, RQ2(b), (c) | the RQ1 image, Apptainer; the default in `bench/hpc/bench.sh` |
 | Sympolis, RQ2(a) | release `v1.2.0`, image `ghcr.io/dfg-sos/sympolis:1.2.0` |
 
