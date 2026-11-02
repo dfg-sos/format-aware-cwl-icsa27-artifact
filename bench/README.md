@@ -20,10 +20,13 @@ RQ2(b), and `rq3-*-abstract` is RQ2(c).
 
 | | Measured runs per variant | Variants | Results |
 |---|---|---|---|
-| RQ2(a) | 10 | all six | `results/hpc-14606014/` |
-| RQ2(b) | 10 | all six | `results/hpc-14614765` … `68/rq2-*` (1, 10, 100, 1000 MB) |
-| RQ2(c) | 10 | `basic`, `metadata-local`, `content-local`; compared with the RQ2(b) runs of the same size, on the same node | `results/hpc-14614765` … `68/rq3-*` |
+| RQ2(a) | 10 | all six | `results/sympolis/` |
+| RQ2(b) | 10 | all six | `rq2-*` in `results/copy-chain-1MB`, `-10MB`, `-100MB`, `-1000MB` |
+| RQ2(c) | 10 | `basic`, `metadata-local`, `content-local`; compared with the RQ2(b) runs of the same size, on the same node | `rq3-*` in the same directories as RQ2(b) |
 | RQ3 | as RQ2 | `upload` vs. `local` of RQ2(a) and RQ2(b) | as RQ2 |
+
+`bench.sh` writes each Slurm job to `results/hpc-<job>/`; the directories above combine the jobs of one workflow
+and keep each job's `env.txt` (as `env-<job>.txt` for further jobs).
 
 All six variants: `off`, `basic`, and `metadata`/`content` × `upload`/`local`. The runs use the `warn` policy
 (`--format-validation warn`), so an invalid file never shortens a run.

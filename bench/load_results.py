@@ -1,6 +1,7 @@
 """Loads the overhead results in bench/results/ for plot.py and abstract_label_overhead.py.
 
-Each set is a directory `results/hpc-<job>/<name>/` with `runs.csv` (one row per measured run) and `timing.jsonl`
+Each set is a directory `results/<group>/<name>/` (`sympolis`, `copy-chain-<size>MB`, or `hpc-<job>` as written by
+bench/hpc/bench.sh) with `runs.csv` (one row per measured run) and `timing.jsonl`
 (one `check` record per validated file). Set names: `rq1-sympolis` (RQ2(a)), `rq2-<format>-<size>MB-concrete`
 (RQ2(b)) and `rq3-<format>-<size>MB-abstract` (RQ2(c)).
 """
@@ -70,7 +71,7 @@ def load_set(path: Path) -> ResultSet:
 def load_all(results: Path = RESULTS) -> dict[str, ResultSet]:
     """All result sets by name. Each name occurs in exactly one job directory."""
     sets: dict[str, ResultSet] = {}
-    for path in sorted(results.glob("hpc-*/*/runs.csv")):
+    for path in sorted(results.glob("*/*/runs.csv")):
         rs = load_set(path.parent)
         if rs.name in sets:
             raise ValueError(f"{rs.name} occurs in {sets[rs.name].path} and {rs.path}")
