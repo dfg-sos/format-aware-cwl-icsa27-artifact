@@ -135,9 +135,13 @@ stop_service() {
 start_service() {  # start_service <log file>: a fresh process, so no state carries over between sets
     stop_service
     rm -rf "$WORK/service-tmp" && mkdir -p "$WORK/service-tmp"
-    # all mappings (EO formats, EDAM): the image has the validator plug-in for EDAM
+    # the EDAM mapping only for the FASTQ copy chains: it needs the validator plug-in for EDAM, and the plain
+    # service image (RQ2(a), Sympolis) lacks it and fails every request when the mapping is mounted
+    local maps=(--bind "$REPO/mappings/eo-formats.json:/app/mappings/eo-formats.json:ro")
+    [[ " $RQS " =~ " "[23]" " && " $FORMATS " == *" fastq "* ]] &&
+        maps+=(--bind "$REPO/mappings/edam-formats.json:/app/mappings/edam-formats.json:ro")
     apptainer exec --cleanenv --containall --writable-tmpfs --pwd /app \
-        --bind "$REPO/mappings:/app/mappings:ro" --bind "$WORK" --bind "$WORK/service-tmp:/tmp" \
+        "${maps[@]}" --bind "$WORK" --bind "$WORK/service-tmp:/tmp" \
         --env "SOS_FFS_SHARED_DIRS=$WORK" \
         "$BENCH_HOME/ffs.sif" uvicorn main:app --app-dir src --host 127.0.0.1 --port "$PORT" \
         >"$1" 2>&1 &
