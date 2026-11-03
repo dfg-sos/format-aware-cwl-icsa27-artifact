@@ -1,10 +1,19 @@
-# Artifact: format validation in CWL workflows (ICSA 2027)
+# Artifact: Enforcing File Property Constraints in Scientific Workflows: An Ontology-Driven Architecture (ICSA 2027)
 
-Scripts, inputs and raw results of the evaluation of
-[format-aware-cwl-runner](https://github.com/dfg-sos/format-aware-cwl-runner/releases/tag/v0.2.0), which validates the files of a
-CWL workflow against their declared formats with the
-[SOS File Format Service](https://github.com/dfg-sos/file-format-service/pkgs/container/file-format-service): a design-time linter
-(`cwl-format-lint`) and a runtime extension of cwltool (`cwl-format-aware-runner`). The evaluation ran in October 2026.
+This artifact references the involved software components of our architecture and further provides the scripts, data, and instructions to reproduce our figures and results.
+
+## Architectural Components
+
+| Component | Repository | Version | Role |
+|---|---|---|---|
+| Format-Aware CWL Runner | [dfg-sos/format-aware-cwl-runner](https://github.com/dfg-sos/format-aware-cwl-runner) | v0.2.0 | Design-time linter (`cwl-format-lint`) and runtime extension of cwltool (`cwl-format-aware-runner`) |
+| File Format Service | [dfg-sos/file-format-service](https://github.com/dfg-sos/file-format-service) | v0.3.0 (`ghcr.io/dfg-sos/file-format-service:0.3.0`) | Service the runner and linter call to check format compatibility and validate files |
+| File Format Validator (Base) | [dfg-sos/file-format-validator](https://github.com/dfg-sos/file-format-validator) | v0.4.0 | Validator core with the EO format validators, bundled in the service image |
+| Bioinformatics Validator Plugin | [`plugins/format-validator-bio`](plugins/format-validator-bio/README.md) (this artifact) | 0.4.0 | FASTA/FASTQ validators as a plug-in (`ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0`) |
+| EO Format & Metadata Ontology | [dfg-sos/ontologies](https://github.com/dfg-sos/ontologies) | eo-formats 1.0.0 | Format classes and their hierarchy for EO |
+| EDAM Ontology | [edamontology/edamontology](https://github.com/edamontology/edamontology) | 1.25 | Format classes for bioinformatics |
+| Sympolis Workflow | [dfg-sos/sympolis](https://github.com/dfg-sos/sympolis) | v1.2.0 (`ghcr.io/dfg-sos/sympolis:1.2.0`) | EO workflow used in RQ2(a) |
+
 
 ## Research questions
 
@@ -12,9 +21,9 @@ The questions are numbered as in the paper (Section "Evaluation").
 
 | | Question | Workload | Measured runs per variant | Paper section | Setup and results |
 |---|---|---|---|---|---|
-| RQ1 | Effectiveness: does the integration detect injected format and file property faults at design time and at runtime, and at which point in the workflow? | 33 fault-injection scenarios (linter and runner): 20 with EO formats, 12 of them repeated in bioinformatics (EDAM, runtime checks via a validator plug-in), and 1 without any format | 3 (deterministic; repeated to confirm) | Effectiveness | [`scenarios/`](scenarios/README.md) |
-| RQ2 | Overhead: what do the validation modes add, as a function of file size, format label and relative to task runtime? | (a) Sympolis on Kahama.gpkg; (b) three-step copy chain, concrete formats; (c) the (b) chains with abstract formats | 10 | Overhead by mode and file size; Overhead on an EO workflow | [`bench/`](bench/README.md) |
-| RQ3 | Access path: how does validating an uploaded file compare with validating a local file on the same host? | no separate runs: the `upload` and `local` variants of `metadata` and `content` in RQ2(a) and RQ2(b) | as RQ2 | Overhead by mode and file size | [`bench/`](bench/README.md) |
+| RQ1 | Effectiveness: does the file format service integration detect injected format and file property faults, and at which point in the workflow? | 33 fault-injection scenarios (linter and runner): 20 with EO formats, 12 of them repeated in bioinformatics (EDAM, runtime checks via a validator plug-in), and 1 without any format | 3 (deterministic; repeated to confirm) | Fault Detection | [`scenarios/`](scenarios/README.md) |
+| RQ2 | Overhead: what is the overhead of the validation modes in relation to the file size of the input and relative to a workflow's time to result? | (a) Sympolis on Kahama.gpkg; (b) three-step copy chain, concrete formats; (c) the (b) chains with abstract formats | 10 (plus 1 discarded warm-up) | Validation Time by Validation Mode and File Size; Overhead on an EO Workflow | [`bench/`](bench/README.md) |
+| RQ3 | Access path: how does the overhead of validating an uploaded file compare with validating a local file on the same host? | no separate runs: the `upload` and `local` variants of `metadata` and `content` in RQ2(a) and RQ2(b) | as RQ2 | Validation Time by Validation Mode and File Size; Overhead on an EO Workflow | [`bench/`](bench/README.md) |
 
 ```
 scenarios/            RQ1, fault injection
@@ -36,11 +45,13 @@ plugins/              format-validator-bio: FASTA/FASTQ validators as a plug-in,
 
 ## Variants
 
-Each run is a fresh `cwl-format-aware-runner` process (cwltool with the format-validation extension):
+The paper calls these configurations (Table "Injected faults"). Each run is a fresh `cwl-format-aware-runner` process
+(cwltool with the format-validation extension), except `lint`:
 
 | Variant | Description |
 |---|---|
 | `off` | Baseline: plain cwltool, no service calls |
+| `lint` | Design-time compatibility check of the workflow definition (`cwl-format-lint`), no run; RQ1 only |
 | `basic` | The service checks file names only (extensions, multi-file components); no file content is sent |
 | `metadata` | `basic`, plus the service checks that the files exist, opens each file as the declared format and reads its header: CRS and declared geometry type (EO), the first record (FASTA, FASTQ) |
 | `content` | `metadata`, plus the service reads every pixel, feature or record of each file and checks that every feature has the expected geometry type |
@@ -80,8 +91,8 @@ Neither the runner nor the service was changed for the plug-in.
 container checksums. Further versions per environment: [`scenarios/README.md`](scenarios/README.md#environment),
 [`bench/README.md`](bench/README.md#environment).
 
-**Name:** these documents say `cwl-format-aware-runner` for the process and `format-aware-cwl-runner` for the
-package. Use one name in the paper (the repository is `format-aware-cwl-runner`).
+**Names:** the paper's `format-aware cwl runner` is the package and repository `format-aware-cwl-runner`; its
+commands are `cwl-format-lint` (linter) and `cwl-format-aware-runner` (runner).
 
 ## License
 
