@@ -72,7 +72,7 @@
 # F2: wrong workflow input file
 - id: F2.1
   domain: EO
-  label: Mislabelled input, by extension
+  label: Mislabelled input, wrong extension
   fault: workflow input `roads.geojson` labelled GeoTIFF by the job
   workflow: consume_input.cwl
   job: raster_geojson.yml
@@ -81,7 +81,7 @@
   stops: "input check of `consume`; `consume` not run"
 - id: F2.1
   domain: Bio
-  label: Mislabelled input, by extension
+  label: Mislabelled input, wrong extension
   fault: "workflow input `reads.fastq` labelled FASTA by the job (validator plug-in)"
   workflow: consume_fasta_input.cwl
   job: fasta_fastq.yml
@@ -90,7 +90,7 @@
   stops: "input check of `consume`; `consume` not run"
 - id: F2.2
   domain: EO
-  label: Mislabelled input, by content
+  label: Mislabelled input, matching extension
   fault: GeoJSON content named `roads_as.tif`, labelled GeoTIFF
   workflow: consume_input.cwl
   job: raster_geojson_named_tif.yml
@@ -99,7 +99,7 @@
   stops: as F2.1
 - id: F2.2
   domain: Bio
-  label: Mislabelled input, by content
+  label: Mislabelled input, matching extension
   fault: "FASTQ content named `reads_as.fasta`, labelled FASTA (validator plug-in)"
   workflow: consume_fasta_input.cwl
   job: fasta_fastq_named_fasta.yml
@@ -137,7 +137,7 @@
 # F3: a tool stamps the wrong label on its output
 - id: F3.1
   domain: EO
-  label: Mislabelled output, by extension
+  label: Mislabelled output, wrong extension
   fault: a tool writes GeoJSON as `out.geojson` and labels it GeoTIFF
   workflow: relabel_then_consume.cwl
   job: geojson_named_geojson.yml
@@ -146,7 +146,7 @@
   stops: "output check of `relabel`; `consume` not run"
 - id: F3.2
   domain: EO
-  label: Mislabelled output, by content
+  label: Mislabelled output, matching extension
   fault: as F3.1, but named `out.tif`
   workflow: relabel_then_consume.cwl
   job: geojson_named_tif.yml
@@ -155,7 +155,7 @@
   stops: as F3.1
 - id: F3.3
   domain: EO
-  label: Mislabelled output, by content, in containers
+  label: Mislabelled output, matching extension, in containers
   fault: F3.2 with all steps in `alpine` containers
   workflow: relabel_then_consume_docker.cwl
   job: geojson_named_tif.yml
@@ -165,7 +165,7 @@
 
 - id: F3.1
   domain: Bio
-  label: Mislabelled output, by extension
+  label: Mislabelled output, wrong extension
   fault: "a tool writes FASTQ as `out.fastq` and labels it FASTA (validator plug-in)"
   workflow: relabel_then_consume_fasta.cwl
   job: fastq_named_fastq.yml
@@ -174,7 +174,7 @@
   stops: "output check of `relabel`; `consume` not run"
 - id: F3.2
   domain: Bio
-  label: Mislabelled output, by content
+  label: Mislabelled output, matching extension
   fault: as F3.1, but named `out.fasta`
   workflow: relabel_then_consume_fasta.cwl
   job: fastq_named_fasta.yml
@@ -183,7 +183,7 @@
   stops: as F3.1
 - id: F3.3
   domain: Bio
-  label: Mislabelled output, by content, in containers
+  label: Mislabelled output, matching extension, in containers
   fault: F3.2 with all steps in `alpine` containers
   workflow: relabel_then_consume_fasta_docker.cwl
   job: fastq_named_fasta.yml

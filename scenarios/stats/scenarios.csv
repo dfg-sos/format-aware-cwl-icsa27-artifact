@@ -2,13 +2,13 @@ id,label,domains,off,lint,basic,metadata,content,at
 F1.1,Incompatible formats wired,"EO, Bio",●,●,●,●,●,linter; else label check
 F1.2,"Broken contract, required subformat","EO, Bio",○,●,○,○,○,linter
 F1.3,"Broken contract, sibling subformat","EO, Bio",●,●,●,●,●,linter; else label check
-F2.1,"Mislabelled input, by extension","EO, Bio",○,○,●,●,●,input check
-F2.2,"Mislabelled input, by content","EO, Bio",○,○,○,●,●,input check
+F2.1,"Mislabelled input, wrong extension","EO, Bio",○,○,●,●,●,input check
+F2.2,"Mislabelled input, matching extension","EO, Bio",○,○,○,●,●,input check
 F2.3,Missing input file,"EO, Bio",●,○,●,●,●,cwltool at start
 F2.4,Missing secondary file,EO,●,○,●,●,●,cwltool at start
-F3.1,"Mislabelled output, by extension","EO, Bio",○,○,●,●,●,output check
-F3.2,"Mislabelled output, by content","EO, Bio",○,○,○,●,●,output check
-F3.3,"Mislabelled output, by content, in containers","EO, Bio",○,○,○,●,●,output check
+F3.1,"Mislabelled output, wrong extension","EO, Bio",○,○,●,●,●,output check
+F3.2,"Mislabelled output, matching extension","EO, Bio",○,○,○,●,●,output check
+F3.3,"Mislabelled output, matching extension, in containers","EO, Bio",○,○,○,●,●,output check
 F4.1,Wrong CRS,EO,○,○,○,●,●,output check
 F4.2,Wrong geometry type,EO,○,○,○,●,●,output check
 F4.3,Metadata the format cannot carry,EO,○,○,○,●,●,output check
