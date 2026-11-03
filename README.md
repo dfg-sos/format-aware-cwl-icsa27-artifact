@@ -15,10 +15,10 @@ This artifact references the involved software components of our architecture an
 | Sympolis Workflow | [dfg-sos/sympolis](https://github.com/dfg-sos/sympolis) | v1.2.0 (`ghcr.io/dfg-sos/sympolis:1.2.0`) | EO workflow used in RQ2(a) |
 
 
-## Research questions
+# Evaluation
+The evaluation follows the research questions presented in the paper.
 
-The questions are numbered as in the paper (Section "Evaluation").
-
+## Research Questions
 | | Question | Workload | Measured runs per variant | Paper section | Setup and results |
 |---|---|---|---|---|---|
 | RQ1 | Effectiveness: does the file format service integration detect injected format and file property faults, and at which point in the workflow? | 33 fault-injection scenarios (linter and runner): 20 with EO formats, 12 of them repeated in bioinformatics (EDAM, runtime checks via a validator plug-in), and 1 without any format | 3 (deterministic; repeated to confirm) | Fault Detection | [`scenarios/`](scenarios/README.md) |
