@@ -1,20 +1,20 @@
 {
     "size": {
-        "location": "file:///tmp/tmpv7timdn6/out/size.txt",
+        "location": "file:///tmp/tmpf9gmvkx1/out/size.txt",
         "basename": "size.txt",
         "class": "File",
-        "checksum": "sha1$b3dc630e5665d6887e947afcb75b5a1e50208f43",
+        "checksum": "sha1$a00b8e98a0de54e11095e80ba88e738428225e93",
         "size": 68,
-        "path": "/tmp/tmpv7timdn6/out/size.txt"
+        "path": "/tmp/tmpf9gmvkx1/out/size.txt"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/consume_fasta_input.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/consume_fasta_input.cwl'
 INFO [workflow ] start
 INFO [workflow ] starting step consume
 INFO [step consume] start
-INFO [job consume] /tmp/93629_f1$ wc \
+INFO [job consume] /tmp/9s5d2khx$ wc \
     -c \
-    /tmp/y2y_cmg7/stg1cd52456-b3e2-4571-9ace-45c049bd5187/seqs.fasta > /tmp/93629_f1/size.txt
+    /tmp/jx8krqnc/stg0777a54b-6082-4bd1-8f5d-c63da178b90a/seqs.fasta > /tmp/9s5d2khx/size.txt
 INFO [job consume] completed success
 INFO [step consume] completed success
 INFO [workflow ] completed success

@@ -38,9 +38,9 @@ set -euo pipefail
 
 REPO="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 BENCH_HOME="${BENCH_HOME:-$HOME/ffs-bench}"
-# file-format-service 0.2.0 (format-validator 0.3.0) with the plug-in format-validator-bio (FASTA, FASTQ):
-# ghcr.io/dfg-sos/file-format-service-eo-bio:0.2.0, pinned to the image the RQ1 scenarios ran on
-FFS_IMAGE="${FFS_IMAGE:-docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:cafddc3febdec3264e640b4b0b9be98d4b1b46150968c5738505bd7e09f8b059}"
+# file-format-service 0.3.0 (format-validator 0.4.0) with the plug-in format-validator-bio (FASTA, FASTQ):
+# ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0, pinned to the image the RQ1 scenarios ran on
+FFS_IMAGE="${FFS_IMAGE:-docker://ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:8152fa239f959c889ffc01713eeb2be169b68845051685ca7448681fa3916ef3}"
 SYMPOLIS_URL=https://github.com/dfg-sos/sympolis.git
 SYMPOLIS_TAG=v1.2.0
 # its tools pull ghcr.io/dfg-sos/sympolis:latest; pinned to the image of the release
@@ -135,9 +135,13 @@ stop_service() {
 start_service() {  # start_service <log file>: a fresh process, so no state carries over between sets
     stop_service
     rm -rf "$WORK/service-tmp" && mkdir -p "$WORK/service-tmp"
-    # all mappings (EO formats, EDAM): the image has the validator plug-in for EDAM
+    # the EDAM mapping only for the FASTQ copy chains: it needs the validator plug-in for EDAM, and the plain
+    # service image (RQ2(a), Sympolis) lacks it and fails every request when the mapping is mounted
+    local maps=(--bind "$REPO/mappings/eo-formats.json:/app/mappings/eo-formats.json:ro")
+    [[ " $RQS " =~ " "[23]" " && " $FORMATS " == *" fastq "* ]] &&
+        maps+=(--bind "$REPO/mappings/edam-formats.json:/app/mappings/edam-formats.json:ro")
     apptainer exec --cleanenv --containall --writable-tmpfs --pwd /app \
-        --bind "$REPO/mappings:/app/mappings:ro" --bind "$WORK" --bind "$WORK/service-tmp:/tmp" \
+        "${maps[@]}" --bind "$WORK" --bind "$WORK/service-tmp:/tmp" \
         --env "SOS_FFS_SHARED_DIRS=$WORK" \
         "$BENCH_HOME/ffs.sif" uvicorn main:app --app-dir src --host 127.0.0.1 --port "$PORT" \
         >"$1" 2>&1 &
@@ -178,7 +182,7 @@ for rq in $RQS; do
         if [ "$rq" = 2 ]; then
             label=concrete args=(--transfers upload,local)
         else
-            label=abstract args=(--modes basic,structural,full --transfers "$RQ3_TRANSFERS")
+            label=abstract args=(--modes basic,metadata,content --transfers "$RQ3_TRANSFERS")
         fi
         for fmt in $FORMATS; do
             for mb in $SIZES; do

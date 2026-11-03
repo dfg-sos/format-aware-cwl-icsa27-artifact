@@ -1,4 +1,4 @@
-# F4.1: output declares expected CRS EPSG:3857; the raster is EPSG:4326 -> fails in full mode only.
+# F4.1: output declares expected CRS EPSG:3857; the raster is EPSG:4326 -> fails in metadata and content mode.
 cwlVersion: v1.2
 $namespaces: {eo: "https://dfg-sos.github.io/ontologies/eo-formats#", sos: "https://dfg-sos.github.io/ontologies/cwl#"}
 $schemas: [https://dfg-sos.github.io/ontologies/eo-formats.owl]

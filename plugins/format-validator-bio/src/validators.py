@@ -1,7 +1,7 @@
 """FASTA (EDAM format_1929) and FASTQ (EDAM format_1930) validators.
 
-FULL mode parses the whole file with Biopython's ``SeqIO``: a file is valid if Biopython reads every record without
-an error. The plugin adds no rules of its own. For FASTQ (``fastq``, i.e. Sanger, Phred+33), Biopython's parser is
+METADATA mode parses the first record with Biopython's ``SeqIO``, as the formats have no header; CONTENT mode parses
+the whole file: a file is valid if Biopython reads every record without an error. The plugin adds no rules of its own. For FASTQ (``fastq``, i.e. Sanger, Phred+33), Biopython's parser is
 the reference implementation of the format's definition: Cock et al. (2010), https://doi.org/10.1093/nar/gkp1137.
 """
 from typing import List
@@ -26,11 +26,18 @@ class SequenceFileValidator(FileFormatValidator):
     seqio_format: str  # Biopython's name of the format
 
     def assert_can_open(self, request: ValidationRequest) -> ValidationResult:
+        return self._parse(request, first_record_only=True)
+
+    def assert_content(self, request: ValidationRequest) -> ValidationResult:
+        return self._parse(request, first_record_only=False)
+
+    def _parse(self, request: ValidationRequest, first_record_only: bool) -> ValidationResult:
         path = request.actual_file.path
         try:
             with open(path) as handle:
                 for _ in SeqIO.parse(handle, self.seqio_format):
-                    pass
+                    if first_record_only:
+                        break
         except ValueError as e:  # Biopython's parse errors; also UnicodeDecodeError
             return ValidationResult.failure(
                 request,

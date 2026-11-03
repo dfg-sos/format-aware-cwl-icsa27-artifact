@@ -3,7 +3,7 @@
     uv run python bench/run.py bench/inputs/geotiff_concrete_chain.cwl bench/inputs/geotiff_10MB_concrete.yml
 
 Every repetition is a fresh `cwl-format-aware-runner` process per variant: `off` (baseline, no
-service calls), `basic` (sends file paths only, no file transfer), and `structural`/`full` x transfer
+service calls), `basic` (sends file paths only, no file transfer), and `metadata`/`content` x transfer
 (`--transfers upload,local` compares sending files by path with uploading them; `local` needs
 the inputs and `--tmp-outdir-prefix` inside the service's shared dirs). The variants are interleaved,
 and `--warmup` repetitions run first without being recorded. Validation uses `warn` so an invalid
@@ -106,7 +106,7 @@ def main() -> int:
     p.add_argument("job", nargs="?")
     p.add_argument("--repeat", type=int, default=10)
     p.add_argument("--warmup", type=int, default=1, help="unrecorded repetitions before measuring")
-    p.add_argument("--modes", default="off,basic,structural,full")
+    p.add_argument("--modes", default="off,basic,metadata,content")
     p.add_argument("--transfers", default="auto", help="comma-separated: auto, local, upload")
     p.add_argument("--out", default="bench/results")
     p.add_argument("--name", help="results subdirectory (default: timestamp)")

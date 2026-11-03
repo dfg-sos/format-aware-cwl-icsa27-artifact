@@ -25,13 +25,13 @@ FORMATS = [("geotiff", "GeoTIFF"), ("geopackage", "GeoPackage"), ("fastq", "FAST
 SIZES = [1, 10, 100, 1000]
 
 # Okabe-Ito; checked for colour-vision deficiency and contrast against white
-COLOR = {"basic": "#0072B2", "structural": "#009E73", "full": "#D55E00"}
+COLOR = {"basic": "#0072B2", "metadata": "#009E73", "content": "#D55E00"}
 STYLE = {  # variant -> (label, colour, line style, marker)
     "basic": ("basic", COLOR["basic"], "-", "^"),
-    "structural-local": ("structural, local", COLOR["structural"], "-", "o"),
-    "structural-upload": ("structural, upload", COLOR["structural"], "--", "s"),
-    "full-local": ("full, local", COLOR["full"], "-", "o"),
-    "full-upload": ("full, upload", COLOR["full"], "--", "s"),
+    "metadata-local": ("metadata, local", COLOR["metadata"], "-", "o"),
+    "metadata-upload": ("metadata, upload", COLOR["metadata"], "--", "s"),
+    "content-local": ("content, local", COLOR["content"], "-", "o"),
+    "content-upload": ("content, upload", COLOR["content"], "--", "s"),
 }
 VALIDATED = list(STYLE)
 

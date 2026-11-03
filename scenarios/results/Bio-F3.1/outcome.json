@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.748,
+      "wall_s": 6.014,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,16 +16,16 @@
         0
       ],
       "wall_s_per_rep": [
-        5.748,
-        5.734,
-        5.739
+        6.014,
+        5.947,
+        6.019
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.752,
+      "wall_s": 5.987,
       "failed_checks": [
         {
           "step": "relabel",
@@ -54,54 +54,16 @@
         1
       ],
       "wall_s_per_rep": [
-        5.752,
-        5.761,
-        5.973
+        5.987,
+        6.0,
+        6.076
       ],
       "consistent": true
     },
-    "structural": {
+    "metadata": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 6.149,
-      "failed_checks": [
-        {
-          "step": "relabel",
-          "port": "seqs",
-          "direction": "post",
-          "file": "out.fastq",
-          "result": "FAILURE",
-          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA."
-        }
-      ],
-      "skipped_checks": [
-        {
-          "step": "relabel",
-          "port": "src",
-          "direction": "pre",
-          "file": "reads.fastq",
-          "reason": "no format"
-        }
-      ],
-      "steps_not_run": [
-        "consume"
-      ],
-      "exit_per_rep": [
-        1,
-        1,
-        1
-      ],
-      "wall_s_per_rep": [
-        6.149,
-        6.048,
-        5.854
-      ],
-      "consistent": true
-    },
-    "full": {
-      "expected_exit": 1,
-      "exit": 1,
-      "wall_s": 6.109,
+      "wall_s": 6.104,
       "failed_checks": [
         {
           "step": "relabel",
@@ -130,9 +92,47 @@
         1
       ],
       "wall_s_per_rep": [
-        6.109,
-        6.302,
-        6.338
+        6.104,
+        6.027,
+        6.006
+      ],
+      "consistent": true
+    },
+    "content": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 6.014,
+      "failed_checks": [
+        {
+          "step": "relabel",
+          "port": "seqs",
+          "direction": "post",
+          "file": "out.fastq",
+          "result": "FAILURE",
+          "message": "File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not\nallowed by the 'fasta' parser.\n\nTo parse this file, you have three options:\n\n(1) Modify your FASTA file to remove such comments at the beginning of the\nfile.\n\n(2) Use SeqIO.parse with the 'fasta-pearson' format instead of 'fasta'. This\nformat is consistent with the FASTA format defined by William Pearson's FASTA\naligner software. This format allows for comments before the first sequence;\nlines starting with the ';' character anywhere in the file are also regarded\nas comment lines and are ignored.\n\n(3) Use the 'fasta-blast' format. This format regards any lines \"starting with\n'!', '#', or ';' as comment lines. The 'fasta-blast' format may be safer than\nthe 'fasta-pearson' format, as it explicitly indicates which lines are comments.\n"
+        }
+      ],
+      "skipped_checks": [
+        {
+          "step": "relabel",
+          "port": "src",
+          "direction": "pre",
+          "file": "reads.fastq",
+          "reason": "no format"
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        6.014,
+        6.037,
+        6.013
       ],
       "consistent": true
     },
@@ -147,8 +147,8 @@
       ],
       "wall_s_per_rep": [
         0.409,
-        0.402,
-        0.429
+        0.39,
+        0.388
       ],
       "consistent": true
     }

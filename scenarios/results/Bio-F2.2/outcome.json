@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.481,
+      "wall_s": 5.844,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,16 +16,16 @@
         0
       ],
       "wall_s_per_rep": [
-        5.481,
-        5.555,
-        5.591
+        5.844,
+        5.758,
+        5.739
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.535,
+      "wall_s": 5.725,
       "failed_checks": [],
       "skipped_checks": [
         {
@@ -43,43 +43,16 @@
         0
       ],
       "wall_s_per_rep": [
-        5.535,
-        5.506,
-        5.533
+        5.725,
+        5.681,
+        5.731
       ],
       "consistent": true
     },
-    "structural": {
-      "expected_exit": 0,
-      "exit": 0,
-      "wall_s": 5.512,
-      "failed_checks": [],
-      "skipped_checks": [
-        {
-          "step": "consume",
-          "port": "size",
-          "direction": "post",
-          "file": "size.txt",
-          "reason": "no format"
-        }
-      ],
-      "steps_not_run": [],
-      "exit_per_rep": [
-        0,
-        0,
-        0
-      ],
-      "wall_s_per_rep": [
-        5.512,
-        5.541,
-        5.511
-      ],
-      "consistent": true
-    },
-    "full": {
+    "metadata": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.502,
+      "wall_s": 5.889,
       "failed_checks": [
         {
           "step": "consume",
@@ -100,25 +73,55 @@
         1
       ],
       "wall_s_per_rep": [
-        5.502,
-        5.532,
-        5.482
+        5.889,
+        5.797,
+        5.708
+      ],
+      "consistent": true
+    },
+    "content": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 5.728,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "reads_as.fasta",
+          "result": "FAILURE",
+          "message": "Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not\nallowed by the 'fasta' parser.\n\nTo parse this file, you have three options:\n\n(1) Modify your FASTA file to remove such comments at the beginning of the\nfile.\n\n(2) Use SeqIO.parse with the 'fasta-pearson' format instead of 'fasta'. This\nformat is consistent with the FASTA format defined by William Pearson's FASTA\naligner software. This format allows for comments before the first sequence;\nlines starting with the ';' character anywhere in the file are also regarded\nas comment lines and are ignored.\n\n(3) Use the 'fasta-blast' format. This format regards any lines \"starting with\n'!', '#', or ';' as comment lines. The 'fasta-blast' format may be safer than\nthe 'fasta-pearson' format, as it explicitly indicates which lines are comments.\n"
+        }
+      ],
+      "skipped_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        5.728,
+        5.794,
+        5.755
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.367,
+      "wall_s": 0.385,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.367,
-        0.369,
-        0.364
+        0.385,
+        0.382,
+        0.391
       ],
       "consistent": true
     }

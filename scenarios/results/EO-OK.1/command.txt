@@ -1,14 +1,14 @@
 # off
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation off scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geotiff.yml
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation off scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geotiff.yml
 
 # basic
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode basic scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geotiff.yml
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode basic scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geotiff.yml
 
-# structural
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode structural scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geotiff.yml
+# metadata
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode metadata scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geotiff.yml
 
-# full
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode full scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geotiff.yml
+# content
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode content scenarios/fixtures/workflows/consume_input.cwl scenarios/fixtures/jobs/raster_geotiff.yml
 
 # lint
-cwl-format-lint --format-service-url http://localhost:8010 scenarios/fixtures/workflows/consume_input.cwl
+cwl-format-lint --format-service-url http://localhost:8001 scenarios/fixtures/workflows/consume_input.cwl

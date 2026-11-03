@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.344,
+      "wall_s": 1.264,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,13 +16,40 @@
         0
       ],
       "wall_s_per_rep": [
-        1.344,
-        1.428,
-        1.338
+        1.264,
+        1.32,
+        1.342
       ],
       "consistent": true
     },
     "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 1.41,
+      "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        1.41,
+        1.324,
+        1.305
+      ],
+      "consistent": true
+    },
+    "metadata": {
       "expected_exit": 0,
       "exit": 0,
       "wall_s": 1.346,
@@ -44,15 +71,15 @@
       ],
       "wall_s_per_rep": [
         1.346,
-        1.326,
-        1.351
+        1.313,
+        1.324
       ],
       "consistent": true
     },
-    "structural": {
+    "content": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.34,
+      "wall_s": 1.344,
       "failed_checks": [],
       "skipped_checks": [
         {
@@ -70,36 +97,9 @@
         0
       ],
       "wall_s_per_rep": [
-        1.34,
-        1.384,
-        1.357
-      ],
-      "consistent": true
-    },
-    "full": {
-      "expected_exit": 0,
-      "exit": 0,
-      "wall_s": 1.311,
-      "failed_checks": [],
-      "skipped_checks": [
-        {
-          "step": "consume",
-          "port": "size",
-          "direction": "post",
-          "file": "size.txt",
-          "reason": "no format"
-        }
-      ],
-      "steps_not_run": [],
-      "exit_per_rep": [
-        0,
-        0,
-        0
-      ],
-      "wall_s_per_rep": [
-        1.311,
-        1.329,
-        1.395
+        1.344,
+        1.323,
+        1.312
       ],
       "consistent": true
     },
@@ -114,8 +114,8 @@
       ],
       "wall_s_per_rep": [
         0.385,
-        0.404,
-        0.384
+        0.382,
+        0.385
       ],
       "consistent": true
     }

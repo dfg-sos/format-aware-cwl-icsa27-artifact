@@ -4,7 +4,7 @@
     uv run bench/make_inputs.py --out /scratch/bench/inputs --formats geotiff,fastq 1 1000
 
 Data, shared by both labellings (EO formats in EPSG:4326):
-  geotiff_<N>MB.tif     uncompressed uint8 noise
+  geotiff_<N>MB.tif     uncompressed uint8 noise in 256x256 tiles
   shapefile_<N>MB.shp   random-walk LineStrings (+ .shx, .dbf, .prj, .cpg; N counts all of them)
   geopackage_<N>MB.gpkg the same LineStrings
   fastq_<N>MB.fastq     reads of 150 random bases with random Phred+33 qualities
@@ -98,6 +98,11 @@ def write_raster(path: Path, mb: float, rng: np.random.Generator) -> None:
         dtype="uint8",
         crs="EPSG:4326",
         transform=from_origin(*ORIGIN, 1e-4, 1e-4),
+        # tiled like typical EO rasters: the block count, and with it the cost of reading every block, then grows
+        # with the file size (untiled strips of one row each would make it grow with its square root)
+        tiled=True,
+        blockxsize=256,
+        blockysize=256,
     ) as dst:
         dst.write(rng.integers(0, 255, (1, side, side), dtype="uint8"))
 
@@ -147,7 +152,7 @@ def write_cwl(out: Path, fmt: str, schema: str) -> None:
     header = HEADERS[ns].replace("ONTOLOGY", schema)
     sec_in = f", secondaryFiles: [{', '.join(secondary)}]" if secondary else ""
     sec_out = f"\n    secondaryFiles: [{', '.join(secondary)}]" if secondary else ""
-    # expected metadata for full mode: CRS of the EO formats, geometry type of the vector formats; none for FASTQ
+    # expected metadata for metadata and content mode: CRS of the EO formats, geometry type of the vector formats; none for FASTQ
     metadata = '\n    sos:expectedCRS: "EPSG:4326"' if ns == "eo" else ""
     if ns == "eo" and fmt != "geotiff":
         metadata += '\n    sos:expectedGeometryType: "LineString"'

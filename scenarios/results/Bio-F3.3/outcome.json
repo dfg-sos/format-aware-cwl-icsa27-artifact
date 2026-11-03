@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 7.913,
+      "wall_s": 8.266,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,16 +16,16 @@
         0
       ],
       "wall_s_per_rep": [
-        7.913,
-        8.237,
-        8.002
+        8.266,
+        8.17,
+        8.049
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 7.981,
+      "wall_s": 8.097,
       "failed_checks": [],
       "skipped_checks": [
         {
@@ -50,50 +50,16 @@
         0
       ],
       "wall_s_per_rep": [
-        7.981,
-        7.941,
-        7.854
+        8.097,
+        8.052,
+        8.02
       ],
       "consistent": true
     },
-    "structural": {
-      "expected_exit": 0,
-      "exit": 0,
-      "wall_s": 7.823,
-      "failed_checks": [],
-      "skipped_checks": [
-        {
-          "step": "relabel",
-          "port": "src",
-          "direction": "pre",
-          "file": "reads.fastq",
-          "reason": "no format"
-        },
-        {
-          "step": "consume",
-          "port": "size",
-          "direction": "post",
-          "file": "size.txt",
-          "reason": "no format"
-        }
-      ],
-      "steps_not_run": [],
-      "exit_per_rep": [
-        0,
-        0,
-        0
-      ],
-      "wall_s_per_rep": [
-        7.823,
-        7.851,
-        7.825
-      ],
-      "consistent": true
-    },
-    "full": {
+    "metadata": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 6.84,
+      "wall_s": 7.103,
       "failed_checks": [
         {
           "step": "relabel",
@@ -122,25 +88,63 @@
         1
       ],
       "wall_s_per_rep": [
-        6.84,
-        6.846,
-        6.879
+        7.103,
+        7.105,
+        7.029
+      ],
+      "consistent": true
+    },
+    "content": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 7.301,
+      "failed_checks": [
+        {
+          "step": "relabel",
+          "port": "seqs",
+          "direction": "post",
+          "file": "out.fasta",
+          "result": "FAILURE",
+          "message": "Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not\nallowed by the 'fasta' parser.\n\nTo parse this file, you have three options:\n\n(1) Modify your FASTA file to remove such comments at the beginning of the\nfile.\n\n(2) Use SeqIO.parse with the 'fasta-pearson' format instead of 'fasta'. This\nformat is consistent with the FASTA format defined by William Pearson's FASTA\naligner software. This format allows for comments before the first sequence;\nlines starting with the ';' character anywhere in the file are also regarded\nas comment lines and are ignored.\n\n(3) Use the 'fasta-blast' format. This format regards any lines \"starting with\n'!', '#', or ';' as comment lines. The 'fasta-blast' format may be safer than\nthe 'fasta-pearson' format, as it explicitly indicates which lines are comments.\n"
+        }
+      ],
+      "skipped_checks": [
+        {
+          "step": "relabel",
+          "port": "src",
+          "direction": "pre",
+          "file": "reads.fastq",
+          "reason": "no format"
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        7.301,
+        7.198,
+        7.127
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.375,
+      "wall_s": 0.399,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.375,
-        0.385,
-        0.376
+        0.399,
+        0.392,
+        0.392
       ],
       "consistent": true
     }

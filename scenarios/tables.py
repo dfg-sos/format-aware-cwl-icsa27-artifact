@@ -23,7 +23,7 @@ from pathlib import Path
 from ruamel.yaml import YAML
 
 HERE = Path(__file__).resolve().parent
-COLUMNS = ("off", "lint", "basic", "structural", "full")  # variants with a column of their own
+COLUMNS = ("off", "lint", "basic", "metadata", "content")  # variants with a column of their own
 STOPPED, COMPLETED = "●", "○"  # paper table; Markdown and CSV
 TEX = {STOPPED: r"$\bullet$", COMPLETED: r"$\circ$", "": "--"}
 

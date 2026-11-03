@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.254,
+      "wall_s": 1.313,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,16 +16,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.254,
-        1.254,
-        1.266
+        1.313,
+        1.314,
+        1.282
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.275,
+      "wall_s": 1.301,
       "failed_checks": [],
       "skipped_checks": [
         {
@@ -50,50 +50,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.275,
-        1.279,
-        1.274
+        1.301,
+        1.317,
+        1.351
       ],
       "consistent": true
     },
-    "structural": {
-      "expected_exit": 0,
-      "exit": 0,
-      "wall_s": 1.279,
-      "failed_checks": [],
-      "skipped_checks": [
-        {
-          "step": "relabel",
-          "port": "src",
-          "direction": "pre",
-          "file": "roads.geojson",
-          "reason": "no format"
-        },
-        {
-          "step": "consume",
-          "port": "size",
-          "direction": "post",
-          "file": "size.txt",
-          "reason": "no format"
-        }
-      ],
-      "steps_not_run": [],
-      "exit_per_rep": [
-        0,
-        0,
-        0
-      ],
-      "wall_s_per_rep": [
-        1.279,
-        1.288,
-        1.273
-      ],
-      "consistent": true
-    },
-    "full": {
+    "metadata": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.27,
+      "wall_s": 1.354,
       "failed_checks": [
         {
           "step": "relabel",
@@ -101,7 +67,7 @@
           "direction": "post",
           "file": "out.tif",
           "result": "FAILURE",
-          "message": "Failed to open file '/tmp/sos_validate_m181uzw5/out.tif' with RasterIO:\n'/tmp/sos_validate_m181uzw5/out.tif' not recognized as being in a supported file format."
+          "message": "Failed to open file '/tmp/sos_validate_mgqk88x1/out.tif' with RasterIO:\n'/tmp/sos_validate_mgqk88x1/out.tif' not recognized as being in a supported file format."
         }
       ],
       "skipped_checks": [
@@ -122,25 +88,63 @@
         1
       ],
       "wall_s_per_rep": [
-        1.27,
-        1.276,
-        1.28
+        1.354,
+        1.329,
+        1.333
+      ],
+      "consistent": true
+    },
+    "content": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 1.315,
+      "failed_checks": [
+        {
+          "step": "relabel",
+          "port": "raster",
+          "direction": "post",
+          "file": "out.tif",
+          "result": "FAILURE",
+          "message": "Failed to open file '/tmp/sos_validate_u9yjhu3z/out.tif' with RasterIO:\n'/tmp/sos_validate_u9yjhu3z/out.tif' not recognized as being in a supported file format."
+        }
+      ],
+      "skipped_checks": [
+        {
+          "step": "relabel",
+          "port": "src",
+          "direction": "pre",
+          "file": "roads.geojson",
+          "reason": "no format"
+        }
+      ],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        1.315,
+        1.357,
+        1.338
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.369,
+      "wall_s": 0.405,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.369,
-        0.373,
-        0.369
+        0.405,
+        0.424,
+        0.413
       ],
       "consistent": true
     }

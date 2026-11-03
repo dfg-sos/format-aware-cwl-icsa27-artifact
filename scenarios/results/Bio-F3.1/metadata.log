@@ -1,0 +1,52 @@
+{
+    "size": null
+}INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
+INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step relabel
+INFO [step relabel] start
+INFO [job relabel] /tmp/u7doa4m8$ cp \
+    /tmp/ahtlnpet/stg11193aea-f33a-4b44-aa63-bd60d36d06d2/reads.fastq \
+    out.fastq
+ERROR [step relabel] output 'seqs' file 'out.fastq' is not valid http://edamontology.org/format_1929: FAILURE: File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not
+allowed by the 'fasta' parser.
+
+To parse this file, you have three options:
+
+(1) Modify your FASTA file to remove such comments at the beginning of the
+file.
+
+(2) Use SeqIO.parse with the 'fasta-pearson' format instead of 'fasta'. This
+format is consistent with the FASTA format defined by William Pearson's FASTA
+aligner software. This format allows for comments before the first sequence;
+lines starting with the ';' character anywhere in the file are also regarded
+as comment lines and are ignored.
+
+(3) Use the 'fasta-blast' format. This format regards any lines "starting with
+'!', '#', or ';' as comment lines. The 'fasta-blast' format may be safer than
+the 'fasta-pearson' format, as it explicitly indicates which lines are comments.
+
+ERROR [job relabel] Job error:
+[step relabel] output 'seqs' file 'out.fastq' is not valid http://edamontology.org/format_1929: FAILURE: File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not
+allowed by the 'fasta' parser.
+
+To parse this file, you have three options:
+
+(1) Modify your FASTA file to remove such comments at the beginning of the
+file.
+
+(2) Use SeqIO.parse with the 'fasta-pearson' format instead of 'fasta'. This
+format is consistent with the FASTA format defined by William Pearson's FASTA
+aligner software. This format allows for comments before the first sequence;
+lines starting with the ';' character anywhere in the file are also regarded
+as comment lines and are ignored.
+
+(3) Use the 'fasta-blast' format. This format regards any lines "starting with
+'!', '#', or ';' as comment lines. The 'fasta-blast' format may be safer than
+the 'fasta-pearson' format, as it explicitly indicates which lines are comments.
+
+WARNING [job relabel] completed permanentFail
+ERROR [step relabel] Output is missing expected field file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl#relabel/seqs
+WARNING [step relabel] completed permanentFail
+INFO [workflow ] completed permanentFail
+WARNING Final process status is permanentFail

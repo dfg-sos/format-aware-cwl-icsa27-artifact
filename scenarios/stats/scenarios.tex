@@ -1,25 +1,27 @@
 \begin{tabular}{lllcccccl}
 \toprule
-ID & Fault & Domains & off & lint & basic & structural & full & Stops at \\
+ID & Fault & Domains & off & lint & basic & metadata & content & Stops at \\
 \midrule
 F1.1 & Incompatible formats wired & EO, Bio & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & linter; else label check \\
 F1.2 & Broken contract, required subformat & EO, Bio & $\circ$ & $\bullet$ & $\circ$ & $\circ$ & $\circ$ & linter \\
 F1.3 & Broken contract, sibling subformat & EO, Bio & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & linter; else label check \\
 \midrule
 F2.1 & Mislabelled input, by extension & EO, Bio & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & $\bullet$ & input check \\
-F2.2 & Mislabelled input, by content & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & input check \\
+F2.2 & Mislabelled input, by content & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & input check \\
 F2.3 & Missing input file & EO, Bio & $\bullet$ & $\circ$ & $\bullet$ & $\bullet$ & $\bullet$ & cwltool at start \\
 F2.4 & Missing secondary file & EO & $\bullet$ & $\circ$ & $\bullet$ & $\bullet$ & $\bullet$ & cwltool at start \\
 \midrule
 F3.1 & Mislabelled output, by extension & EO, Bio & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & $\bullet$ & output check \\
-F3.2 & Mislabelled output, by content & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
-F3.3 & Mislabelled output, by content, in containers & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
+F3.2 & Mislabelled output, by content & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & output check \\
+F3.3 & Mislabelled output, by content, in containers & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & output check \\
 \midrule
-F4.1 & Wrong CRS & EO & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
-F4.2 & Wrong geometry type & EO & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
-F4.3 & Metadata the format cannot carry & EO & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
+F4.1 & Wrong CRS & EO & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & output check \\
+F4.2 & Wrong geometry type & EO & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & output check \\
+F4.3 & Metadata the format cannot carry & EO & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & output check \\
+F4.4 & Wrong geometry type, beyond the sample & EO & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & output check \\
 \midrule
-F5.1 & Truncated file & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & input check \\
+F5.1 & Truncated metadata & EO & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & $\bullet$ & input check \\
+F5.2 & Truncated content & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\bullet$ & input check \\
 \midrule
 OK.1 & Valid input & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\circ$ & completes \\
 OK.2 & Subformat into abstract port & EO, Bio & $\circ$ & $\circ$ & $\circ$ & $\circ$ & $\circ$ & completes \\

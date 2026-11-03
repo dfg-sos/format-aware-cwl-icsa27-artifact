@@ -1,6 +1,7 @@
 """Loads the overhead results in bench/results/ for plot.py and abstract_label_overhead.py.
 
-Each set is a directory `results/hpc-<job>/<name>/` with `runs.csv` (one row per measured run) and `timing.jsonl`
+Each set is a directory `results/<group>/<name>/` (`sympolis`, `copy-chain-<size>MB`, or `hpc-<job>` as written by
+bench/hpc/bench.sh) with `runs.csv` (one row per measured run) and `timing.jsonl`
 (one `check` record per validated file). Set names: `rq1-sympolis` (RQ2(a)), `rq2-<format>-<size>MB-concrete`
 (RQ2(b)) and `rq3-<format>-<size>MB-abstract` (RQ2(c)).
 """
@@ -15,8 +16,8 @@ from pathlib import Path
 
 RESULTS = Path(__file__).parent / "results"
 
-# variant ids as in run.py: off, basic, structural-upload, structural-local, full-upload, full-local
-VARIANTS = ["off", "basic", "structural-local", "structural-upload", "full-local", "full-upload"]
+# variant ids as in run.py: off, basic, metadata-upload, metadata-local, content-upload, content-local
+VARIANTS = ["off", "basic", "metadata-local", "metadata-upload", "content-local", "content-upload"]
 
 CHAIN = re.compile(
     r"rq[23]-(?P<format>geotiff|shapefile|geopackage|fastq)-(?P<size>\d+)MB-(?P<labels>concrete|abstract)"
@@ -41,7 +42,7 @@ class ResultSet:
 
 
 def variant_of(run_id: str) -> str:
-    """`full-local-3` -> `full-local`, `basic-0` -> `basic`."""
+    """`content-local-3` -> `content-local`, `basic-0` -> `basic`."""
     return run_id.rsplit("-", 1)[0]
 
 
@@ -70,7 +71,7 @@ def load_set(path: Path) -> ResultSet:
 def load_all(results: Path = RESULTS) -> dict[str, ResultSet]:
     """All result sets by name. Each name occurs in exactly one job directory."""
     sets: dict[str, ResultSet] = {}
-    for path in sorted(results.glob("hpc-*/*/runs.csv")):
+    for path in sorted(results.glob("*/*/runs.csv")):
         rs = load_set(path.parent)
         if rs.name in sets:
             raise ValueError(f"{rs.name} occurs in {sets[rs.name].path} and {rs.path}")

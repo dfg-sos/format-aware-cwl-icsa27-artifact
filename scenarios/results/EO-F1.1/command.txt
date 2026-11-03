@@ -1,14 +1,14 @@
 # off
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation off scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl scenarios/fixtures/jobs/roads_shapefile.yml
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation off scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl scenarios/fixtures/jobs/roads_shapefile.yml
 
 # basic
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode basic scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl scenarios/fixtures/jobs/roads_shapefile.yml
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode basic scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl scenarios/fixtures/jobs/roads_shapefile.yml
 
-# structural
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode structural scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl scenarios/fixtures/jobs/roads_shapefile.yml
+# metadata
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode metadata scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl scenarios/fixtures/jobs/roads_shapefile.yml
 
-# full
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode full scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl scenarios/fixtures/jobs/roads_shapefile.yml
+# content
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode content scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl scenarios/fixtures/jobs/roads_shapefile.yml
 
 # lint
-cwl-format-lint --format-service-url http://localhost:8010 scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl
+cwl-format-lint --format-service-url http://localhost:8001 scenarios/fixtures/workflows/wire_shapefile_to_geotiff.cwl

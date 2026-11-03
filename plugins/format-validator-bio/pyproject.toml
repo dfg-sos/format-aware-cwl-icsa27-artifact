@@ -8,7 +8,7 @@ package-dir = { format_validator_bio = "src" }
 
 [project]
 name = "format-validator-bio"
-version = "0.3.0"
+version = "0.4.0"
 description = "FASTA and FASTQ validators for format-validator (Biopython), loaded as a plugin."
 license = "MIT"
 requires-python = ">=3.13"
@@ -21,5 +21,5 @@ bio = "format_validator_bio.validators"
 dev = ["pytest"]
 
 [tool.uv.sources]
-# load_plugins() is available from v0.3.0 on
-format-validator = { git = "https://github.com/dfg-sos/file-format-validator.git", tag = "v0.3.0" }
+# load_plugins() is available from v0.3.0 on, METADATA and CONTENT modes from v0.4.0
+format-validator = { git = "https://github.com/dfg-sos/file-format-validator.git", tag = "v0.4.0" }

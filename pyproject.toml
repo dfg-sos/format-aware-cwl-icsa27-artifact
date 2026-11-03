@@ -8,7 +8,7 @@ license = "MIT"
 requires-python = ">=3.12,<3.14"
 dependencies = [
     # the evaluated runner and linter, pinned to the release tag; uv.lock records its commit
-    "format-aware-cwl-runner @ git+https://github.com/dfg-sos/format-aware-cwl-runner@v0.1.0",
+    "format-aware-cwl-runner @ git+https://github.com/dfg-sos/format-aware-cwl-runner@v0.2.0",
     # data generators (bench/make_inputs.py, scenarios/fixtures/make_data.py)
     "numpy",
     "rasterio",

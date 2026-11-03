@@ -1,5 +1,5 @@
 # Bio F3.1/F3.2: EO F3.1/F3.2 with EDAM: a FASTQ file is labelled FASTA (format_1929) and consumed as FASTA.
-# Vanilla cwltool succeeds. F3.1 (name out.fastq) fails in basic mode, F3.2 (out.fasta) only in full mode.
+# Vanilla cwltool succeeds. F3.1 (name out.fastq) fails in basic mode, F3.2 (out.fasta) in metadata mode.
 cwlVersion: v1.2
 $namespaces: {edam: "http://edamontology.org/"}
 $schemas: [http://edamontology.org/EDAM.owl]

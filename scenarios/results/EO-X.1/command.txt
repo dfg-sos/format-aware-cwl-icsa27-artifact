@@ -1,17 +1,17 @@
 # off
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation off scenarios/fixtures/workflows/unsupported_format.cwl
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation off scenarios/fixtures/workflows/unsupported_format.cwl
 
 # basic
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode basic scenarios/fixtures/workflows/unsupported_format.cwl
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode basic scenarios/fixtures/workflows/unsupported_format.cwl
 
-# structural
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode structural scenarios/fixtures/workflows/unsupported_format.cwl
+# metadata
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode metadata scenarios/fixtures/workflows/unsupported_format.cwl
 
-# full
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-validation-mode full scenarios/fixtures/workflows/unsupported_format.cwl
+# content
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode content scenarios/fixtures/workflows/unsupported_format.cwl
 
 # uncertain-fail
-cwl-format-aware-runner --format-service-url http://localhost:8010 --format-uncertain fail scenarios/fixtures/workflows/unsupported_format.cwl
+cwl-format-aware-runner --format-service-url http://localhost:8001 --format-uncertain fail scenarios/fixtures/workflows/unsupported_format.cwl
 
 # lint
-cwl-format-lint --format-service-url http://localhost:8010 scenarios/fixtures/workflows/unsupported_format.cwl
+cwl-format-lint --format-service-url http://localhost:8001 scenarios/fixtures/workflows/unsupported_format.cwl

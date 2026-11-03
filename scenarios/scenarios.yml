@@ -8,7 +8,7 @@
 # fault:     the injected fault in full, for the artifact tables
 # workflow:  scenarios/fixtures/workflows/<workflow>; job: scenarios/fixtures/jobs/<job> (none: the workflow needs no inputs)
 # expect:    expected exit code per variant (0 = completed, 1 = stopped); a variant not listed is not run
-#            (off: --format-validation off; basic, structural, full: --format-validation-mode; lint: cwl-format-lint)
+#            (off: --format-validation off; basic, metadata, content: --format-validation-mode; lint: cwl-format-lint)
 # extra:     further runner variants: name -> runner arguments and expected exit code
 # at:        where the workflow stops, short, for the paper table
 # stops:     where the workflow stops, for the artifact tables
@@ -20,7 +20,7 @@
   fault: Shapefile input wired to a GeoTIFF port
   workflow: wire_shapefile_to_geotiff.cwl
   job: roads_shapefile.yml
-  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 1}
+  expect: {off: 1, basic: 1, metadata: 1, content: 1, lint: 1}
   at: linter; else label check
   stops: "linter: before any job; otherwise cwltool's label check when it creates the `consume` job"
 - id: F1.1
@@ -29,7 +29,7 @@
   fault: FASTQ input wired to a FASTA port
   workflow: wire_fastq_to_fasta.cwl
   job: fastq_valid.yml
-  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 1}
+  expect: {off: 1, basic: 1, metadata: 1, content: 1, lint: 1}
   at: linter; else label check
   stops: as F1.1
 - id: F1.2
@@ -38,7 +38,7 @@
   fault: "workflow input declares abstract `eo:Raster` (any raster is valid), wired to a GeoTIFF port: a contract the tool cannot keep; the job passes a valid GeoTIFF"
   workflow: wire_raster_to_geotiff.cwl
   job: raster_geotiff.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 1}
+  expect: {off: 0, basic: 0, metadata: 0, content: 0, lint: 1}
   at: linter
   stops: "linter, before any job; cwltool accepts the workflow, and the run completes because the job passes the GeoTIFF that `consume` needs"
 - id: F1.2
@@ -47,7 +47,7 @@
   fault: "workflow input declares any sequence format (abstract), wired to a FASTA port: a contract the tool cannot keep; the job passes a valid FASTA"
   workflow: wire_sequence_to_fasta.cwl
   job: fasta_valid.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 1}
+  expect: {off: 0, basic: 0, metadata: 0, content: 0, lint: 1}
   at: linter
   stops: as F1.2
 - id: F1.3
@@ -56,7 +56,7 @@
   fault: as F1.2, the job passes a valid NetCDF raster (`eo:NetCDF_CF`), which the `Raster` contract admits
   workflow: wire_raster_to_geotiff.cwl
   job: raster_netcdf.yml
-  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 1}
+  expect: {off: 1, basic: 1, metadata: 1, content: 1, lint: 1}
   at: linter; else label check
   stops: "linter, before any job; cwltool accepts the workflow and the job, and stops at `consume`, whose GeoTIFF port rejects the NetCDF label (tool not run)"
 - id: F1.3
@@ -65,7 +65,7 @@
   fault: as F1.2, the job passes a valid FASTQ (EDAM `format_1930`), which the sequence-format contract admits
   workflow: wire_sequence_to_fasta.cwl
   job: fastq_valid.yml
-  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 1}
+  expect: {off: 1, basic: 1, metadata: 1, content: 1, lint: 1}
   at: linter; else label check
   stops: as F1.3
 
@@ -76,7 +76,7 @@
   fault: workflow input `roads.geojson` labelled GeoTIFF by the job
   workflow: consume_input.cwl
   job: raster_geojson.yml
-  expect: {off: 0, basic: 1, structural: 1, full: 1, lint: 0}
+  expect: {off: 0, basic: 1, metadata: 1, content: 1, lint: 0}
   at: input check
   stops: "input check of `consume`; `consume` not run"
 - id: F2.1
@@ -85,7 +85,7 @@
   fault: "workflow input `reads.fastq` labelled FASTA by the job (validator plug-in)"
   workflow: consume_fasta_input.cwl
   job: fasta_fastq.yml
-  expect: {off: 0, basic: 1, structural: 1, full: 1, lint: 0}
+  expect: {off: 0, basic: 1, metadata: 1, content: 1, lint: 0}
   at: input check
   stops: "input check of `consume`; `consume` not run"
 - id: F2.2
@@ -94,7 +94,7 @@
   fault: GeoJSON content named `roads_as.tif`, labelled GeoTIFF
   workflow: consume_input.cwl
   job: raster_geojson_named_tif.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   at: input check
   stops: as F2.1
 - id: F2.2
@@ -103,7 +103,7 @@
   fault: "FASTQ content named `reads_as.fasta`, labelled FASTA (validator plug-in)"
   workflow: consume_fasta_input.cwl
   job: fasta_fastq_named_fasta.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   at: input check
   stops: as F2.1
 - id: F2.3
@@ -112,7 +112,7 @@
   fault: "the job names `missing.tif`, which does not exist"
   workflow: consume_input.cwl
   job: raster_missing.yml
-  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 0}
+  expect: {off: 1, basic: 1, metadata: 1, content: 1, lint: 0}
   at: cwltool at start
   stops: "cwltool, when it loads the job; no step runs"
 - id: F2.3
@@ -121,7 +121,7 @@
   fault: "the job names `missing.fasta`, which does not exist"
   workflow: consume_fasta_input.cwl
   job: fasta_missing.yml
-  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 0}
+  expect: {off: 1, basic: 1, metadata: 1, content: 1, lint: 0}
   at: cwltool at start
   stops: "cwltool, when it loads the job; no step runs"
 - id: F2.4
@@ -130,7 +130,7 @@
   fault: "a Shapefile without its `.dbf`, which the workflow input requires as a secondary file"
   workflow: wire_shapefile_to_vector.cwl
   job: roads_shapefile_no_dbf.yml
-  expect: {off: 1, basic: 1, structural: 1, full: 1, lint: 0}
+  expect: {off: 1, basic: 1, metadata: 1, content: 1, lint: 0}
   at: cwltool at start
   stops: "cwltool, when it loads the job; no step runs"
 
@@ -141,7 +141,7 @@
   fault: a tool writes GeoJSON as `out.geojson` and labels it GeoTIFF
   workflow: relabel_then_consume.cwl
   job: geojson_named_geojson.yml
-  expect: {off: 0, basic: 1, structural: 1, full: 1, lint: 0}
+  expect: {off: 0, basic: 1, metadata: 1, content: 1, lint: 0}
   at: output check
   stops: "output check of `relabel`; `consume` not run"
 - id: F3.2
@@ -150,7 +150,7 @@
   fault: as F3.1, but named `out.tif`
   workflow: relabel_then_consume.cwl
   job: geojson_named_tif.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   at: output check
   stops: as F3.1
 - id: F3.3
@@ -159,7 +159,7 @@
   fault: F3.2 with all steps in `alpine` containers
   workflow: relabel_then_consume_docker.cwl
   job: geojson_named_tif.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   at: output check
   stops: as F3.1
 
@@ -169,7 +169,7 @@
   fault: "a tool writes FASTQ as `out.fastq` and labels it FASTA (validator plug-in)"
   workflow: relabel_then_consume_fasta.cwl
   job: fastq_named_fastq.yml
-  expect: {off: 0, basic: 1, structural: 1, full: 1, lint: 0}
+  expect: {off: 0, basic: 1, metadata: 1, content: 1, lint: 0}
   at: output check
   stops: "output check of `relabel`; `consume` not run"
 - id: F3.2
@@ -178,7 +178,7 @@
   fault: as F3.1, but named `out.fasta`
   workflow: relabel_then_consume_fasta.cwl
   job: fastq_named_fasta.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   at: output check
   stops: as F3.1
 - id: F3.3
@@ -187,7 +187,7 @@
   fault: F3.2 with all steps in `alpine` containers
   workflow: relabel_then_consume_fasta_docker.cwl
   job: fastq_named_fasta.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   at: output check
   stops: as F3.1
 
@@ -198,7 +198,7 @@
   fault: "GeoTIFF in EPSG:4326, output declares `sos:expectedCRS: EPSG:3857`"
   workflow: copy_expect_crs.cwl
   job: src_raster_4326.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   at: output check
   stops: output check of the tool
 - id: F4.2
@@ -207,38 +207,56 @@
   fault: "Point GeoJSON, output declares `sos:expectedGeometryType: LineString`"
   workflow: copy_expect_linestring.cwl
   job: src_points.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   at: output check
   stops: output check of the tool
 - id: F4.3
   domain: EO
   label: Metadata the format cannot carry
-  fault: "`sos:expectedGeometryType` on a GeoTIFF output: the service rejects the request in full mode (`ERROR`, HTTP 400)"
+  fault: "`sos:expectedGeometryType` on a GeoTIFF output: the service rejects the request in metadata and content mode (`ERROR`, HTTP 400)"
   workflow: geotiff_expect_geometry.cwl
   job: src_raster_4326.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   extra:
-    full-service-error-warn: {args: [--format-validation-mode, full, --format-service-error, warn], exit: 0}
+    metadata-service-error-warn: {args: [--format-validation-mode, metadata, --format-service-error, warn], exit: 0}
   at: output check
-  stops: "full: output check of the tool; the runner treats the rejected request as a service error, so with `--format-service-error warn` it completes with a warning"
+  stops: "metadata and content: output check of the tool; the runner treats the rejected request as a service error, so with `--format-service-error warn` it completes with a warning"
+- id: F4.4
+  domain: EO
+  label: Wrong geometry type, beyond the sample
+  fault: "60 LineStrings, then one Point (GeoJSON), output declares `sos:expectedGeometryType: LineString`: the metadata check samples the first 50 features"
+  workflow: copy_expect_linestring.cwl
+  job: src_roads_stray_point.yml
+  expect: {off: 0, basic: 0, metadata: 0, content: 1, lint: 0}
+  at: output check
+  stops: output check of the tool
 
 # F5: corrupt file
 - id: F5.1
   domain: EO
-  label: Truncated file
-  fault: GeoTIFF truncated at 64 bytes
+  label: Truncated metadata
+  fault: "GeoTIFF cut off at 64 bytes, inside its tag directory: size, CRS and pixel layout are missing"
   workflow: consume_input.cwl
   job: raster_truncated.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 1, content: 1, lint: 0}
   at: input check
   stops: as F2.1
-- id: F5.1
+- id: F5.2
+  domain: EO
+  label: Truncated content
+  fault: "GeoTIFF (64 x 64) cut off halfway: the metadata is intact, the pixel data is not"
+  workflow: consume_input.cwl
+  job: raster_pixels_truncated.yml
+  expect: {off: 0, basic: 0, metadata: 0, content: 1, lint: 0}
+  at: input check
+  stops: as F2.1
+- id: F5.2
   domain: Bio
-  label: Truncated file
-  fault: "FASTQ cut off inside its second record (validator plug-in)"
+  label: Truncated content
+  fault: "FASTQ cut off inside its second record; FASTQ has no metadata, its first record is intact (validator plug-in)"
   workflow: consume_fastq_input.cwl
   job: fastq_truncated.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 1, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 0, content: 1, lint: 0}
   at: input check
   stops: as F2.1
 
@@ -249,7 +267,7 @@
   fault: none, a valid GeoTIFF into the F2 workflow
   workflow: consume_input.cwl
   job: raster_geotiff.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 0, content: 0, lint: 0}
   at: completes
   stops: completes
 - id: OK.1
@@ -258,7 +276,7 @@
   fault: "none, a valid FASTA into the F2 workflow (validator plug-in)"
   workflow: consume_fasta_input.cwl
   job: fasta_valid.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 0, content: 0, lint: 0}
   at: completes
   stops: completes
 - id: OK.2
@@ -267,7 +285,7 @@
   fault: none, Shapefile into an `eo:Vector` port (subclass, multi-file format)
   workflow: wire_shapefile_to_vector.cwl
   job: roads_shapefile.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 0, content: 0, lint: 0}
   at: completes
   stops: completes
 - id: OK.2
@@ -276,7 +294,7 @@
   fault: "none, FASTA into a port accepting any sequence format (subclass)"
   workflow: wire_fasta_to_sequence.cwl
   job: fasta_valid.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 0, content: 0, lint: 0}
   at: completes
   stops: completes
 - id: OK.3
@@ -285,7 +303,7 @@
   fault: none, the F4.2 tool with LineStrings
   workflow: copy_expect_linestring.cwl
   job: src_roads.yml
-  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 0, content: 0, lint: 0}
   at: completes
   stops: completes
 
@@ -295,7 +313,7 @@
   label: No validator for the format
   fault: "output labelled `eo:WKB`, which the service cannot validate: `UNCERTAIN`"
   workflow: unsupported_format.cwl
-  expect: {off: 0, basic: 0, structural: 0, full: 0, lint: 0}
+  expect: {off: 0, basic: 0, metadata: 0, content: 0, lint: 0}
   extra:
     uncertain-fail: {args: [--format-uncertain, fail], exit: 1}
   at: completes, warns
@@ -305,6 +323,6 @@
   label: No format declared
   fault: "output without `format`: the runner skips its check and sends nothing to the service"
   workflow: unannotated_output.cwl
-  expect: {off: 0, basic: 0, structural: 0, full: 0}  # not linted: the document has no $schemas
+  expect: {off: 0, basic: 0, metadata: 0, content: 0}  # not linted: the document has no $schemas
   at: completes, not checked
   stops: completes, not checked (logged as skipped)

@@ -1,0 +1,126 @@
+{
+  "id": "F5.2",
+  "domain": "Bio",
+  "workflow": "consume_fastq_input.cwl",
+  "runs": {
+    "off": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 5.653,
+      "failed_checks": [],
+      "skipped_checks": [],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        5.653,
+        5.69,
+        5.663
+      ],
+      "consistent": true
+    },
+    "basic": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 5.76,
+      "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        5.76,
+        5.729,
+        5.684
+      ],
+      "consistent": true
+    },
+    "metadata": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 5.67,
+      "failed_checks": [],
+      "skipped_checks": [
+        {
+          "step": "consume",
+          "port": "size",
+          "direction": "post",
+          "file": "size.txt",
+          "reason": "no format"
+        }
+      ],
+      "steps_not_run": [],
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        5.67,
+        5.923,
+        5.788
+      ],
+      "consistent": true
+    },
+    "content": {
+      "expected_exit": 1,
+      "exit": 1,
+      "wall_s": 5.634,
+      "failed_checks": [
+        {
+          "step": "consume",
+          "port": "data",
+          "direction": "pre",
+          "file": "reads_truncated.fastq",
+          "result": "FAILURE",
+          "message": "Biopython cannot parse the file as fastq: End of file without quality information."
+        }
+      ],
+      "skipped_checks": [],
+      "steps_not_run": [
+        "consume"
+      ],
+      "exit_per_rep": [
+        1,
+        1,
+        1
+      ],
+      "wall_s_per_rep": [
+        5.634,
+        5.885,
+        5.862
+      ],
+      "consistent": true
+    },
+    "lint": {
+      "expected_exit": 0,
+      "exit": 0,
+      "wall_s": 0.386,
+      "exit_per_rep": [
+        0,
+        0,
+        0
+      ],
+      "wall_s_per_rep": [
+        0.386,
+        0.388,
+        0.396
+      ],
+      "consistent": true
+    }
+  }
+}
