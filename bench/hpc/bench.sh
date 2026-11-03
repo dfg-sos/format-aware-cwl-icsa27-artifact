@@ -10,15 +10,21 @@
 #      formats, all modes, upload and local transfer, RQ2_REPEAT runs per variant
 # RQ3  abstract (eo:Raster / eo:Vector / EDAM sequence record format) instead of concrete formats on the RQ2
 #      inputs, validated modes, RQ3_TRANSFERS, RQ2_REPEAT runs per variant (compare with the concrete runs of RQ2)
+# crs  the CRS scenario of the paper's fault detection: Sympolis with sos:expectedCRS EPSG:4326 on every vector
+#      port (bench/crs_scenario.py). crs-utm: RQ1_INPUT reprojected to CRS_TARGET, all modes, upload and
+#      local, CRS_REPEAT runs per variant; metadata and content run with policy fail and must stop, off and
+#      basic complete. crs-control: the original input, off and metadata, must complete without a FAILURE.
+#      Cluster counts of the first repetition's outputs in crs-clusters.txt
 # Every run.py call (one set) gets a freshly started service, drops WARMUP repetitions and verifies its
 # runs (see bench/run.py). All workflows load the ontology from a local copy, so runs make no network calls.
 #
 # Settings (environment variables, all optional):
-#   RQS="1 2 3"  SIZES="1 10 100 1000"  FORMATS="geotiff geopackage fastq"  RQ1_REPEAT=10  RQ2_REPEAT=10
+#   RQS="1 2 3 crs"  SIZES="1 10 100 1000"  FORMATS="geotiff geopackage fastq"  RQ1_REPEAT=10  RQ2_REPEAT=10
 #   WARMUP=1  RQ3_TRANSFERS=local
 #   NUMA_NODES=4   abort on a node with another NUMA layout (as in all reported runs); empty to skip the check
 #   RQ1_INPUT=Kahama.gpkg   GeoPackage in Sympolis' data/input/ (Kahama_Small.gpkg for a quick check)
 #   RQ1_DEPTH=2   partitionDepth: 4^depth tiles processed in parallel (default.yml has 1)
+#   CRS_REPEAT=10  CRS_TARGET=EPSG:32736 (WGS 84 / UTM 36S, the zone of Kahama)
 #   BENCH_HOME=$HOME/ffs-bench   persistent: service image, Singularity cache, Node.js, Sympolis checkout, ontologies
 #   BENCH_WORK=$TMPDIR/ffs-bench-<job>   node-local scratch shared with the service: inputs and cwltool
 #                                        working dirs (needs ~4x the largest size per format, ~15 GB for 1000 MB)
@@ -50,13 +56,15 @@ ONTOLOGY=https://dfg-sos.github.io/ontologies/releases/eo-formats/1.0.0/eo-forma
 # EDAM in the version of mappings/edam-formats.json, for the FASTQ copy chains
 EDAM_ONTOLOGY=http://edamontology.org/EDAM_1.25.owl
 PORT="${PORT:-8000}"
-RQS="${RQS:-1 2 3}"
+RQS="${RQS:-1 2 3 crs}"
 SIZES="${SIZES:-1 10 100 1000}"
 FORMATS="${FORMATS:-geotiff geopackage fastq}"
 RQ1_REPEAT="${RQ1_REPEAT:-10}"
 RQ1_INPUT="${RQ1_INPUT:-Kahama.gpkg}"
 RQ1_DEPTH="${RQ1_DEPTH:-2}"
 RQ2_REPEAT="${RQ2_REPEAT:-10}"
+CRS_REPEAT="${CRS_REPEAT:-10}"
+CRS_TARGET="${CRS_TARGET:-EPSG:32736}"
 WARMUP="${WARMUP:-1}"
 RQ3_TRANSFERS="${RQ3_TRANSFERS:-local}"
 NUMA_NODES="${NUMA_NODES-4}"
@@ -117,7 +125,7 @@ mkdir -p "$WORK/tmp" "$WORK/service-tmp" "$RESULTS"
     # the runner is a pinned dependency (pyproject.toml / uv.lock): record the exact revision installed
     echo "runner: $(uv run --frozen python -c 'from importlib.metadata import distribution as d; print(d("format-aware-cwl-runner").read_text("direct_url.json"))')"
     echo "sympolis: $SYMPOLIS_TAG ($(git -C "$BENCH_HOME/sympolis" rev-parse HEAD)), image $SYMPOLIS_IMAGE"; echo "service image: $FFS_IMAGE"
-    echo "settings: RQS='$RQS' SIZES='$SIZES' FORMATS='$FORMATS' RQ1_REPEAT=$RQ1_REPEAT RQ2_REPEAT=$RQ2_REPEAT WARMUP=$WARMUP RQ3_TRANSFERS=$RQ3_TRANSFERS"
+    echo "settings: RQS='$RQS' SIZES='$SIZES' FORMATS='$FORMATS' RQ1_REPEAT=$RQ1_REPEAT RQ2_REPEAT=$RQ2_REPEAT WARMUP=$WARMUP RQ3_TRANSFERS=$RQ3_TRANSFERS CRS_REPEAT=$CRS_REPEAT CRS_TARGET=$CRS_TARGET"
     apptainer --version; node --version; uv --version
     apptainer inspect "$BENCH_HOME/ffs.sif" 2>/dev/null || true
     # identify the exact images and ontology used
@@ -160,9 +168,12 @@ cp -r "$BENCH_HOME/sympolis" "$WORK/sympolis"
 # the RQ1 job: default.yml with RQ1_INPUT and RQ1_DEPTH, next to it so the relative input path still resolves
 [ -f "$WORK/sympolis/data/input/$RQ1_INPUT" ] || { echo "RQ1_INPUT not found: data/input/$RQ1_INPUT"; exit 1; }
 sed -e "s|/Kahama_Small\.gpkg|/$RQ1_INPUT|" -e "s|^partitionDepth: .*|partitionDepth: $RQ1_DEPTH|" "$WORK/sympolis/jobs/default.yml" >"$WORK/sympolis/jobs/bench.yml"
-# shellcheck disable=SC2086
-uv run --frozen bench/make_inputs.py --out "$WORK/inputs" --formats "${FORMATS// /,}" \
-    --schema "file://$BENCH_HOME/eo-formats.owl" --edam-schema "file://$BENCH_HOME/EDAM.owl" $SIZES >"$RESULTS/inputs.txt"
+# the copy chains only for RQ2 and RQ3
+if [[ " $RQS " =~ " "[23]" " ]]; then
+    # shellcheck disable=SC2086
+    uv run --frozen bench/make_inputs.py --out "$WORK/inputs" --formats "${FORMATS// /,}" \
+        --schema "file://$BENCH_HOME/eo-formats.owl" --edam-schema "file://$BENCH_HOME/EDAM.owl" $SIZES >"$RESULTS/inputs.txt"
+fi
 
 FAILED=()
 bench() {  # bench <name> <run.py args...>; a failed verification is recorded, the rest still runs
@@ -190,6 +201,27 @@ for rq in $RQS; do
                     "$WORK/inputs/${fmt}_${mb}MB_$label.yml" --repeat "$RQ2_REPEAT" "${args[@]}"
             done
         done
+        ;;
+    crs)
+        # a copy of the Sympolis set's workflow: annotated on every vector port, plus the reprojected input
+        rm -rf "$WORK/sympolis-crs" && cp -r "$WORK/sympolis" "$WORK/sympolis-crs"
+        uv run --frozen python bench/crs_scenario.py annotate "$WORK/sympolis-crs" >"$RESULTS/crs-annotate.txt"
+        utm="${RQ1_INPUT%.gpkg}_${CRS_TARGET#EPSG:}.gpkg"
+        uv run --frozen python bench/crs_scenario.py reproject "$WORK/sympolis-crs/data/input/$RQ1_INPUT" \
+            "$WORK/sympolis-crs/data/input/$utm" --crs "$CRS_TARGET" >>"$RESULTS/crs-annotate.txt"
+        sed "s|/$RQ1_INPUT|/$utm|" "$WORK/sympolis-crs/jobs/bench.yml" >"$WORK/sympolis-crs/jobs/bench-crs.yml"
+        bench crs-utm "$WORK/sympolis-crs/Sympolis.cwl" "$WORK/sympolis-crs/jobs/bench-crs.yml" \
+            --repeat "$CRS_REPEAT" --transfers upload,local --expect-stop metadata,content \
+            --keep-outputs --singularity --parallel
+        bench crs-control "$WORK/sympolis-crs/Sympolis.cwl" "$WORK/sympolis-crs/jobs/bench.yml" \
+            --repeat 1 --modes off,metadata --transfers local --keep-outputs --singularity --parallel
+        # one feature per settlement cluster; the outputs (~80 MB per run) are not kept in the results
+        shopt -s nullglob
+        outs=("$RESULTS"/crs-*/outputs/*/*_Sympolis.gpkg)
+        shopt -u nullglob
+        [ ${#outs[@]} -eq 0 ] || uv run --frozen python bench/crs_scenario.py count "${outs[@]}" |
+            sed "s|$RESULTS/||" >"$RESULTS/crs-clusters.txt"
+        rm -rf "$RESULTS"/crs-*/outputs
         ;;
     esac
 done

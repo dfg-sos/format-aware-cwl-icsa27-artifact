@@ -4,7 +4,8 @@
 runs in Apptainer next to cwltool, and both share node-local scratch, so `local` transfer works.
 What the runs measure: see [`bench/README.md`](../README.md). The script and the result
 directories use the repository's original numbering: `rq1-sympolis` is the paper's RQ2(a), `rq2-*-concrete` is
-RQ2(b), and `rq3-*-abstract` is RQ2(c); `RQS="1 2 3"` selects them in that order.
+RQ2(b), and `rq3-*-abstract` is RQ2(c); `RQS="1 2 3"` selects them in that order. `crs` (`crs-utm`, `crs-control`)
+is the Sympolis CRS scenario of RQ1 (fault detection), timed in the setup of RQ2(a).
 
 ## Requirements
 - Slurm, Apptainer (`module load apptainer`; the script tries it, and also `module load squashfs`)
@@ -55,13 +56,32 @@ export BENCH_HOME=$HOME/ffs-bench-0.3.0 FFS_IMAGE=docker://ghcr.io/dfg-sos/file-
 bash bench/hpc/bench.sh prepare
 RQS=1 sbatch -p <partition> bench/hpc/bench.sh
 ```
+The Sympolis CRS scenario (about 1 h), in the same `BENCH_HOME` and image as RQ2(a), so its times compare with the 134 s
+of RQ2(a):
+```sh
+export BENCH_HOME=$HOME/ffs-bench-0.3.0 FFS_IMAGE=docker://ghcr.io/dfg-sos/file-format-service@sha256:e93ccf944cee2f620ed4a6a16a6b1d01c52978309ce957338efa2d46506cdc37
+RQS=crs sbatch -p <partition> bench/hpc/bench.sh
+```
+It copies the workflow of RQ2(a) (`RQ1_INPUT`, `RQ1_DEPTH`), adds `sos:expectedCRS: "EPSG:4326"` to every vector port
+of the workflow and its tools ([`bench/crs_scenario.py`](../crs_scenario.py) `annotate`, 27 ports), and reprojects the
+input to `CRS_TARGET` (`reproject`, as `ogr2ogr -t_srs`):
+- **`crs-utm`:** the reprojected input, all modes, upload and local, `CRS_REPEAT` runs per variant. `metadata` and
+  `content` run with policy `fail` (`run.py --expect-stop`) and must stop on a `FAILURE`; `off` and `basic` must
+  complete (`basic` does not read the CRS).
+  `wall_ms` of the stopping runs is the time until the run stops, `check_ms` the time of the check that stops it.
+- **`crs-control`:** the original input, `off` and `metadata`, one run each: `metadata` must complete without a
+  `FAILURE`, so there is no false positive at any of the annotated ports.
+- **`crs-clusters.txt`:** the number of settlement clusters in the output of each completed first repetition
+  (the outputs themselves are deleted).
 
 | Setting | Default | |
 |---|---|---|
-| `RQS` | `1 2 3` | which RQs to run |
+| `RQS` | `1 2 3 crs` | which sets to run |
 | `SIZES` | `1 10 100 1000` | input sizes in MB (RQ2/RQ3) |
 | `FORMATS` | `geotiff geopackage fastq` | copy-chain formats (RQ2/RQ3); `shapefile` is also available |
 | `RQ1_REPEAT` / `RQ2_REPEAT` | `10` / `10` | measured runs per variant (RQ2_REPEAT also applies to RQ3) |
+| `CRS_REPEAT` | `10` | measured runs per variant of `crs-utm` |
+| `CRS_TARGET` | `EPSG:32736` | CRS of the reprojected input (WGS 84 / UTM 36S, the zone of Kahama) |
 | `WARMUP` | `1` | unrecorded repetitions per set |
 | `RQ3_TRANSFERS` | `local` | transfers for the abstract-format runs |
 | `NUMA_NODES` | `4` | abort unless the node has this many NUMA nodes (all reported runs had 4; some HPDA2 nodes have 2 and measure slower); empty to skip |
@@ -75,9 +95,10 @@ Set them in front of `sbatch`; Slurm passes the environment on.
 ## Results
 `bench/results/hpc-<job>/`:
 - **One directory per set** (`rq1-sympolis`, `rq2-<format>-<N>MB-concrete`,
-  `rq3-<format>-<N>MB-abstract`), holding `runs.csv`, `timing.jsonl` and `verify.txt`.
+  `rq3-<format>-<N>MB-abstract`, `crs-utm`, `crs-control`), holding `runs.csv`, `timing.jsonl` and `verify.txt`.
 - **`all_runs.csv`:** all `runs.csv` combined, with the set name as first column.
 - **`service-<set>.log`:** the service is restarted for every set.
+- **`crs-annotate.txt`, `crs-clusters.txt`:** the annotated ports and reprojection, the cluster counts (`crs`).
 - **`env.txt`:** node, CPU, memory, versions, and checksums of the images and the ontology.
 
 ## Troubleshooting

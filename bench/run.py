@@ -14,8 +14,10 @@ Writes to `<--out>/<--name or timestamp>/`:
   runs.csv      one row per run: wall time, exit code, check counts by direction and result, summed
                 check, service-side validation and main-command time
 After the runs every validated run is verified: it must have exited 0, checked inputs and outputs,
-made as many checks as every other validated run, received no ERROR and used the requested
-transfer. Violations are printed and make the exit code 1.
+made as many checks as every other validated run, received no FAILURE or ERROR and used the
+requested transfer. `--expect-stop metadata,content` (the Sympolis CRS scenario) runs those modes with
+`fail` instead, and their runs must have stopped on a FAILURE. Violations are printed and make the
+exit code 1.
 """
 
 from __future__ import annotations
@@ -75,21 +77,27 @@ def summarize(log: Path) -> dict[str, dict]:
     return sums
 
 
-def verify(rows: list[dict]) -> list[str]:
-    """Problems that make a validated run unfit for the comparison."""
+def verify(rows: list[dict], stop_modes: tuple[str, ...] = ()) -> list[str]:
+    """Problems that make a run unfit for the comparison. Runs of `stop_modes` must have stopped on a FAILURE."""
     problems = []
-    validated = [r for r in rows if r["mode"] != "off"]
-    counts = Counter(r["checks"] for r in validated)
+    counts = Counter(r["checks"] for r in rows if r["mode"] not in ("off", *stop_modes))
     expected = counts.most_common(1)[0][0] if counts else 0
     for r in rows:
         bad = []
-        if r["exit"] != 0:
-            bad.append(f"exit {r['exit']}")
+        if r["mode"] in stop_modes:
+            if r["exit"] == 0 or not r["failure"]:
+                bad.append(f"did not stop on a FAILURE (exit {r['exit']}, {r['failure']} FAILURE results)")
+        else:
+            if r["exit"] != 0:
+                bad.append(f"exit {r['exit']}")
+            if r["mode"] != "off":
+                if not (r["checks_pre"] and r["checks_post"]):
+                    bad.append(f"inputs/outputs not both checked (pre {r['checks_pre']}, post {r['checks_post']})")
+                if r["checks"] != expected:
+                    bad.append(f"{r['checks']} checks, other runs {expected}")
+                if r["failure"]:
+                    bad.append(f"{r['failure']} FAILURE results (see timing.jsonl)")
         if r["mode"] != "off":
-            if not (r["checks_pre"] and r["checks_post"]):
-                bad.append(f"inputs/outputs not both checked (pre {r['checks_pre']}, post {r['checks_post']})")
-            if r["checks"] != expected:
-                bad.append(f"{r['checks']} checks, other runs {expected}")
             if r["error"]:
                 bad.append(f"{r['error']} ERROR results (see timing.jsonl)")
             want = "-" if r["mode"] == "basic" else r["transfer"]
@@ -111,7 +119,18 @@ def main() -> int:
     p.add_argument("--out", default="bench/results")
     p.add_argument("--name", help="results subdirectory (default: timestamp)")
     p.add_argument("--service-url", default="http://localhost:8000")
+    p.add_argument(
+        "--expect-stop",
+        default="",
+        help="comma-separated modes that run with `fail` and must stop on a FAILURE (an invalid input)",
+    )
+    p.add_argument(
+        "--keep-outputs",
+        action="store_true",
+        help="keep the workflow outputs of the first measured repetition in <out>/outputs/<run id>/",
+    )
     args, cwltool_args = p.parse_known_args()
+    stop_modes = tuple(m for m in args.expect_stop.split(",") if m)
 
     out = Path(args.out) / (args.name or time.strftime("%Y%m%d-%H%M%S"))
     out.mkdir(parents=True)
@@ -141,13 +160,15 @@ def main() -> int:
             if mode == "off":
                 cmd += ["--format-validation", "off"]
             else:
-                cmd += ["--format-validation", "warn", "--format-validation-mode", mode]
+                policy = "fail" if mode in stop_modes else "warn"
+                cmd += ["--format-validation", policy, "--format-validation-mode", mode]
                 if transfer != "-":
                     cmd += ["--format-file-transfer", transfer]
             if rep >= 0:
                 cmd += ["--format-timing-log", str(log)]
             with tempfile.TemporaryDirectory() as tmp:
-                cmd += [*cwltool_args, "--outdir", tmp, args.workflow, *([args.job] if args.job else [])]
+                outdir = out / "outputs" / run_id if args.keep_outputs and rep == 0 else Path(tmp)
+                cmd += [*cwltool_args, "--outdir", str(outdir), args.workflow, *([args.job] if args.job else [])]
                 t0 = time.perf_counter()
                 proc = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
                 wall_ms = (time.perf_counter() - t0) * 1000
@@ -180,7 +201,7 @@ def main() -> int:
         w.writeheader()
         w.writerows(rows)
 
-    problems = verify(rows)
+    problems = verify(rows, stop_modes)
     (out / "verify.txt").write_text("".join(f"{p}\n" for p in problems) or "ok\n")
     for problem in problems:
         print(f"VERIFY {problem}", file=sys.stderr)
