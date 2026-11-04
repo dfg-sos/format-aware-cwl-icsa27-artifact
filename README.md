@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/1434816838.svg)](https://doi.org/10.5281/zenodo.23958542)
+
 # Artifact: Enforcing File Property Constraints in Scientific Workflows: An Ontology-Driven Architecture (ICSA 2027)
 
 This artifact references the involved software components of our architecture and further provides the scripts, data, and instructions to reproduce our figures and results.
