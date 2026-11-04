@@ -5,8 +5,8 @@ INFO Resolved 'scenarios/fixtures/workflows/consume_input.cwl' to 'file:///home/
 INFO [workflow ] start
 INFO [workflow ] starting step consume
 INFO [step consume] start
-ERROR [step consume] input 'data' file 'roads.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_1wn2ed9d/roads.geojson' with RasterIO:
-'/tmp/sos_validate_1wn2ed9d/roads.geojson' not recognized as being in a supported file format.
+ERROR [step consume] input 'data' file 'roads.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_mvw__qyj/roads.geojson' with RasterIO:
+'/tmp/sos_validate_mvw__qyj/roads.geojson' not recognized as being in a supported file format.
 ERROR [step consume] Output is missing expected field file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/consume_input.cwl#consume/size
 WARNING [step consume] completed permanentFail
 INFO [workflow ] completed permanentFail

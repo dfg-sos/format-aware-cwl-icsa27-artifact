@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.42,
+      "wall_s": 1.303,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,16 +16,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.42,
-        1.542,
-        1.382
+        1.303,
+        1.272,
+        1.278
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.365,
+      "wall_s": 1.288,
       "failed_checks": [],
       "skipped_checks": [
         {
@@ -43,16 +43,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.365,
-        1.336,
-        1.346
+        1.288,
+        1.345,
+        1.288
       ],
       "consistent": true
     },
     "metadata": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.377,
+      "wall_s": 1.302,
       "failed_checks": [
         {
           "step": "consume",
@@ -60,7 +60,7 @@
           "direction": "pre",
           "file": "roads_as.tif",
           "result": "FAILURE",
-          "message": "Failed to open file '/tmp/sos_validate_4crh7_eh/roads_as.tif' with RasterIO:\n'/tmp/sos_validate_4crh7_eh/roads_as.tif' not recognized as being in a supported file format."
+          "message": "Failed to open file '/tmp/sos_validate_qqirmcra/roads_as.tif' with RasterIO:\n'/tmp/sos_validate_qqirmcra/roads_as.tif' not recognized as being in a supported file format."
         }
       ],
       "skipped_checks": [],
@@ -73,16 +73,16 @@
         1
       ],
       "wall_s_per_rep": [
-        1.377,
-        1.374,
-        1.337
+        1.302,
+        1.288,
+        1.307
       ],
       "consistent": true
     },
     "content": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.316,
+      "wall_s": 1.313,
       "failed_checks": [
         {
           "step": "consume",
@@ -90,7 +90,7 @@
           "direction": "pre",
           "file": "roads_as.tif",
           "result": "FAILURE",
-          "message": "Failed to open file '/tmp/sos_validate_k0xvrhz9/roads_as.tif' with RasterIO:\n'/tmp/sos_validate_k0xvrhz9/roads_as.tif' not recognized as being in a supported file format."
+          "message": "Failed to open file '/tmp/sos_validate_7ddnmv6s/roads_as.tif' with RasterIO:\n'/tmp/sos_validate_7ddnmv6s/roads_as.tif' not recognized as being in a supported file format."
         }
       ],
       "skipped_checks": [],
@@ -103,25 +103,25 @@
         1
       ],
       "wall_s_per_rep": [
-        1.316,
-        1.353,
-        1.385
+        1.313,
+        1.331,
+        1.294
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.409,
+      "wall_s": 0.393,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.409,
-        0.503,
-        0.421
+        0.393,
+        0.39,
+        0.392
       ],
       "consistent": true
     }

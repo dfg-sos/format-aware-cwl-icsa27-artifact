@@ -5,8 +5,8 @@ INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl' to '
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/1fmj_wg2$ cp \
-    /tmp/1bg12l2k/stg330ce35a-b42d-4d8b-8158-1707cef7ee93/reads.fastq \
+INFO [job relabel] /tmp/apzj2hjz$ cp \
+    /tmp/3tetwgpb/stgcb874491-7f98-4215-b65c-66e8a507427e/reads.fastq \
     out.fasta
 ERROR [step relabel] output 'seqs' file 'out.fasta' is not valid http://edamontology.org/format_1929: FAILURE: Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not
 allowed by the 'fasta' parser.

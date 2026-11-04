@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.29,
+      "wall_s": 1.306,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,16 +16,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.29,
-        1.304,
-        1.337
+        1.306,
+        1.275,
+        1.29
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.303,
+      "wall_s": 1.315,
       "failed_checks": [],
       "skipped_checks": [
         {
@@ -43,16 +43,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.303,
-        1.292,
-        1.321
+        1.315,
+        1.339,
+        1.33
       ],
       "consistent": true
     },
     "metadata": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.291,
+      "wall_s": 1.36,
       "failed_checks": [
         {
           "step": "consume",
@@ -60,7 +60,7 @@
           "direction": "pre",
           "file": "raster_truncated.tif",
           "result": "FAILURE",
-          "message": "Failed to open file '/tmp/sos_validate_b8n4u7sh/raster_truncated.tif' with RasterIO:\nraster_truncated.tif: TIFFReadDirectory:Failed to read directory at offset 8"
+          "message": "Failed to open file '/tmp/sos_validate__7z6nprx/raster_truncated.tif' with RasterIO:\nraster_truncated.tif: TIFFReadDirectory:Failed to read directory at offset 8"
         }
       ],
       "skipped_checks": [],
@@ -73,16 +73,16 @@
         1
       ],
       "wall_s_per_rep": [
-        1.291,
-        1.302,
-        1.324
+        1.36,
+        1.372,
+        1.338
       ],
       "consistent": true
     },
     "content": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.345,
+      "wall_s": 1.363,
       "failed_checks": [
         {
           "step": "consume",
@@ -90,7 +90,7 @@
           "direction": "pre",
           "file": "raster_truncated.tif",
           "result": "FAILURE",
-          "message": "Failed to open file '/tmp/sos_validate_ynvn_m4r/raster_truncated.tif' with RasterIO:\nraster_truncated.tif: TIFFReadDirectory:Failed to read directory at offset 8"
+          "message": "Failed to open file '/tmp/sos_validate_qihzfexg/raster_truncated.tif' with RasterIO:\nraster_truncated.tif: TIFFReadDirectory:Failed to read directory at offset 8"
         }
       ],
       "skipped_checks": [],
@@ -103,25 +103,25 @@
         1
       ],
       "wall_s_per_rep": [
-        1.345,
-        1.321,
-        1.29
+        1.363,
+        1.382,
+        1.483
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.394,
+      "wall_s": 0.406,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.394,
-        0.397,
-        0.394
+        0.406,
+        0.423,
+        0.405
       ],
       "consistent": true
     }

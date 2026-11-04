@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.388,
+      "wall_s": 1.347,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,16 +16,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.388,
+        1.347,
         1.338,
-        1.314
+        1.347
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.331,
+      "wall_s": 1.357,
       "failed_checks": [
         {
           "step": "relabel",
@@ -54,16 +54,16 @@
         1
       ],
       "wall_s_per_rep": [
-        1.331,
-        1.358,
-        1.355
+        1.357,
+        1.363,
+        1.34
       ],
       "consistent": true
     },
     "metadata": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.324,
+      "wall_s": 1.328,
       "failed_checks": [
         {
           "step": "relabel",
@@ -71,7 +71,7 @@
           "direction": "post",
           "file": "out.geojson",
           "result": "FAILURE",
-          "message": "File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_e0xuaq9_/out.geojson' with RasterIO:\n'/tmp/sos_validate_e0xuaq9_/out.geojson' not recognized as being in a supported file format."
+          "message": "File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_zkfesv9l/out.geojson' with RasterIO:\n'/tmp/sos_validate_zkfesv9l/out.geojson' not recognized as being in a supported file format."
         }
       ],
       "skipped_checks": [
@@ -92,16 +92,16 @@
         1
       ],
       "wall_s_per_rep": [
-        1.324,
-        1.339,
-        1.299
+        1.328,
+        1.353,
+        1.414
       ],
       "consistent": true
     },
     "content": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.325,
+      "wall_s": 1.364,
       "failed_checks": [
         {
           "step": "relabel",
@@ -109,7 +109,7 @@
           "direction": "post",
           "file": "out.geojson",
           "result": "FAILURE",
-          "message": "File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_5g8u0mc5/out.geojson' with RasterIO:\n'/tmp/sos_validate_5g8u0mc5/out.geojson' not recognized as being in a supported file format."
+          "message": "File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_hn0af32t/out.geojson' with RasterIO:\n'/tmp/sos_validate_hn0af32t/out.geojson' not recognized as being in a supported file format."
         }
       ],
       "skipped_checks": [
@@ -130,25 +130,25 @@
         1
       ],
       "wall_s_per_rep": [
-        1.325,
-        1.302,
-        1.298
+        1.364,
+        1.36,
+        1.367
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.414,
+      "wall_s": 0.402,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.414,
-        0.407,
-        0.391
+        0.402,
+        0.401,
+        0.396
       ],
       "consistent": true
     }

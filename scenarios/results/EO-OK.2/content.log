@@ -1,20 +1,20 @@
 {
     "size": {
-        "location": "file:///tmp/tmpr1jiin78/out/size.txt",
+        "location": "file:///tmp/tmpc0f6ud9o/out/size.txt",
         "basename": "size.txt",
         "class": "File",
-        "checksum": "sha1$0387f282470ba910599a5821f78eb283f6edb845",
+        "checksum": "sha1$3a6a31176e4ba402846494e01f167ddd49fa0170",
         "size": 68,
-        "path": "/tmp/tmpr1jiin78/out/size.txt"
+        "path": "/tmp/tmpc0f6ud9o/out/size.txt"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/wire_shapefile_to_vector.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/wire_shapefile_to_vector.cwl'
 INFO [workflow ] start
 INFO [workflow ] starting step consume
 INFO [step consume] start
-INFO [job consume] /tmp/umqa1pe9$ wc \
+INFO [job consume] /tmp/6gvktbde$ wc \
     -c \
-    /tmp/lnpft7t4/stgaca28fff-525c-4684-bd9c-20f8a3c0adf9/roads.shp > /tmp/umqa1pe9/size.txt
+    /tmp/2sks5wyn/stg67b14894-65dc-4bfe-888a-6391ffda41f0/roads.shp > /tmp/6gvktbde/size.txt
 INFO [job consume] completed success
 INFO [step consume] completed success
 INFO [workflow ] completed success

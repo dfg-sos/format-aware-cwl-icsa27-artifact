@@ -5,8 +5,8 @@ INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume_fasta.cwl' to '
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/u7doa4m8$ cp \
-    /tmp/ahtlnpet/stg11193aea-f33a-4b44-aa63-bd60d36d06d2/reads.fastq \
+INFO [job relabel] /tmp/zu6c1f6a$ cp \
+    /tmp/ebdbnkbz/stg095eed01-09bc-471e-a63e-bb68204e88a9/reads.fastq \
     out.fastq
 ERROR [step relabel] output 'seqs' file 'out.fastq' is not valid http://edamontology.org/format_1929: FAILURE: File extension of input file with suffix .fastq does not match expected ones for format FASTA.; Biopython cannot parse the file as fasta: This FASTA file contains comments at the beginning of the file, which are not
 allowed by the 'fasta' parser.

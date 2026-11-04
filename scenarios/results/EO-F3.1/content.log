@@ -5,14 +5,14 @@ INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume.cwl' to 'file:/
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/3x_8jon1$ cp \
-    /tmp/_5xz_ncj/stgb813bf19-404e-4924-a23d-7674f8355198/roads.geojson \
+INFO [job relabel] /tmp/wnws1icp$ cp \
+    /tmp/mkhw6hd3/stg978adbc8-cffd-481b-8fa1-dbcde52cb1dd/roads.geojson \
     out.geojson
-ERROR [step relabel] output 'raster' file 'out.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_5g8u0mc5/out.geojson' with RasterIO:
-'/tmp/sos_validate_5g8u0mc5/out.geojson' not recognized as being in a supported file format.
+ERROR [step relabel] output 'raster' file 'out.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_hn0af32t/out.geojson' with RasterIO:
+'/tmp/sos_validate_hn0af32t/out.geojson' not recognized as being in a supported file format.
 ERROR [job relabel] Job error:
-[step relabel] output 'raster' file 'out.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_5g8u0mc5/out.geojson' with RasterIO:
-'/tmp/sos_validate_5g8u0mc5/out.geojson' not recognized as being in a supported file format.
+[step relabel] output 'raster' file 'out.geojson' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: File extension of input file with suffix .geojson does not match expected ones for format GeoTIFF.; Failed to open file '/tmp/sos_validate_hn0af32t/out.geojson' with RasterIO:
+'/tmp/sos_validate_hn0af32t/out.geojson' not recognized as being in a supported file format.
 WARNING [job relabel] completed permanentFail
 ERROR [step relabel] Output is missing expected field file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume.cwl#relabel/raster
 WARNING [step relabel] completed permanentFail
