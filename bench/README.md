@@ -75,9 +75,11 @@ references are used, no JavaScript, so Node.js does not inflate the baseline. On
 - **Concrete labels (RQ2(b), RQ3):** every port and file is labelled `eo:GeoTIFF`, `eo:GeoPackage` or EDAM
   `format_1930` (FASTQ).
 - **Abstract labels (RQ2(c)):** the same data, with every port and file labelled `eo:Raster`, `eo:Vector` or EDAM
-  `format_1919` (sequence record format). The service validates a file with an abstract label against the concrete
-  subclasses whose extension matches, and the file is valid if any of them succeeds: one subclass for `eo:Vector`
-  (`.gpkg`) and the sequence formats (`.fastq`), five for `eo:Raster` and a `.tif` (COG, DEM, DSM, DTM, GeoTIFF).
+  `format_1919` (sequence record format). The service resolves an abstract label to its topmost subclasses that
+  have a validator (it does not descend below them), keeps those whose extension matches, runs each validator once
+  and stops at the first that succeeds: one format for `eo:Vector` (`.gpkg`) and for the sequence formats
+  (`.fastq`); for `eo:Raster` and a `.tif`, GeoTIFF, DEM, DSM and DTM, which share one validator that runs once (COG,
+  a subclass of GeoTIFF, is not reached).
   The abstract label costs about as much as the concrete one for all three formats
   (`stats/abstract_label_overhead.csv`, difference of the medians over 1 to 1000 MB). In `basic` and `metadata` it
   changes the service time per run (6 checks) by −4.0 to +2.2 ms. In `content` the abstract `eo:Raster` sets
