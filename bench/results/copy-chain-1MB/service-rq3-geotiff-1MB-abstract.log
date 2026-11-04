@@ -2,605 +2,213 @@ INFO:    squashfuse not found, will not be able to mount SIF
 INFO:    fuse2fs not found, will not be able to mount EXT3 filesystems
 INFO:    gocryptfs not found, will not be able to use gocryptfs
 INFO:    Converting SIF file to temporary sandbox...
+INFO:     format_validator.registry: Loaded validator plugin 'eo' (format_validator_eo).
+INFO:     format_validator.registry: Loaded validator plugin 'bio' (format_validator_bio.validators).
 INFO:     Started server process [13]
 INFO:     Waiting for application startup.
+INFO:     api.app: Formats with a validator: ['COG', 'DEM', 'DSM', 'DTM', 'FASTA', 'FASTQ', 'GIS', 'GISRaster', 'GISVector', 'GML', 'GPX', 'GRIB', 'GeoJSON', 'GeoPackage', 'GeoParquet', 'GeoTIFF', 'KML', 'NetCDF', 'SequenceRecord', 'Shapefile', 'WKT']
+INFO:     api.dependencies: Loaded format mappings for ontologies: ['https://dfg-sos.github.io/ontologies/eo-formats#']
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:46782 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46794 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46794 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46794 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46794 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46794 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46794 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46804 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46804 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46804 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46804 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46804 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46804 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46808 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46808 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46808 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46808 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46808 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46808 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46814 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46814 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46814 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46814 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46814 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46814 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46816 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46816 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46816 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46816 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46816 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:46816 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49884 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49884 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49884 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49884 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49884 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49884 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49894 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49894 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49894 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49894 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49894 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49894 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49900 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49900 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49900 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49900 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49900 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49900 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49910 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49910 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49910 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49910 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49910 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49910 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49914 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49914 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49914 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49914 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49914 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49914 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59970 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59970 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59970 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59970 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59970 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59970 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59984 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59984 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59984 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59984 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59984 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:59984 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59990 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59990 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59990 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59990 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59990 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59990 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60002 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60002 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60002 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60002 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60002 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60002 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60016 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60016 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60016 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60016 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60016 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:60016 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49440 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49440 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49440 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49440 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49440 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49440 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49452 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49452 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49452 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49452 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49452 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49452 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49462 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49462 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49462 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49462 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49462 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49462 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49466 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49466 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49466 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49466 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49466 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49466 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49468 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49468 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49468 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49468 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49468 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49468 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49480 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49480 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49480 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49480 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49480 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:49480 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55576 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55576 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55576 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55576 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55576 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55576 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55588 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55588 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55588 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55588 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55588 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55588 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55598 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55598 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55598 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55598 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55598 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55598 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55608 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55608 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55608 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55608 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55608 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55608 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55616 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55616 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55616 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55616 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55616 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:55616 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37858 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37858 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37858 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37858 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37858 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37858 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37872 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37872 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37872 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37872 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37872 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37872 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:37892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37896 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37896 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37896 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37896 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37896 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37896 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54522 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54522 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54522 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54522 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54522 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54522 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
-The following warnings were found:
-- The file is greater than 512xH or 512xW, it is recommended to include internal overviews
-
-INFO:     127.0.0.1:54530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49036 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41514 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41514 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41514 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41514 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41514 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41514 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41530 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41538 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41538 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41538 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41538 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41538 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41538 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41552 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41552 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41552 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41552 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41552 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41552 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49904 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49904 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49904 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49904 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49904 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49904 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49912 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49912 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49912 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49912 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49912 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49912 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49924 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49924 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49924 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49924 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49924 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49924 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49930 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49930 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49930 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49930 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49930 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49930 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49942 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49942 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49942 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49942 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49942 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49942 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35454 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35454 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35454 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35454 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35454 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35454 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35470 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35470 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35470 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35470 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35470 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35470 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35486 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35486 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35486 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35486 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35486 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35486 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35500 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35500 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35500 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35500 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35500 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35500 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35502 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35502 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35502 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35502 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35502 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35502 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44880 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44892 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44908 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44924 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44924 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44924 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44924 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44924 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44924 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44926 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44926 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44926 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44926 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44926 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44926 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44932 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44932 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44932 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44932 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44932 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44932 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58160 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58160 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58160 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58160 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58160 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58160 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58168 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58168 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58168 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58168 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58168 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58168 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58182 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58190 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58190 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58190 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58190 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58190 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58190 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58206 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58206 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58206 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58206 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58206 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58206 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49692 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49692 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49692 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49692 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49692 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49692 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49702 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49702 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49702 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49702 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49702 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49702 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49718 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49718 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49718 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49718 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49718 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49718 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49732 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49732 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49732 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49732 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49732 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49732 - "POST /api/v1/validate/basic HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49740 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49740 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49740 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49740 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49740 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49740 - "POST /api/v1/validate/metadata/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41674 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41674 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41674 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41674 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41674 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41674 - "POST /api/v1/validate/content/local HTTP/1.1" 200 OK
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.

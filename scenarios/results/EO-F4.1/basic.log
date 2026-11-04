@@ -1,17 +1,17 @@
 {
     "raster": {
-        "location": "file:///tmp/tmpqhaduzum/out/out.tif",
+        "location": "file:///tmp/tmp79d7l2k3/out/out.tif",
         "basename": "out.tif",
         "class": "File",
         "checksum": "sha1$54f32317b16fffe25989b598ce12bddc3a853852",
         "size": 382,
         "format": "https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF",
-        "path": "/tmp/tmpqhaduzum/out/out.tif"
+        "path": "/tmp/tmp79d7l2k3/out/out.tif"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/copy_expect_crs.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/copy_expect_crs.cwl'
-INFO [job copy_expect_crs.cwl] /tmp/3s0k7tft$ cp \
-    /tmp/v89uk3ju/stg2df260c7-84d0-4305-9e48-d2b6aa9d7d2e/raster_4326.tif \
+INFO [job copy_expect_crs.cwl] /tmp/z30ctft0$ cp \
+    /tmp/xhmk2w2w/stgf74c707e-c8e8-49e5-ad5d-c8c8746c687e/raster_4326.tif \
     out.tif
 INFO [job copy_expect_crs.cwl] completed success
 INFO Final process status is success

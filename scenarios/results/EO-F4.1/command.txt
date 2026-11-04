@@ -1,14 +1,14 @@
 # off
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation off scenarios/fixtures/workflows/copy_expect_crs.cwl scenarios/fixtures/jobs/src_raster_4326.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation off scenarios/fixtures/workflows/copy_expect_crs.cwl scenarios/fixtures/jobs/src_raster_4326.yml
 
 # basic
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode basic scenarios/fixtures/workflows/copy_expect_crs.cwl scenarios/fixtures/jobs/src_raster_4326.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode basic scenarios/fixtures/workflows/copy_expect_crs.cwl scenarios/fixtures/jobs/src_raster_4326.yml
 
 # metadata
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode metadata scenarios/fixtures/workflows/copy_expect_crs.cwl scenarios/fixtures/jobs/src_raster_4326.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode metadata scenarios/fixtures/workflows/copy_expect_crs.cwl scenarios/fixtures/jobs/src_raster_4326.yml
 
 # content
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode content scenarios/fixtures/workflows/copy_expect_crs.cwl scenarios/fixtures/jobs/src_raster_4326.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode content scenarios/fixtures/workflows/copy_expect_crs.cwl scenarios/fixtures/jobs/src_raster_4326.yml
 
 # lint
-cwl-format-lint --format-service-url http://localhost:8001 scenarios/fixtures/workflows/copy_expect_crs.cwl
+cwl-format-lint --format-service-url http://localhost:8000 scenarios/fixtures/workflows/copy_expect_crs.cwl

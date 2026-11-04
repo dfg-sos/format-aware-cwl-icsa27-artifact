@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 5.751,
+      "wall_s": 5.847,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,16 +16,16 @@
         0
       ],
       "wall_s_per_rep": [
-        5.751,
-        5.747,
-        5.825
+        5.847,
+        5.778,
+        5.692
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.742,
+      "wall_s": 5.783,
       "failed_checks": [
         {
           "step": "consume",
@@ -46,16 +46,16 @@
         1
       ],
       "wall_s_per_rep": [
-        5.742,
-        5.79,
-        5.728
+        5.783,
+        5.882,
+        5.922
       ],
       "consistent": true
     },
     "metadata": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.781,
+      "wall_s": 5.825,
       "failed_checks": [
         {
           "step": "consume",
@@ -76,16 +76,16 @@
         1
       ],
       "wall_s_per_rep": [
-        5.781,
-        5.745,
-        5.777
+        5.825,
+        5.856,
+        6.017
       ],
       "consistent": true
     },
     "content": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 5.745,
+      "wall_s": 5.841,
       "failed_checks": [
         {
           "step": "consume",
@@ -106,25 +106,25 @@
         1
       ],
       "wall_s_per_rep": [
-        5.745,
-        5.797,
-        6.069
+        5.841,
+        5.713,
+        5.8
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.425,
+      "wall_s": 0.377,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.425,
-        0.398,
-        0.466
+        0.377,
+        0.388,
+        0.383
       ],
       "consistent": true
     }

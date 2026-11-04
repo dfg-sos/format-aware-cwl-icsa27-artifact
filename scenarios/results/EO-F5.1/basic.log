@@ -1,20 +1,20 @@
 {
     "size": {
-        "location": "file:///tmp/tmpm05gzd66/out/size.txt",
+        "location": "file:///tmp/tmpyvgkfl80/out/size.txt",
         "basename": "size.txt",
         "class": "File",
-        "checksum": "sha1$0b62c932e2053e6d9b31370a3970387bfa4c7b4f",
+        "checksum": "sha1$9e7b4b30de831a364c4e96efcb0ffb97c2f96e7f",
         "size": 78,
-        "path": "/tmp/tmpm05gzd66/out/size.txt"
+        "path": "/tmp/tmpyvgkfl80/out/size.txt"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/consume_input.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/consume_input.cwl'
 INFO [workflow ] start
 INFO [workflow ] starting step consume
 INFO [step consume] start
-INFO [job consume] /tmp/t8_cfz04$ wc \
+INFO [job consume] /tmp/fyu7gcif$ wc \
     -c \
-    /tmp/8lhdhjpl/stgc369e789-ef20-48eb-9167-ff81a8afbdc7/raster_truncated.tif > /tmp/t8_cfz04/size.txt
+    /tmp/5o9yxcgp/stg052b40b9-8c51-4ec9-ab90-29c0f627a1cb/raster_truncated.tif > /tmp/fyu7gcif/size.txt
 INFO [job consume] completed success
 INFO [step consume] completed success
 INFO [workflow ] completed success

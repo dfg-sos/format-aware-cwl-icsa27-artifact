@@ -5,7 +5,7 @@ INFO Resolved 'scenarios/fixtures/workflows/consume_input.cwl' to 'file:///home/
 INFO [workflow ] start
 INFO [workflow ] starting step consume
 INFO [step consume] start
-ERROR [step consume] input 'data' file 'raster_pixels_truncated.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to read the pixel data of '/tmp/sos_validate_trio366v/raster_pixels_truncated.tif' with RasterIO:
+ERROR [step consume] input 'data' file 'raster_pixels_truncated.tif' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoTIFF: FAILURE: Failed to read the pixel data of '/tmp/sos_validate_96lz9aok/raster_pixels_truncated.tif' with RasterIO:
 Read failed. See previous exception for details.
 ERROR [step consume] Output is missing expected field file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/consume_input.cwl#consume/size
 WARNING [step consume] completed permanentFail

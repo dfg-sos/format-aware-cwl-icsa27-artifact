@@ -1,14 +1,14 @@
 # off
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation off scenarios/fixtures/workflows/relabel_then_consume_docker.cwl scenarios/fixtures/jobs/geojson_named_tif.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation off scenarios/fixtures/workflows/relabel_then_consume_docker.cwl scenarios/fixtures/jobs/geojson_named_tif.yml
 
 # basic
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode basic scenarios/fixtures/workflows/relabel_then_consume_docker.cwl scenarios/fixtures/jobs/geojson_named_tif.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode basic scenarios/fixtures/workflows/relabel_then_consume_docker.cwl scenarios/fixtures/jobs/geojson_named_tif.yml
 
 # metadata
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode metadata scenarios/fixtures/workflows/relabel_then_consume_docker.cwl scenarios/fixtures/jobs/geojson_named_tif.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode metadata scenarios/fixtures/workflows/relabel_then_consume_docker.cwl scenarios/fixtures/jobs/geojson_named_tif.yml
 
 # content
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode content scenarios/fixtures/workflows/relabel_then_consume_docker.cwl scenarios/fixtures/jobs/geojson_named_tif.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode content scenarios/fixtures/workflows/relabel_then_consume_docker.cwl scenarios/fixtures/jobs/geojson_named_tif.yml
 
 # lint
-cwl-format-lint --format-service-url http://localhost:8001 scenarios/fixtures/workflows/relabel_then_consume_docker.cwl
+cwl-format-lint --format-service-url http://localhost:8000 scenarios/fixtures/workflows/relabel_then_consume_docker.cwl

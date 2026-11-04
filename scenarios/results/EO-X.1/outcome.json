@@ -6,7 +6,7 @@
     "off": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.287,
+      "wall_s": 1.215,
       "failed_checks": [],
       "skipped_checks": [],
       "steps_not_run": [],
@@ -16,16 +16,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.287,
-        1.267,
-        1.277
+        1.215,
+        1.223,
+        1.253
       ],
       "consistent": true
     },
     "basic": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.339,
+      "wall_s": 1.247,
       "failed_checks": [
         {
           "step": "unsupported_format.cwl",
@@ -44,16 +44,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.339,
-        1.31,
-        1.302
+        1.247,
+        1.28,
+        1.352
       ],
       "consistent": true
     },
     "metadata": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.358,
+      "wall_s": 1.379,
       "failed_checks": [
         {
           "step": "unsupported_format.cwl",
@@ -72,16 +72,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.358,
-        1.333,
-        1.308
+        1.379,
+        1.31,
+        1.272
       ],
       "consistent": true
     },
     "content": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 1.282,
+      "wall_s": 1.247,
       "failed_checks": [
         {
           "step": "unsupported_format.cwl",
@@ -100,16 +100,16 @@
         0
       ],
       "wall_s_per_rep": [
-        1.282,
-        1.314,
-        1.298
+        1.247,
+        1.252,
+        1.255
       ],
       "consistent": true
     },
     "uncertain-fail": {
       "expected_exit": 1,
       "exit": 1,
-      "wall_s": 1.324,
+      "wall_s": 1.238,
       "failed_checks": [
         {
           "step": "unsupported_format.cwl",
@@ -128,25 +128,25 @@
         1
       ],
       "wall_s_per_rep": [
-        1.324,
-        1.289,
-        1.373
+        1.238,
+        1.244,
+        1.229
       ],
       "consistent": true
     },
     "lint": {
       "expected_exit": 0,
       "exit": 0,
-      "wall_s": 0.383,
+      "wall_s": 0.356,
       "exit_per_rep": [
         0,
         0,
         0
       ],
       "wall_s_per_rep": [
-        0.383,
-        0.388,
-        0.371
+        0.356,
+        0.365,
+        0.358
       ],
       "consistent": true
     }

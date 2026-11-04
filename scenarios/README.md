@@ -1,7 +1,7 @@
 # RQ1: fault-injection scenarios
 
-Effectiveness: does the integration detect injected format and file property faults at design time and at runtime,
-and at which point in the workflow? Variants and shared versions: [`README.md`](../README.md).
+RQ1, effectiveness: see [Research Questions](../README.md#research-questions); variants and versions:
+[`README.md`](../README.md).
 
 ```
 run.py          runs the scenarios, verifies their exit codes, writes results/
@@ -18,16 +18,17 @@ About 15 minutes on any Linux machine with Docker, from the repository root:
 ```sh
 uv sync
 docker run -d --name sos-ffs -p 8000:8000 -v "$PWD/mappings:/app/mappings:ro" \
-  ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0
+  ghcr.io/dfg-sos/file-format-service-eo-bio:0.4.0
 uv run python scenarios/run.py --out /tmp/scenarios
 uv run python scenarios/tables.py --results /tmp/scenarios --out /tmp/scenarios/stats   # compare with results/matrix.md
 ```
-The image is the one the results were produced with (`sha256:8152fa23…`, see `results/env.txt`); to build it from
+The image is the one the results were produced with (digest in `results/env.txt`); to build it from
 [`plugins/format-validator-bio`](../plugins/format-validator-bio/Dockerfile) instead:
-`docker build -t file-format-service-eo-bio:0.3.0 plugins/format-validator-bio`.
+`docker build -t file-format-service-eo-bio:0.4.0 plugins/format-validator-bio`.
 `run.py` exits 1 if any exit code differs from the expected one or between repetitions, `tables.py` if a fault's EO
 and Bio scenarios differ in any variant. Scenarios EO-F3.3 and Bio-F3.3 are skipped without a Docker daemon. The
-Sympolis scenario (wrong CRS in a real workflow) was run by hand; see [below](#sympolis-wrong-crs-in-a-real-workflow).
+Sympolis scenario (wrong CRS in a real workflow) runs on the cluster with the overhead benchmark; see
+[below](#sympolis-wrong-crs-in-a-real-workflow).
 
 ## Scenarios
 
@@ -37,8 +38,8 @@ input file, F3 a tool stamps the wrong label on its output, F4 wrong or inapplic
 corrupt file (F5.1 in the metadata, F5.2 in the content); OK are controls (no fault), X limits of the runtime checks. Each scenario belongs to one
 application domain: EO (the EO formats ontology) or Bio (EDAM; the runtime checks through the validator plug-in
 `plugins/format-validator-bio`). The same ID in both domains is the same fault: Bio F1.1 is EO F1.1 with FASTQ and FASTA
-instead of Shapefile and GeoTIFF. F4, F5.1 and X.1 run in EO only: F4 checks EO metadata (CRS, geometry type), F5.1 metadata, which FASTQ does not have,
-X.1 an EO format without validator. X.2, an output without format, belongs to no domain (`none`). Results are kept per
+instead of Shapefile and GeoTIFF. F4, F5.1 and X.1 run in EO only: FASTQ has no CRS, geometry type or header metadata,
+and X.1 needs an EO format without validator. X.2, an output without format, belongs to no domain (`none`). Results are kept per
 `<domain>-<id>`, e.g. `results/Bio-F1.1/`. The fixtures (`fixtures/workflows/`, `tools/`, `jobs/`, `data/`) derive from the runner's `tests/fixtures/`.
 
 [`run.py`](run.py) runs each scenario as `off`, `basic`, `metadata`, `content` (transfer `auto`), and through
@@ -95,7 +96,7 @@ declares no `$schemas` to lint.
 - **The runtime checks extend to another domain without changing the runner or the service** (Bio F2.1–F3.3, F5.2, OK.1): the plug-in `plugins/format-validator-bio` adds FASTA and FASTQ validators (EDAM `format_1929`, `format_1930`), built on Biopython's parsers, to the service image, and its mapping file maps EDAM to them. The unchanged runner v0.2.0 detects a FASTQ file labelled FASTA by its name in `basic` mode (F2.1), FASTQ content named `.fasta` (F2.2) in `metadata` mode, and a FASTQ cut off inside its second record (F5.2) only in `content`, as in EO; the same holds for a tool that labels its FASTQ output FASTA (F3.1–F3.3). Every fault run in both domains has the same outcome in both (`tables.py` checks this).
 - **The linter misses all runtime faults** (F2–F5): their labels are consistent, and it does not read jobs. Linter and runner are complementary.
 - **`basic` catches wrong extensions** (F2.1, F3.1). **`metadata` catches the rest at a cost independent of the file size:** wrong content behind the right extension (F2.2, F3.2, F3.3), wrong CRS (F4.1), wrong declared geometry type (F4.2) and truncated metadata (F5.1). For FASTA and FASTQ, which carry no metadata, `metadata` parses the first record. **Only `content` catches faults beyond what `metadata` reads:** a geometry of the wrong type after the features `metadata` samples (F4.4) and data cut off behind intact metadata (F5.2). A missing file needs no check of its own, because cwltool never hands one over: it rejects a missing input file (F2.3) and a missing secondary file (F2.4) when it loads the job, in every variant, and missing outputs when it collects them.
-- **Detection stops the workflow before the next step:** output faults at the producing step (F3: `consume` not run), input faults before the consuming step (F2, F5). All outcomes were identical in the three repetitions.
+- **Detection stops the workflow before the next step:** output faults at the producing step (F3: `consume` not run), input faults before the consuming step (F2, F5).
 - **Metadata the format cannot carry is an annotation fault** (F4.3, `sos:expectedGeometryType` on a GeoTIFF): the linter does not check which metadata a format supports, and only `metadata` and `content` send metadata. The service rejects the request (HTTP 400), which the runner reports as `ERROR`, like an unreachable service: it stops the workflow by default, but only warns with `--format-service-error warn`.
 - **No false positives** in the controls (OK). **Limits:** a format without validator gives `UNCERTAIN`, which only warns or stops as the policy says (X.1). A port without `format` is skipped and never sent to the service (X.2): the checks cover only what the workflow declares, and workflows without annotations run unchanged.
 
@@ -104,9 +105,21 @@ run were identical in all three repetitions (`run.py` checks both).
 
 ### Sympolis: wrong CRS in a real workflow
 
-Run once, by hand, locally; not in `run.py`. The fixture steps take milliseconds, so they cannot show time saved; this scenario does. `Kahama_Small.gpkg` reprojected (`ogr2ogr -t_srs`) from EPSG:4326 to EPSG:32736 (UTM 36S) or EPSG:3857 runs through plain Sympolis with exit 0 in about 25 s, but yields 13 clusters instead of 3: the result changes silently. With `sos:expectedCRS: "EPSG:4326"` added to the `vectorFile` input of `cwl/FishnetSplit.cwl` (Sympolis declares no CRS; this is the only change), `metadata` stops the UTM run at the input check of `split`, the first step, after 3.3 s (cwltool start-up plus one check); `basic` does not detect it; the EPSG:4326 control passes.
+Not in `run.py`: the fixture steps take milliseconds, so they cannot show the time saved; this scenario does. It
+runs on the cluster as the `crs` set of the overhead benchmark (setup, runs and environment:
+[`bench/README.md`](../bench/README.md), results in `bench/results/crs/`). `Kahama.gpkg` (68 MB) is reprojected from
+EPSG:4326 to EPSG:32736 (UTM 36S), and all 27 vector ports of Sympolis declare `sos:expectedCRS: "EPSG:4326"`
+(Sympolis itself declares no CRS; this is the only change).
 
-**Time saved** needs no extra runs: on the cluster, that check (`metadata`, input of `split`, 68 MB `Kahama.gpkg`) took about 21 ms with `local` and 183 ms with `upload` transfer (RQ2(a) timing log, [`bench/README.md`](../bench/README.md)), while the whole plain run took 134 s (median of `off`). In `content` mode the same check reads all 232,521 features and takes 4.6 s, still a small fraction of the run. A wrong CRS therefore stops the workflow before its first step and saves almost the whole execution time.
+- **Plain cwltool and `basic` miss it:** the UTM run completes with exit 0 in 120.2 s (median of 10), but yields 2863
+  settlement clusters instead of 1106: the result changes silently.
+- **`metadata` and `content` stop it at the first check,** the input `vectorFile` of `split`, after 2.64 s with `local`
+  and 2.80 s with `upload` (median of 10; cwltool start-up plus one check, which takes 19 ms with `local`). `content`
+  stops as early as `metadata`, because it checks the CRS before it reads the features.
+- **No false positive:** on the original EPSG:4326 input (`crs-control`), `metadata` passes all 899 checks, and the
+  run takes 137.1 s against 134.3 s for `off`.
+
+A wrong CRS therefore stops the workflow before its first step and saves almost the whole execution time.
 
 ## Raw results
 
@@ -119,12 +132,9 @@ Run once, by hand, locally; not in `run.py`. The fixture steps take milliseconds
 
 ## Environment
 
-Not on the cluster (no timing involved). A laptop (Linux 7.0, Python 3.12.13, Docker 29.5.3), runner v0.2.0. The
-service image is `ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0` (`sha256:8152fa23…`, also used for RQ2(b) and
-(c)): `ghcr.io/dfg-sos/file-format-service:0.3.0` (format-validator 0.4.0, which loads validator plug-ins) plus
-`plugins/format-validator-bio` 0.4.0 with Biopython 1.88 ([`Dockerfile`](../plugins/format-validator-bio/Dockerfile)),
-run with Docker on `localhost:8001` and the mappings in `mappings/` (EO formats, EDAM). `results/env.txt` records the
-image digest.
+Not on the cluster (no timing involved). A laptop (Linux 7.0, Python 3.12.13, Docker 29.5.3). The service runs with
+Docker on `localhost:8000` with the mappings in `mappings/` (EO formats, EDAM); image and versions:
+[`README.md`](../README.md#versions). `results/env.txt` records the image digest.
 
 Timings in `results/` are wall times of single runs on a laptop with the `fail` policy; do not compare them with the
 overhead runs.

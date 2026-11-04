@@ -21,5 +21,6 @@ bio = "format_validator_bio.validators"
 dev = ["pytest"]
 
 [tool.uv.sources]
-# load_plugins() is available from v0.3.0 on, METADATA and CONTENT modes from v0.4.0
-format-validator = { git = "https://github.com/dfg-sos/file-format-validator.git", tag = "v0.4.0" }
+# load_plugins() is available from v0.3.0 on, METADATA and CONTENT modes from v0.4.0; v0.5.0 is the core without
+# built-in formats, as in the service image 0.4.0
+format-validator = { git = "https://github.com/dfg-sos/file-format-validator.git", tag = "v0.5.0" }

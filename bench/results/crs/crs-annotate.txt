@@ -12,4 +12,4 @@ cwl/SpatialClustering.cwl: 2 port(s)
 cwl/SpatialClusteringTool.cwl: 2 port(s)
 cwl/VisualizeGraphGeneration.cwl: 1 port(s)
 27 ports annotated with sos:expectedCRS: EPSG:4326
-/tmp/ffs-bench-14954998/sympolis-crs/data/input/Kahama_32736.gpkg: EPSG:4326 -> EPSG:32736
+/tmp/ffs-bench-14961977/sympolis-crs/data/input/Kahama_32736.gpkg: EPSG:4326 -> EPSG:32736

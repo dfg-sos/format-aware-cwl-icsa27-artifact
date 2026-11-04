@@ -1,27 +1,27 @@
 {
     "size": {
-        "location": "file:///tmp/tmpihfhxl35/out/size.txt",
+        "location": "file:///tmp/tmpk3hknob4/out/size.txt",
         "basename": "size.txt",
         "class": "File",
-        "checksum": "sha1$ce59360c8350685677f3cc22c27d1757c1cc2be5",
+        "checksum": "sha1$42122d8b4e9e84cdf6ff0509d3076c9bdcd981c2",
         "size": 66,
-        "path": "/tmp/tmpihfhxl35/out/size.txt"
+        "path": "/tmp/tmpk3hknob4/out/size.txt"
     }
 }INFO /home/lolo/Projects/format-aware-cwl-icsa27-artifact/.venv/bin/cwl-format-aware-runner 3.3.20260925135507
 INFO Resolved 'scenarios/fixtures/workflows/relabel_then_consume.cwl' to 'file:///home/lolo/Projects/format-aware-cwl-icsa27-artifact/scenarios/fixtures/workflows/relabel_then_consume.cwl'
 INFO [workflow ] start
 INFO [workflow ] starting step relabel
 INFO [step relabel] start
-INFO [job relabel] /tmp/say9ogs9$ cp \
-    /tmp/e_1yj1r3/stg6c92b588-0fe5-4b61-b20f-034884fcdeeb/roads.geojson \
+INFO [job relabel] /tmp/zwdjxrsc$ cp \
+    /tmp/4gokotgf/stg1c5ae4cc-eb42-4d1e-a765-bf9c747525db/roads.geojson \
     out.tif
 INFO [job relabel] completed success
 INFO [step relabel] completed success
 INFO [workflow ] starting step consume
 INFO [step consume] start
-INFO [job consume] /tmp/7siqz0ew$ wc \
+INFO [job consume] /tmp/4rseaaq2$ wc \
     -c \
-    /tmp/ny24_ij4/stg3cb153cb-422f-428a-8b79-4b687cd65460/out.tif > /tmp/7siqz0ew/size.txt
+    /tmp/v4vec4wm/stga71ab3d8-7e35-4bfd-a024-06cfab853fde/out.tif > /tmp/4rseaaq2/size.txt
 INFO [job consume] completed success
 INFO [step consume] completed success
 INFO [workflow ] completed success

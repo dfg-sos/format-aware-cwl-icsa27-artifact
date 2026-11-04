@@ -1,14 +1,14 @@
 # off
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation off scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl scenarios/fixtures/jobs/fasta_valid.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation off scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl scenarios/fixtures/jobs/fasta_valid.yml
 
 # basic
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode basic scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl scenarios/fixtures/jobs/fasta_valid.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode basic scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl scenarios/fixtures/jobs/fasta_valid.yml
 
 # metadata
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode metadata scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl scenarios/fixtures/jobs/fasta_valid.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode metadata scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl scenarios/fixtures/jobs/fasta_valid.yml
 
 # content
-cwl-format-aware-runner --format-service-url http://localhost:8001 --format-validation-mode content scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl scenarios/fixtures/jobs/fasta_valid.yml
+cwl-format-aware-runner --format-service-url http://localhost:8000 --format-validation-mode content scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl scenarios/fixtures/jobs/fasta_valid.yml
 
 # lint
-cwl-format-lint --format-service-url http://localhost:8001 scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl
+cwl-format-lint --format-service-url http://localhost:8000 scenarios/fixtures/workflows/wire_fasta_to_sequence.cwl

@@ -1,22 +1,22 @@
-[1;30mWARNING[0m [33m../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:     const result = {};
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:     ^
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W104: 'const' is available in ES. CWL only supports ES5.1[0m
-[1;30mWARNING[0m [33m../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:     fileArray.forEach(f => {
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:                         ^
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W119: 'arrow function syntax (=>)' is only available in ES6. CWL only supports ES5.1[0m
-[1;30mWARNING[0m [33m../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   const clusterWorkloadFileMap = filesToMap(inputs.clusterWorkloadFiles);
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   ^
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W104: 'const' is available in ES. CWL only supports ES5.1[0m
-[1;30mWARNING[0m [33m../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   const graphWorkloadFileMap = filesToMap(inputs.graphWorkloadFiles);
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   ^
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W104: 'const' is available in ES. CWL only supports ES5.1[0m
-[1;30mWARNING[0m [33m../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   const componentsOutput = Object.keys(clusterWorkloadFileMap).map(basename => {
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   ^
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W104: 'const' is available in ES. CWL only supports ES5.1[0m
-[1;30mWARNING[0m [33m../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   const componentsOutput = Object.keys(clusterWorkloadFileMap).map(basename => {
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:                                                                             ^
-../../../../../tmp/ffs-bench-14954998/sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W119: 'arrow function syntax (=>)' is only available in ES6. CWL only supports ES5.1[0m
+[1;30mWARNING[0m [33msympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:     const result = {};
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:     ^
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W104: 'const' is available in ES. CWL only supports ES5.1[0m
+[1;30mWARNING[0m [33msympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:     fileArray.forEach(f => {
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:                         ^
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W119: 'arrow function syntax (=>)' is only available in ES6. CWL only supports ES5.1[0m
+[1;30mWARNING[0m [33msympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   const clusterWorkloadFileMap = filesToMap(inputs.clusterWorkloadFiles);
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   ^
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W104: 'const' is available in ES. CWL only supports ES5.1[0m
+[1;30mWARNING[0m [33msympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   const graphWorkloadFileMap = filesToMap(inputs.graphWorkloadFiles);
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   ^
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W104: 'const' is available in ES. CWL only supports ES5.1[0m
+[1;30mWARNING[0m [33msympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   const componentsOutput = Object.keys(clusterWorkloadFileMap).map(basename => {
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   ^
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W104: 'const' is available in ES. CWL only supports ES5.1[0m
+[1;30mWARNING[0m [33msympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:   const componentsOutput = Object.keys(clusterWorkloadFileMap).map(basename => {
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT:                                                                             ^
+sympolis-crs/cwl/GraphComponents.cwl:43:7: JSHINT: W119: 'arrow function syntax (=>)' is only available in ES6. CWL only supports ES5.1[0m
 [1;30mERROR[0m [31m[step split] input 'vectorFile' file 'Kahama_32736.gpkg' is not valid https://dfg-sos.github.io/ontologies/eo-formats#GeoPackage: FAILURE: File CRS'PROJCS["WGS 84 / UTM zone 36S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",33],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32736"]]' does not match expected CRS 'EPSG:4326'.[0m
-[1;30mERROR[0m [31m[step split] Output is missing expected field file:///tmp/ffs-bench-14954998/sympolis-crs/Sympolis.cwl#split/split_files[0m
+[1;30mERROR[0m [31m[step split] Output is missing expected field file:///tmp/ffs-bench-14961977/sympolis-crs/Sympolis.cwl#split/split_files[0m
 [1;30mWARNING[0m [33m[step split] completed permanentFail[0m
 [1;30mWARNING[0m [33mFinal process status is permanentFail[0m
