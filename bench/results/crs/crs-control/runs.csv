@@ -1,0 +1,3 @@
+run_id,workflow,job,mode,transfer,rep,wall_ms,exit,checks,checks_pre,checks_post,success,uncertain,failure,error,skips,transfers_used,bytes_checked,check_ms,service_validate_ms,main_ms
+off-0,Sympolis.cwl,bench.yml,off,-,0,134902.052,0,0,0,0,0,0,0,0,0,,0,0.0,0.0,1257236.759
+metadata-local-0,Sympolis.cwl,bench.yml,metadata,local,0,137683.184,0,899,633,266,899,0,0,0,264,local,3957211136,19918.259,12791.6,809032.175

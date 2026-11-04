@@ -1,0 +1,4 @@
+crs-control/outputs/metadata-local-0/Kahama_Sympolis.gpkg: 1106 features, EPSG:4326
+crs-control/outputs/off-0/Kahama_Sympolis.gpkg: 1106 features, EPSG:4326
+crs-utm/outputs/basic-0/Kahama_32736_Sympolis.gpkg: 2863 features, EPSG:32736
+crs-utm/outputs/off-0/Kahama_32736_Sympolis.gpkg: 2863 features, EPSG:32736

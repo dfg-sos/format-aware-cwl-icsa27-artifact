@@ -24,12 +24,20 @@ RQ2(b), and `rq3-*-abstract` is RQ2(c).
 | RQ2(b) | 10 | all six | `rq2-*` in `results/copy-chain-1MB`, `-10MB`, `-100MB`, `-1000MB` |
 | RQ2(c) | 10 | `basic`, `metadata-local`, `content-local`; compared with the RQ2(b) runs of the same size, on the same node | `rq3-*` in the same directories as RQ2(b) |
 | RQ3 | as RQ2 | `upload` vs. `local` of RQ2(a) and RQ2(b) | as RQ2 |
+| RQ1, CRS scenario | 10 (`crs-utm`), 1 (`crs-control`) | all six; `crs-control`: `off`, `metadata-local` | `results/crs/` |
 
 `bench.sh` writes each Slurm job to `results/hpc-<job>/`; the directories above combine the jobs of one workflow
 and keep each job's `env.txt` (as `env-<job>.txt` for further jobs).
 
 All six variants: `off`, `basic`, and `metadata`/`content` × `upload`/`local`. The runs use the `warn` policy
 (`--format-validation warn`), so an invalid file never shortens a run.
+
+**CRS scenario (RQ1):** Sympolis with `sos:expectedCRS: "EPSG:4326"` on all 27 vector ports and Kahama.gpkg reprojected
+to UTM 36S (`EPSG:32736`), set up as described in [`hpc/README.md`](hpc/README.md). `metadata` and `content` run with
+policy `fail` and stop at the first check (input `vectorFile` of step `split`) after 2.71 s (`local`, median; the check
+itself takes 19 ms) and 2.88 s (`upload`). Unchecked, the run takes 120.2 s and silently yields 2863 settlement clusters
+instead of 1106. On the original input (`crs-control`) `off` takes 134.9 s (RQ2(a): 134.1 s) and `metadata` raises no
+`FAILURE` at any of the 899 checks.
 
 ## Local check
 
@@ -124,6 +132,7 @@ RQ3 needs no extra runs. For each size and format, compare `metadata-upload` wit
   one node. The service and cwltool ran on the same node, with the service on `127.0.0.1`.
 - **Jobs:**
   - RQ2(a): one job (node `hpdar07c03s07`).
+  - CRS scenario: one later job on the same node (job 14954998).
   - RQ2(b) and RQ2(c), GeoPackage and FASTQ: one job per size, in parallel on four nodes (1 MB `hpdar09c04s01`,
     10 MB `hpdar07c04s02`, 100 MB `hpdar09c02s09`, 1000 MB `hpdar09c03s09`).
   - RQ2(b) and RQ2(c), GeoTIFF: one later job per size with tiled inputs (`env-<job>.txt`, `inputs-<job>.txt`),
