@@ -7,12 +7,13 @@ This artifact references the involved software components of our architecture an
 | Component | Repository | Version | Role |
 |---|---|---|---|
 | Format-Aware CWL Runner | [dfg-sos/format-aware-cwl-runner](https://github.com/dfg-sos/format-aware-cwl-runner) | v0.2.0 | Design-time linter (`cwl-format-lint`) and runtime extension of cwltool (`cwl-format-aware-runner`) |
-| File Format Service | [dfg-sos/file-format-service](https://github.com/dfg-sos/file-format-service) | v0.3.0 (`ghcr.io/dfg-sos/file-format-service:0.3.0`) | Service the runner and linter call to check format compatibility and validate files |
-| File Format Validator (Base) | [dfg-sos/file-format-validator](https://github.com/dfg-sos/file-format-validator) | v0.4.0 | Validator core with the EO format validators, bundled in the service image |
-| Bioinformatics Validator Plugin | [`plugins/format-validator-bio`](plugins/format-validator-bio/README.md) (this artifact) | 0.4.0 | FASTA/FASTQ validators as a plug-in (`ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0`) |
-| EO Format & Metadata Ontology | [dfg-sos/ontologies](https://github.com/dfg-sos/ontologies) | eo-formats 1.0.0 | Format classes and their hierarchy for EO |
+| File Format Service | [dfg-sos/file-format-service](https://github.com/dfg-sos/file-format-service) | v0.4.0 | Service the runner and linter call to check format compatibility and validate files |
+| File Format Validator (Base) | [dfg-sos/file-format-validator](https://github.com/dfg-sos/file-format-validator) | v0.5.0 | Validator core; defines no formats, loads validator plug-ins |
+| EO Validator Plugin | [dfg-sos/file-format-validator](https://github.com/dfg-sos/file-format-validator) (`plugins/eo`) | 0.1.0 | EO format validators as a plug-in |
+| Bioinformatics Validator Plugin | [`plugins/format-validator-bio`](plugins/format-validator-bio/README.md) (this artifact) | 0.4.0 | FASTA/FASTQ validators as a plug-in |
+| EO Format & Metadata Ontology | [dfg-sos/ontologies](https://github.com/dfg-sos/ontologies) | 1.0.0 | Format classes and their hierarchy for EO |
 | EDAM Ontology | [edamontology/edamontology](https://github.com/edamontology/edamontology) | 1.25 | Format classes for bioinformatics |
-| Sympolis Workflow | [dfg-sos/sympolis](https://github.com/dfg-sos/sympolis) | v1.2.0 (`ghcr.io/dfg-sos/sympolis:1.2.0`) | EO workflow used in RQ2(a) |
+| Sympolis Workflow | [dfg-sos/sympolis](https://github.com/dfg-sos/sympolis) | v1.2.0 | EO workflow used in RQ2(a) |
 
 
 # Evaluation
@@ -26,21 +27,11 @@ The evaluation follows the research questions presented in the paper.
 | RQ3 | Access path: how does the overhead of validating an uploaded file compare with validating a local file on the same host? | no separate runs: the `upload` and `local` variants of `metadata` and `content` in RQ2(a) and RQ2(b) | as RQ2 | Validation Time by Validation Mode and File Size; Overhead on an EO Workflow | [`bench/`](bench/README.md) |
 
 ```
-scenarios/            RQ1, fault injection
-  run.py              runs the scenarios, verifies their exit codes, writes the results
-  tables.py           the RQ1 tables from the results: results/matrix.md, stats/scenarios.tex (paper)
-  scenarios.yml       the scenarios: fixtures, injected fault, expected exit code per variant
-  fixtures/           their workflows, tools, jobs and data
-  results/            per scenario: commands, console logs, outcomes
-  stats/              the paper table
-bench/                RQ2 and RQ3, overhead
-  run.py              one overhead set: runs every variant, writes runs.csv and timing.jsonl, verifies the runs
-  make_inputs.py      synthetic GeoTIFF / GeoPackage / FASTQ inputs and copy-chain workflows
-  hpc/                the Slurm script and its README
-  results/            raw results (CSV, JSONL, console logs, env.txt per job)
-mappings/             the format mappings the service needs (EO formats, EDAM), for both
-plugins/              format-validator-bio: FASTA/FASTQ validators as a plug-in, and the Dockerfile
-                      of the service image with the plug-in
+scenarios/    RQ1, fault injection: scenarios, fixtures, results (see its README)
+bench/        RQ2 and RQ3, overhead: input generation, Slurm script, results (see its README)
+mappings/     the format mappings the service needs (EO formats, EDAM), for both
+plugins/      format-validator-bio: FASTA/FASTQ validators as a plug-in, and the Dockerfile
+              of the service image with the plug-in
 ```
 
 ## Variants
@@ -60,8 +51,7 @@ The paper calls these configurations (Table "Injected faults"). Each run is a fr
 - `upload`: the file bytes are sent over HTTP.
 - `local`: only the path is sent, and the service reads the file from a directory it shares with cwltool.
 
-Validation runs on the inputs and outputs of every step (`--format-check both`). RQ1 uses the default policy
-`--format-validation fail`, so a run stops on an invalid file; RQ2 and RQ3 use `warn`, so every run completes.
+Validation runs on the inputs and outputs of every step (`--format-check both`).
 
 ## Requirements
 
@@ -81,11 +71,15 @@ Validation runs on the inputs and outputs of every step (`--format-check both`).
 |---|---|
 | format-aware-cwl-runner | v0.2.0 (commit `8d2113f`), pinned in `pyproject.toml` and `uv.lock` |
 | cwltool / schema-salad / cwl-utils | 3.3.20260925135507 / 8.10.20260825112551 / 0.45 |
-| file-format-service, RQ1 | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.3.0` (`sha256:8152fa23…`): `ghcr.io/dfg-sos/file-format-service:0.3.0` (format-validator 0.4.0) plus the plug-in `plugins/format-validator-bio` 0.4.0 (Biopython 1.88), Docker |
-| file-format-service, RQ2 | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.4.0` (`sha256:b52a7190…`): file-format-service-eo 0.4.0 (format-validator 0.5.0 with the EO plug-in) plus the plug-in `plugins/format-validator-bio` 0.4.0, Apptainer; the default in `bench/hpc/bench.sh` |
-| Sympolis, RQ2(a) | release `v1.2.0`, image `ghcr.io/dfg-sos/sympolis:1.2.0` |
+| file-format-service | 0.4.0 |
+| format-validator / format-validator-eo / format-validator-bio | 0.5.0 / 0.1.0 / 0.4.0 |
+| Biopython (in format-validator-bio) | 1.88 |
 
-Neither the runner nor the service was changed for the plug-in.
+All experiments run the service from the image `ghcr.io/dfg-sos/file-format-service-eo-bio:0.4.0`
+(`sha256:b52a7190…`). We built it from the published service image with the EO validators,
+`ghcr.io/dfg-sos/file-format-service-eo:0.4.0`, by adding the bio plug-in
+([`Dockerfile`](plugins/format-validator-bio/Dockerfile)).
+
 `env.txt` in each result directory records the runner commit the run used, the service image, the ontology and the
 container checksums. Further versions per environment: [`scenarios/README.md`](scenarios/README.md#environment),
 [`bench/README.md`](bench/README.md#environment).

@@ -1,12 +1,10 @@
 # RQ2 and RQ3: overhead
 
-- **RQ2, overhead:** what do the validation modes add, as a function of file size, format label and relative to task
-  runtime? (a) Sympolis on Kahama.gpkg; (b) three-step copy chains, concrete formats; (c) the (b) chains with abstract
-  formats.
-- **RQ3, access path:** how does validating an uploaded file compare with validating a local file on the same host?
-  No separate runs: the `upload` and `local` variants of `metadata` and `content` in RQ2(a) and RQ2(b).
+RQ2 (overhead) and RQ3 (access path): see [Research Questions](../README.md#research-questions). Workloads: (a)
+Sympolis on Kahama.gpkg; (b) three-step copy chains, concrete formats; (c) the (b) chains with abstract formats. RQ3
+has no separate runs: it compares the `upload` and `local` variants of RQ2(a) and RQ2(b).
 
-Variants and shared versions: [`README.md`](../README.md). How to run it on Slurm: [`hpc/README.md`](hpc/README.md).
+Variants and versions: [`README.md`](../README.md). How to run it on Slurm: [`hpc/README.md`](hpc/README.md).
 
 ```
 run.py          one overhead set: runs every variant, writes runs.csv and timing.jsonl, verifies the runs
@@ -30,14 +28,12 @@ RQ2(b), and `rq3-*-abstract` is RQ2(c).
 by workload (the job ID is in each `env.txt`).
 
 All six variants: `off`, `basic`, and `metadata`/`content` × `upload`/`local`. The runs use the `warn` policy
-(`--format-validation warn`), so an invalid file never shortens a run.
+(`--format-validation warn`), so an invalid file never shortens a run; RQ1 uses the default `fail`, so do not compare
+timings across the two.
 
 **CRS scenario (RQ1):** Sympolis with `sos:expectedCRS: "EPSG:4326"` on all 27 vector ports and Kahama.gpkg reprojected
 to UTM 36S (`EPSG:32736`), set up as described in [`hpc/README.md`](hpc/README.md). `metadata` and `content` run with
-policy `fail` and stop at the first check (input `vectorFile` of step `split`) after 2.64 s (`local`, median; the check
-itself takes 19 ms) and 2.80 s (`upload`). Unchecked, the run takes 120.2 s and silently yields 2863 settlement clusters
-instead of 1106. On the original input (`crs-control`) `off` takes 134.3 s (RQ2(a): 134.0 s) and `metadata` raises no
-`FAILURE` at any of the 899 checks.
+policy `fail`, so they stop at the first failed check. Results: [`scenarios/README.md`](../scenarios/README.md#sympolis-wrong-crs-in-a-real-workflow).
 
 ## Local check
 
@@ -63,7 +59,6 @@ Sympolis is a CWL workflow for spatial clustering of building footprints, at rel
   construction (200 m), DBSCAN clustering (200 m, min. 3), `minArea` 1000 m².
 - **Changes to the workflow:** the ontology (`$schemas`) is loaded from a local copy, and the Sympolis tools pull
   the release image `sympolis:1.2.0` instead of `sympolis:latest`.
-- **Repetitions:** 10 measured runs per variant (6 variants, 60 runs plus warmup).
 
 ### RQ2(b), RQ2(c) and RQ3: copy chains
 
@@ -148,7 +143,7 @@ RQ3 needs no extra runs. For each size and format, compare `metadata-upload` wit
 | Python / httpx | 3.13.14 / 0.28.1 |
 | Node.js (cwltool's JavaScript engine, RQ2(a) and the CRS scenario only) | 26.13.0 |
 | Apptainer | 1.2.5 |
-| file-format-service, RQ2 and CRS scenario | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.4.0` (`sha256:b52a7190…`): file-format-service-eo 0.4.0 (format-validator 0.5.0 with the EO plug-in) plus the plug-in `plugins/format-validator-bio` 0.4.0, run with Apptainer, uvicorn |
+| file-format-service | the image from [`README.md`](../README.md#versions), run with Apptainer, uvicorn |
 | EO formats ontology | eo-formats 1.0.0, local copy (sha256 `7e867b2d…03ed`) |
 | EDAM, RQ2(b)/(c) | EDAM 1.25, local copy (sha256 `af29132f…4f48`) |
 | Container images (sha256 of the `.sif`) | fishnet-apps 2.0.1 `88ec6e10…3598`; sympolis 1.2.0 `6167ccbe…67d9` |
@@ -176,5 +171,3 @@ Only the FASTQ sets mount the EDAM mapping (`mappings/edam-formats.json`); all s
   upload costs depend on the bandwidth, while `local` costs do not. RQ3 therefore compares the two access paths on one host only.
 - **Geometry types in Sympolis:** its ports declare `sos:expectedGeometryType: Polygon`, while Kahama holds
   MultiPolygons. The checks pass because the validator treats single- and multi-part types as compatible.
-- **Policy differs from RQ1:** these runs use `warn` so that every run completes; the fault-injection runs use the
-  default `fail` so that they stop on an invalid file. Do not compare timings across the two groups.
