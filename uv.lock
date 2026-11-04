@@ -361,7 +361,7 @@ plots = [
 [package.metadata]
 requires-dist = [
     { name = "fiona" },
-    { name = "format-aware-cwl-runner", git = "https://github.com/dfg-sos/format-aware-cwl-runner?rev=v0.2.0" },
+    { name = "format-aware-cwl-runner", git = "https://github.com/dfg-sos/file-format-aware-cwl-runner?rev=v0.2.0" },
     { name = "numpy" },
     { name = "rasterio" },
 ]
@@ -373,7 +373,7 @@ plots = [{ name = "matplotlib", specifier = ">=3.11.2" }]
 [[package]]
 name = "format-aware-cwl-runner"
 version = "0.2.0"
-source = { git = "https://github.com/dfg-sos/format-aware-cwl-runner?rev=v0.2.0#8d2113f053057eaaa6f7976bc876f1d3d09e9ca9" }
+source = { git = "https://github.com/dfg-sos/file-format-aware-cwl-runner?rev=v0.2.0#8d2113f053057eaaa6f7976bc876f1d3d09e9ca9" }
 dependencies = [
     { name = "cwl-utils" },
     { name = "cwltool" },

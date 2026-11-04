@@ -6,7 +6,7 @@ This artifact references the involved software components of our architecture an
 
 | Component | Repository | Version | Role |
 |---|---|---|---|
-| Format-Aware CWL Runner | [dfg-sos/format-aware-cwl-runner](https://github.com/dfg-sos/format-aware-cwl-runner) | v0.2.0 | Design-time linter (`cwl-format-lint`) and runtime extension of cwltool (`cwl-format-aware-runner`) |
+| Format-Aware CWL Runner | [dfg-sos/file-format-aware-cwl-runner](https://github.com/dfg-sos/file-format-aware-cwl-runner) | v0.2.0 | Design-time linter (`cwl-format-lint`) and runtime extension of cwltool (`cwl-format-aware-runner`) |
 | File Format Service | [dfg-sos/file-format-service](https://github.com/dfg-sos/file-format-service) | v0.4.0 | Service the runner and linter call to check format compatibility and validate files |
 | File Format Validator (Base) | [dfg-sos/file-format-validator](https://github.com/dfg-sos/file-format-validator) | v0.5.0 | Validator core; defines no formats, loads validator plug-ins |
 | EO Validator Plugin | [dfg-sos/file-format-validator](https://github.com/dfg-sos/file-format-validator) (`plugins/eo`) | 0.1.0 | EO format validators as a plug-in |
@@ -84,7 +84,8 @@ All experiments run the service from the image `ghcr.io/dfg-sos/file-format-serv
 container checksums. Further versions per environment: [`scenarios/README.md`](scenarios/README.md#environment),
 [`bench/README.md`](bench/README.md#environment).
 
-**Names:** the paper's `format-aware cwl runner` is the package and repository `format-aware-cwl-runner`; its
+**Names:** the paper's `format-aware cwl runner` is the package `format-aware-cwl-runner` in the repository
+`file-format-aware-cwl-runner`; its
 commands are `cwl-format-lint` (linter) and `cwl-format-aware-runner` (runner).
 
 ## License
