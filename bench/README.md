@@ -34,9 +34,9 @@ All six variants: `off`, `basic`, and `metadata`/`content` × `upload`/`local`. 
 
 **CRS scenario (RQ1):** Sympolis with `sos:expectedCRS: "EPSG:4326"` on all 27 vector ports and Kahama.gpkg reprojected
 to UTM 36S (`EPSG:32736`), set up as described in [`hpc/README.md`](hpc/README.md). `metadata` and `content` run with
-policy `fail` and stop at the first check (input `vectorFile` of step `split`) after 2.71 s (`local`, median; the check
-itself takes 19 ms) and 2.88 s (`upload`). Unchecked, the run takes 120.2 s and silently yields 2863 settlement clusters
-instead of 1106. On the original input (`crs-control`) `off` takes 134.9 s (RQ2(a): 134.1 s) and `metadata` raises no
+policy `fail` and stop at the first check (input `vectorFile` of step `split`) after 2.64 s (`local`, median; the check
+itself takes 19 ms) and 2.80 s (`upload`). Unchecked, the run takes 120.2 s and silently yields 2863 settlement clusters
+instead of 1106. On the original input (`crs-control`) `off` takes 134.3 s (RQ2(a): 134.0 s) and `metadata` raises no
 `FAILURE` at any of the 899 checks.
 
 ## Local check
@@ -130,8 +130,8 @@ RQ3 needs no extra runs. For each size and format, compare `metadata-upload` wit
 - **Cluster:** LRZ HPDA2, partition `hpda2_compute`. Each Slurm job ran exclusively (`--exclusive`) on
   one node. The service and cwltool ran on the same node, with the service on `127.0.0.1`.
 - **Jobs:**
-  - RQ2(a): one job (node `hpdar07c03s07`).
-  - CRS scenario: one later job on the same node (job 14954998).
+  - RQ2(a): one job (node `hpdar07c03s07`, job 14961973).
+  - CRS scenario: one job, in parallel with RQ2(a) (node `hpdar07c03s08`, job 14961977).
   - RQ2(b) and RQ2(c): one job per size with all three formats, in parallel on four nodes (1 MB `hpdar10c02s07`,
     10 MB `hpdar12c05s01`, 100 MB `hpdar03c02s08`, 1000 MB `hpdar03c02s09`; jobs 14959375 to 14959378). The
     concrete and abstract sets of a format and size ran in the same job.
@@ -139,22 +139,23 @@ RQ3 needs no extra runs. For each size and format, compare `metadata-upload` wit
 - **Node:** 2× Intel Xeon Platinum 8380 (2 × 40 cores, 160 threads, max. 2.3 GHz, 4 NUMA nodes), 1 TB RAM,
   SLES 15 SP7 (kernel 6.4.0). The default frequency scaling was left on, and no CPU pinning was used.
 - **Storage:** all inputs and cwltool's working and output directories were on node-local NVMe (`/tmp`).
-  The same directory was the service's shared directory for `local` transfer.
+  The same directory was the service's shared directory for `local` transfer. In RQ2(a) and the CRS scenario the
+  service and workflow images, the ontologies, Node.js, the Python environment and the timing and service logs were
+  there as well ([`hpc/README.md`](hpc/README.md)).
 
 | Software | Version |
 |---|---|
 | Python / httpx | 3.13.14 / 0.28.1 |
-| Node.js (cwltool's JavaScript engine, RQ2(a) only) | 26.13.0 |
+| Node.js (cwltool's JavaScript engine, RQ2(a) and the CRS scenario only) | 26.13.0 |
 | Apptainer | 1.2.5 |
-| file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.3.0` (`sha256:e93ccf94…`, format-validator 0.4.0), as in RQ1 without the plug-in, run with Apptainer, uvicorn |
-| file-format-service, RQ2(b)/(c) | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.4.0` (`sha256:b52a7190…`): file-format-service-eo 0.4.0 (format-validator 0.5.0 with the EO plug-in) plus the plug-in `plugins/format-validator-bio` 0.4.0, run with Apptainer, uvicorn |
+| file-format-service, RQ2 and CRS scenario | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.4.0` (`sha256:b52a7190…`): file-format-service-eo 0.4.0 (format-validator 0.5.0 with the EO plug-in) plus the plug-in `plugins/format-validator-bio` 0.4.0, run with Apptainer, uvicorn |
 | EO formats ontology | eo-formats 1.0.0, local copy (sha256 `7e867b2d…03ed`) |
 | EDAM, RQ2(b)/(c) | EDAM 1.25, local copy (sha256 `af29132f…4f48`) |
 | Container images (sha256 of the `.sif`) | fishnet-apps 2.0.1 `88ec6e10…3598`; sympolis 1.2.0 `6167ccbe…67d9` |
 
 `env.txt` in each results directory records the full hardware listing, the versions and the checksums.
-RQ2(a) mounts only the EO mapping (`mappings/eo-formats.json`): the EDAM mapping needs the
-validator plug-in, which the plain 0.3.0 image lacks.
+Only the FASTQ sets mount the EDAM mapping (`mappings/edam-formats.json`); all sets mount the EO mapping
+(`mappings/eo-formats.json`).
 
 ## Notes
 
@@ -167,7 +168,7 @@ validator plug-in, which the plain 0.3.0 image lacks.
 - **`content` grows linearly with the file size:** it reads every pixel block, feature or record. At 1000 MB a
   `local` check takes 0.91 s for GeoTIFF, 9.8 s for GeoPackage (fiona iterates 1 GB of LineStrings) and 18.5 s for
   FASTQ (Biopython parses every record), so a run of 6 checks grows by 77 %, 755 % and 784 % over the copy chain.
-  In Sympolis (68 MB GeoPackage, 899 checks) `content` adds 114 s (+85 %) with `local`, `metadata` 3.6 s (+2.7 %).
+  In Sympolis (68 MB GeoPackage, 899 checks) `content` adds 113 s (+84 %) with `local`, `metadata` 3.4 s (+2.5 %).
   `metadata` is the fast path for every run; `content` pays off for small files or when it runs off the critical path.
 - **`upload` adds the transfer:** the files go over HTTP in every check, about 2.2 to 2.5 s per check at 1000 MB
   for every format, the same in `metadata` and `content`. With `local` the service reads the file in place.
