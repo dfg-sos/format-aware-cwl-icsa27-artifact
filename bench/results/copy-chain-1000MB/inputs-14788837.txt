@@ -1,1 +1,0 @@
-/tmp/ffs-bench-14788837/inputs/geotiff_1000MB.tif 1057159554

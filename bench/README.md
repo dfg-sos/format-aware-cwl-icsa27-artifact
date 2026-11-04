@@ -26,8 +26,8 @@ RQ2(b), and `rq3-*-abstract` is RQ2(c).
 | RQ3 | as RQ2 | `upload` vs. `local` of RQ2(a) and RQ2(b) | as RQ2 |
 | RQ1, CRS scenario | 10 (`crs-utm`), 1 (`crs-control`) | all six; `crs-control`: `off`, `metadata-local` | `results/crs/` |
 
-`bench.sh` writes each Slurm job to `results/hpc-<job>/`; the directories above combine the jobs of one workflow
-and keep each job's `env.txt` (as `env-<job>.txt` for further jobs).
+`bench.sh` writes each Slurm job to `results/hpc-<job>/`; the directories above are those job directories, renamed
+by workload (the job ID is in each `env.txt`).
 
 All six variants: `off`, `basic`, and `metadata`/`content` × `upload`/`local`. The runs use the `warn` policy
 (`--format-validation warn`), so an invalid file never shortens a run.
@@ -80,17 +80,16 @@ references are used, no JavaScript, so Node.js does not inflate the baseline. On
 - **Concrete labels (RQ2(b), RQ3):** every port and file is labelled `eo:GeoTIFF`, `eo:GeoPackage` or EDAM
   `format_1930` (FASTQ).
 - **Abstract labels (RQ2(c)):** the same data, with every port and file labelled `eo:Raster`, `eo:Vector` or EDAM
-  `format_1919` (sequence record format). The service validates a file with an abstract label against every concrete
-  subclass whose extension matches, and the file is valid if any of them succeeds. For `eo:Vector` (`.gpkg`) and the
-  sequence formats (`.fastq`) one subclass matches, and the abstract label changes the service time per run by at most
-  ±4.4 ms in `basic` and `metadata`, within the noise. For `eo:Raster`, five subclasses match a `.tif` (COG, DEM, DSM, DTM, GeoTIFF), and all
-  five run to completion before the first success is taken. In `metadata` this adds 37 to 46 ms service time per
-  run (6 checks), independent of file size, under 3.2 % of the wall time. In `content` each of the five reads every
-  pixel block: the abstract label costs about 4.8 times the concrete one, +69 ms per run at 1 MB and +19.9 s at
-  1000 MB (25.0 instead of 5.2 s service time per run; wall time +163 %). Reading the pixels once for all subclasses
-  that share the GeoTIFF container would remove this cost. The abstract `content` sets of GeoPackage and FASTQ ran
-  up to 0.2 and 1.0 s per run faster at 1000 MB (≤ 1.1 % of the wall time): drift between two sets of CPU-bound
-  runs, which the per-set bootstrap interval does not cover, not an effect of the label.
+  `format_1919` (sequence record format). The service validates a file with an abstract label against the concrete
+  subclasses whose extension matches, and the file is valid if any of them succeeds: one subclass for `eo:Vector`
+  (`.gpkg`) and the sequence formats (`.fastq`), five for `eo:Raster` and a `.tif` (COG, DEM, DSM, DTM, GeoTIFF).
+  The abstract label costs about as much as the concrete one for all three formats
+  (`stats/abstract_label_overhead.csv`, difference of the medians over 1 to 1000 MB). In `basic` and `metadata` it
+  changes the service time per run (6 checks) by −4.0 to +2.2 ms. In `content` the abstract `eo:Raster` sets
+  needed +2.3 ms per run at 1 MB and up to 273 ms (5 %) less at 1000 MB (5.18 instead of 5.45 s service time per
+  run); the GeoPackage and FASTQ sets differ by −82 to +17 ms and −238 to +491 ms per run. Every difference stays
+  within −3.1 to +0.6 % of the wall time: drift between two sets of CPU-bound runs, which the per-set bootstrap
+  interval does not cover, not an effect of the label.
 - **Output annotations:** EO outputs declare `sos:expectedCRS: EPSG:4326`, and GeoPackage outputs also declare
   `sos:expectedGeometryType: LineString`. FASTQ outputs declare no metadata.
 - **Checks per run:** each validated run makes 6 checks, an input and an output check for each of the 3 steps.
@@ -133,11 +132,9 @@ RQ3 needs no extra runs. For each size and format, compare `metadata-upload` wit
 - **Jobs:**
   - RQ2(a): one job (node `hpdar07c03s07`).
   - CRS scenario: one later job on the same node (job 14954998).
-  - RQ2(b) and RQ2(c), GeoPackage and FASTQ: one job per size, in parallel on four nodes (1 MB `hpdar09c04s01`,
-    10 MB `hpdar07c04s02`, 100 MB `hpdar09c02s09`, 1000 MB `hpdar09c03s09`).
-  - RQ2(b) and RQ2(c), GeoTIFF: one later job per size with tiled inputs (`env-<job>.txt`, `inputs-<job>.txt`),
-    on four further nodes (1 MB `hpdar09c02s04`, 10 MB `hpdar09c03s08`, 100 MB `hpdar12c03s04`, 1000 MB
-    `hpdar12c03s06`). The concrete and abstract sets of a format and size always ran in the same job.
+  - RQ2(b) and RQ2(c): one job per size with all three formats, in parallel on four nodes (1 MB `hpdar10c02s07`,
+    10 MB `hpdar12c05s01`, 100 MB `hpdar03c02s08`, 1000 MB `hpdar03c02s09`; jobs 14959375 to 14959378). The
+    concrete and abstract sets of a format and size ran in the same job.
   - All nodes have the same hardware.
 - **Node:** 2× Intel Xeon Platinum 8380 (2 × 40 cores, 160 threads, max. 2.3 GHz, 4 NUMA nodes), 1 TB RAM,
   SLES 15 SP7 (kernel 6.4.0). The default frequency scaling was left on, and no CPU pinning was used.
@@ -150,7 +147,7 @@ RQ3 needs no extra runs. For each size and format, compare `metadata-upload` wit
 | Node.js (cwltool's JavaScript engine, RQ2(a) only) | 26.13.0 |
 | Apptainer | 1.2.5 |
 | file-format-service, RQ2(a) | `ghcr.io/dfg-sos/file-format-service:0.3.0` (`sha256:e93ccf94…`, format-validator 0.4.0), as in RQ1 without the plug-in, run with Apptainer, uvicorn |
-| file-format-service, RQ2(b)/(c) | `ghcr.io/dfg-sos/file-format-service-eo-bio@sha256:8152fa23…`, the RQ1 image (0.3.0 plus the plug-in `plugins/format-validator-bio` 0.4.0), run with Apptainer, uvicorn |
+| file-format-service, RQ2(b)/(c) | `ghcr.io/dfg-sos/file-format-service-eo-bio:0.4.0` (`sha256:b52a7190…`): file-format-service-eo 0.4.0 (format-validator 0.5.0 with the EO plug-in) plus the plug-in `plugins/format-validator-bio` 0.4.0, run with Apptainer, uvicorn |
 | EO formats ontology | eo-formats 1.0.0, local copy (sha256 `7e867b2d…03ed`) |
 | EDAM, RQ2(b)/(c) | EDAM 1.25, local copy (sha256 `af29132f…4f48`) |
 | Container images (sha256 of the `.sif`) | fishnet-apps 2.0.1 `88ec6e10…3598`; sympolis 1.2.0 `6167ccbe…67d9` |
@@ -164,15 +161,15 @@ validator plug-in, which the plain 0.3.0 image lacks.
 - **Synthetic data:** the copy chains isolate the cost of validation. Their steps do almost no work, so
   the relative overhead is an upper bound. The baseline at 1000 MB (≈ 7 s for GeoTIFF and GeoPackage, ≈ 14 s for
   FASTQ) is dominated by cwltool staging and copying the files.
-- **`metadata` is independent of the file size:** with `local` transfer a check takes about 6 ms for GeoTIFF,
-  15 ms for GeoPackage (GDAL opens the file, reads CRS and samples up to 50 features) and 4 ms for FASTQ (first
+- **`metadata` is independent of the file size:** with `local` transfer a check takes about 6 to 7 ms for GeoTIFF,
+  15 to 18 ms for GeoPackage (GDAL opens the file, reads CRS and samples up to 50 features) and 4 ms for FASTQ (first
   record), from 1 to 1000 MB. Most of it is the round trip; the service itself needs 0.2 to 12 ms.
 - **`content` grows linearly with the file size:** it reads every pixel block, feature or record. At 1000 MB a
-  `local` check takes 0.86 s for GeoTIFF, 9.8 s for GeoPackage (fiona iterates 1 GB of LineStrings) and 18.7 s for
-  FASTQ (Biopython parses every record), so a run of 6 checks grows by 70 %, 761 % and 794 % over the copy chain.
+  `local` check takes 0.91 s for GeoTIFF, 9.8 s for GeoPackage (fiona iterates 1 GB of LineStrings) and 18.5 s for
+  FASTQ (Biopython parses every record), so a run of 6 checks grows by 77 %, 755 % and 784 % over the copy chain.
   In Sympolis (68 MB GeoPackage, 899 checks) `content` adds 114 s (+85 %) with `local`, `metadata` 3.6 s (+2.7 %).
   `metadata` is the fast path for every run; `content` pays off for small files or when it runs off the critical path.
-- **`upload` adds the transfer:** the files go over HTTP in every check, about 2.2 to 2.4 s per check at 1000 MB
+- **`upload` adds the transfer:** the files go over HTTP in every check, about 2.2 to 2.5 s per check at 1000 MB
   for every format, the same in `metadata` and `content`. With `local` the service reads the file in place.
 - **Upload over loopback:** `upload` runs send the files over loopback on the same node. Over a network,
   upload costs depend on the bandwidth, while `local` costs do not. RQ3 therefore compares the two access paths on one host only.
