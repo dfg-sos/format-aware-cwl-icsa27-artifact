@@ -17,7 +17,14 @@ The result directories keep the repository's original numbering (`rq1`–`rq3`),
 - Slurm, Apptainer (`module load apptainer`; the script tries it, and also `module load squashfs`)
 - `uv` on the `PATH` ([install](https://docs.astral.sh/uv/getting-started/installation/)) and `git`
 - internet access for `prepare` only. The runs make no network calls.
-- node-local scratch (`$TMPDIR`, or set `BENCH_WORK`) with ~15 GB free for the 1000 MB inputs
+- node-local scratch (`$TMPDIR`, or set `BENCH_WORK`) with ~15 GB free for the 1000 MB inputs, plus ~1.5 GB for the
+  local copies below
+
+Every job first copies what the runs read to `$BENCH_WORK/local`: the service and workflow images, the ontologies,
+Node.js, and the Python interpreter, with the environment rebuilt offline from the uv cache (the same `uv.lock`). The
+runs also write their timing and service logs there, and each set is copied to the results after it finishes. The
+shared home file system stalled for seconds at times, on several nodes in the same second, which otherwise lands in
+the measured times. `env.txt` records the interpreter and Node.js that ran.
 
 ## 1. Prepare (once, on a node with internet: login node or `salloc`)
 ```sh
@@ -53,23 +60,16 @@ sbatch -p <partition> bench/hpc/bench.sh
 ```
 Commit before submitting: `env.txt` records the repository commit, and a dirty tree is marked as such.
 
-The paper's runs were split into separate jobs on identical nodes. RQ2(b) and (c), one job per size, in parallel:
+The paper's runs were split into separate jobs on identical nodes, all with the default image, in parallel: RQ2(b)
+and (c) one job per size (up to ~2.8 h at 1000 MB), RQ2(a) (~3.2 h) and the Sympolis CRS scenario (~1 h):
 ```sh
 for mb in 1 10 100 1000; do SETS="concrete abstract" SIZES=$mb sbatch -p <partition> bench/hpc/bench.sh; done
-```
-RQ2(a) (about 2.5 h) ran with the plain service image 0.3.0, without the plug-in (Sympolis uses EO formats only);
-prepare and submit in the same shell:
-```sh
-export BENCH_HOME=$HOME/ffs-bench-0.3.0 FFS_IMAGE=docker://ghcr.io/dfg-sos/file-format-service@sha256:e93ccf944cee2f620ed4a6a16a6b1d01c52978309ce957338efa2d46506cdc37
-bash bench/hpc/bench.sh prepare
 SETS=sympolis sbatch -p <partition> bench/hpc/bench.sh
-```
-The Sympolis CRS scenario (about 1 h), in the same `BENCH_HOME` and image as RQ2(a), so its times compare with the 134 s
-of RQ2(a):
-```sh
-export BENCH_HOME=$HOME/ffs-bench-0.3.0 FFS_IMAGE=docker://ghcr.io/dfg-sos/file-format-service@sha256:e93ccf944cee2f620ed4a6a16a6b1d01c52978309ce957338efa2d46506cdc37
 SETS=crs sbatch -p <partition> bench/hpc/bench.sh
 ```
+`SETS` runs its sets one after another in one job, so independent sets finish sooner as separate jobs.
+
+The CRS scenario uses the image of RQ2(a), so its times compare with the 134 s of RQ2(a).
 It copies the workflow of RQ2(a) (`SYMPOLIS_INPUT`, `SYMPOLIS_DEPTH`), adds `sos:expectedCRS: "EPSG:4326"` to every vector port
 of the workflow and its tools ([`bench/crs_scenario.py`](../crs_scenario.py) `annotate`, 27 ports), and reprojects the
 input to `CRS_TARGET` (`reproject`, as `ogr2ogr -t_srs`):
@@ -115,6 +115,8 @@ Set them in front of `sbatch`; Slurm passes the environment on. The settings bef
 ## Troubleshooting
 - **"run 'bash bench/hpc/bench.sh prepare' first":** the service image, the ontology or the
   Sympolis copy is missing in `BENCH_HOME`.
+- **The job stops right after the start, in `uv sync`:** the environment is rebuilt offline from the uv cache; run
+  `prepare` (or `uv sync --frozen`) once with internet access to fill it.
 - **"ffs.sif was not built from …":** `FFS_IMAGE` changed since `prepare`; rerun it, or use the `BENCH_HOME` prepared
   for that image.
 - **"service did not start":** see `service-<set>.log`. Another process may use `PORT`, or the

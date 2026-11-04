@@ -131,10 +131,30 @@ record_env() {  # node, versions and checksums of everything a run depends on
     echo "settings: SETS='$SETS' SIZES='$SIZES' FORMATS='$FORMATS' CHAIN_REPEAT=$CHAIN_REPEAT" \
         "ABSTRACT_TRANSFERS=$ABSTRACT_TRANSFERS SYMPOLIS_INPUT=$SYMPOLIS_INPUT SYMPOLIS_DEPTH=$SYMPOLIS_DEPTH" \
         "SYMPOLIS_REPEAT=$SYMPOLIS_REPEAT CRS_REPEAT=$CRS_REPEAT CRS_TARGET=$CRS_TARGET WARMUP=$WARMUP"
-    apptainer --version; node --version; uv --version
+    echo "python: $(uv run --frozen python -c 'import os, sys; print(os.path.realpath(sys.executable))')"
+    apptainer --version; echo "node $(node --version) ($(command -v node))"; uv --version
     apptainer inspect "$BENCH_HOME/ffs.sif" 2>/dev/null || true
     sha256sum "$BENCH_HOME/ffs.sif" "$BENCH_HOME/eo-formats.owl" "$BENCH_HOME/EDAM.owl" "$CWL_SINGULARITY_CACHE"/* || true
     lscpu; free -g; df -h "$WORK"
+}
+
+stage_local() {  # node-local copies of everything a run reads or writes: the shared home file system stalls for
+    # seconds at times (seen on several nodes in the same second), which would land in the measured times
+    mkdir -p "$ASSETS" "$WORK/results"
+    cp -r "$BENCH_HOME/singularity" "$ASSETS/"
+    cp "$BENCH_HOME/ffs.sif" "$BENCH_HOME/eo-formats.owl" "$BENCH_HOME/EDAM.owl" "$ASSETS/"
+    export CWL_SINGULARITY_CACHE="$ASSETS/singularity"
+    # Node.js installed by prepare (a node already on the PATH stays)
+    [ ! -d "$BENCH_HOME/node" ] || { cp -r "$BENCH_HOME/node" "$ASSETS/" && export PATH="$ASSETS/node/bin:$PATH"; }
+    # every run is a fresh runner process that imports the interpreter and the packages: both from the local
+    # copy, the environment built offline from the uv cache (the same uv.lock)
+    local py
+    py=$(uv python find --python-preference only-managed "$UV_PYTHON")
+    py=$(dirname "$(dirname "$(realpath "$py")")")
+    mkdir -p "$ASSETS/uv-python" && cp -a "$py" "$ASSETS/uv-python/"
+    export UV_PYTHON_INSTALL_DIR="$ASSETS/uv-python" UV_PYTHON_PREFERENCE=only-managed \
+        UV_PROJECT_ENVIRONMENT="$ASSETS/venv" UV_LINK_MODE=copy UV_OFFLINE=1
+    uv sync --frozen --quiet
 }
 
 # --- service -----------------------------------------------------------------------------------------
@@ -147,7 +167,7 @@ stop_service() {
 }
 
 start_service() {  # start_service <set name>: a fresh process, so no state carries over between sets
-    local name=$1 log="$RESULTS/service-$1.log"
+    local name=$1 log="$WORK/results/service-$1.log"
     stop_service
     rm -rf "$WORK/service-tmp" && mkdir -p "$WORK/service-tmp"
     local maps=(--bind "$REPO/mappings/eo-formats.json:/app/mappings/eo-formats.json:ro")
@@ -157,7 +177,7 @@ start_service() {  # start_service <set name>: a fresh process, so no state carr
     apptainer exec --cleanenv --containall --writable-tmpfs --pwd /app \
         "${maps[@]}" --bind "$WORK" --bind "$WORK/service-tmp:/tmp" \
         --env "SOS_FFS_SHARED_DIRS=$WORK" \
-        "$BENCH_HOME/ffs.sif" uvicorn main:app --app-dir src --host 127.0.0.1 --port "$PORT" \
+        "$ASSETS/ffs.sif" uvicorn main:app --app-dir src --host 127.0.0.1 --port "$PORT" \
         >"$log" 2>&1 &
     SERVICE=$!
     for _ in $(seq 120); do curl -sf "$URL/health" >/dev/null && return 0; sleep 1; done
@@ -169,7 +189,7 @@ prepare_sympolis() {  # $WORK/sympolis with jobs/bench.yml: default.yml with SYM
     cp -r "$BENCH_HOME/sympolis" "$WORK/sympolis"
     # point Sympolis' $schemas at the local copy (the only change to the workflow)
     { grep -rl "$ONTOLOGY" "$WORK/sympolis" --include='*.cwl' || true; } |
-        xargs -r sed -i "s|$ONTOLOGY|file://$BENCH_HOME/eo-formats.owl|"
+        xargs -r sed -i "s|$ONTOLOGY|file://$ASSETS/eo-formats.owl|"
     [ -f "$WORK/sympolis/data/input/$SYMPOLIS_INPUT" ] || die "SYMPOLIS_INPUT not found: data/input/$SYMPOLIS_INPUT"
     # next to default.yml, so the relative input path still resolves
     sed -e "s|/Kahama_Small\.gpkg|/$SYMPOLIS_INPUT|" -e "s|^partitionDepth: .*|partitionDepth: $SYMPOLIS_DEPTH|" \
@@ -179,7 +199,7 @@ prepare_sympolis() {  # $WORK/sympolis with jobs/bench.yml: default.yml with SYM
 prepare_chains() {  # $WORK/inputs: the copy-chain workflows and inputs of every format and size
     # shellcheck disable=SC2086
     uv run --frozen bench/make_inputs.py --out "$WORK/inputs" --formats "${FORMATS// /,}" \
-        --schema "file://$BENCH_HOME/eo-formats.owl" --edam-schema "file://$BENCH_HOME/EDAM.owl" $SIZES \
+        --schema "file://$ASSETS/eo-formats.owl" --edam-schema "file://$ASSETS/EDAM.owl" $SIZES \
         >"$RESULTS/inputs.txt"
 }
 
@@ -190,8 +210,14 @@ run_set() {  # run_set <name> <bench/run.py args...>; a failed verification is r
     shift
     echo "=== $name $(date -Is)"
     start_service "$name"
-    uv run --frozen python bench/run.py --out "$RESULTS" --name "$name" --service-url "$URL" --warmup "$WARMUP" \
-        "--tmpdir-prefix=$WORK/tmp/" "--tmp-outdir-prefix=$WORK/tmp/" "$@" || FAILED+=("$name")
+    # written locally during the runs (timing log, service log), copied to RESULTS afterwards without the outputs;
+    # run from WORK, as the runner processes look up their imports in the working directory first
+    (cd "$WORK" && uv run --frozen --project "$REPO" python "$REPO/bench/run.py" --out "$WORK/results" \
+        --name "$name" --service-url "$URL" --warmup "$WARMUP" "--tmpdir-prefix=$WORK/tmp/" \
+        "--tmp-outdir-prefix=$WORK/tmp/" "$@") || FAILED+=("$name")
+    stop_service
+    cp "$WORK/results/service-$name.log" "$RESULTS/"
+    [ ! -d "$WORK/results/$name" ] || { cp -r "$WORK/results/$name" "$RESULTS/" && rm -rf "$RESULTS/$name/outputs"; }
 }
 
 set_sympolis() {
@@ -228,14 +254,13 @@ set_crs() {  # the Sympolis workflow with sos:expectedCRS on every vector port, 
     # the original input: metadata must complete, no false positive at any annotated port
     run_set crs-control "$dir/Sympolis.cwl" "$dir/jobs/bench.yml" --repeat 1 --modes off,metadata \
         --transfers local --keep-outputs --singularity --parallel
-    # one feature per settlement cluster; the outputs (~80 MB per run) are not kept in the results
+    # one feature per settlement cluster; the outputs (~80 MB per run) stay in WORK, not in the results
     local outs
     shopt -s nullglob
-    outs=("$RESULTS"/crs-*/outputs/*/*_Sympolis.gpkg)
+    outs=("$WORK/results"/crs-*/outputs/*/*_Sympolis.gpkg)
     shopt -u nullglob
-    [ ${#outs[@]} -eq 0 ] ||
-        uv run --frozen python bench/crs_scenario.py count "${outs[@]}" | sed "s|$RESULTS/||" >"$RESULTS/crs-clusters.txt"
-    rm -rf "$RESULTS"/crs-*/outputs
+    [ ${#outs[@]} -eq 0 ] || uv run --frozen python bench/crs_scenario.py count "${outs[@]}" |
+        sed "s|$WORK/results/||" >"$RESULTS/crs-clusters.txt"
 }
 
 merge_runs() {  # all_runs.csv: every set's runs.csv, with the set name as first column
@@ -259,10 +284,12 @@ check_prepared
 JOB="${SLURM_JOB_ID:-$$}"
 WORK="${BENCH_WORK:-${TMPDIR:-/tmp}/ffs-bench-$JOB}"  # node-local scratch, shared with the service
 RESULTS="$REPO/bench/results/hpc-$JOB"
+ASSETS="$WORK/local"  # node-local copies of BENCH_HOME, the interpreter and the environment (stage_local)
 URL="http://127.0.0.1:$PORT"
 mkdir -p "$WORK/tmp" "$WORK/service-tmp" "$RESULTS"
 # a default (per-job) work dir is removed at the end, a given BENCH_WORK is kept
 trap 'stop_service; [ -n "${BENCH_WORK:-}" ] || rm -rf "$WORK"' EXIT
+stage_local
 record_env >"$RESULTS/env.txt" 2>&1
 
 if has_set sympolis || has_set crs; then prepare_sympolis; fi  # crs copies the sympolis set's workflow
