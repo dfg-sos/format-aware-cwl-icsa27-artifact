@@ -70,5 +70,5 @@ class FASTQValidator(SequenceFileValidator):
 
 
 # The abstract EDAM "Sequence record format" (format_1919): format-validator validates it against its leaves, as the
-# built-in abstract EO formats (GISRaster, GISVector): valid if valid as a leaf whose extension matches.
+# abstract formats of the EO plug-in (GISRaster, GISVector): valid if valid as a leaf whose extension matches.
 FormatIdentifier(SEQUENCE_ID, children_ids=[FASTA_ID, FASTQ_ID], is_abstract=True)

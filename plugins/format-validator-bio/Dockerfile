@@ -1,7 +1,8 @@
 # The file format service with this plugin installed: the service image unchanged, plus one package.
 # Mappings are mounted at run time, as for the service image itself (README.md).
-#   docker build -t file-format-service-eo-bio:0.3.0 plugins/format-validator-bio
-ARG SERVICE_IMAGE=ghcr.io/dfg-sos/file-format-service:0.3.0
+#   docker build -t file-format-service-eo-bio:0.4.0 plugins/format-validator-bio
+# On the service image with the EO plugin: the Bio and the EO scenarios run against the same service.
+ARG SERVICE_IMAGE=ghcr.io/dfg-sos/file-format-service-eo:0.4.0
 FROM ${SERVICE_IMAGE}
 COPY --from=ghcr.io/astral-sh/uv:0.12.2 /uv /usr/local/bin/
 COPY pyproject.toml /tmp/format-validator-bio/
